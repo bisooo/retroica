@@ -33,8 +33,10 @@ export function ProductCard({
         <Image
           src={textureSrc}
           alt="Texture"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{
+            objectFit: "cover",
+          }}
           className="opacity-80"
         />
       </div>
@@ -63,8 +65,10 @@ export function ProductCard({
           <Image
             src={buttonTextureSrc}
             alt="Button Texture"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{
+              objectFit: "cover",
+            }}
             className="absolute inset-0 opacity-50"
           />
         </Button>
@@ -73,8 +77,10 @@ export function ProductCard({
           <Image
             src={buttonTextureSrc}
             alt="Button Texture"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{
+              objectFit: "cover",
+            }}
             className="absolute inset-0 opacity-50"
           />
         </Button>
