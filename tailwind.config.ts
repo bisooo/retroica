@@ -12,6 +12,15 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      transitionProperty: {
+        'opacity': 'opacity',
+      },
+      transitionDuration: {
+        '1000': '1000ms',
+      },
+      transitionTimingFunction: {
+        'in-out': 'ease-in-out',
+      },
     },
   },
   plugins: [],
