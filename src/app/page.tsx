@@ -11,7 +11,7 @@ export default function HomePage() {
         className="object-contain mb-8"
       />
       <p className="text-[#0FF000] text-sm font-bold">
-        VINTAGE CAMERAS FOR THE MODERN AGE knk
+        VINTAGE CAMERAS FOR THE MODERN AGE knk -said Egeman
       </p>
       <p className="text-[#0FF000] mt-4 text-sm">
         Explore our collection of retro cameras and accessories.
