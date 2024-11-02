@@ -19,16 +19,31 @@ export function Navigation({
     <nav
       className={`${
         isMobileMenuOpen ? "block" : "hidden"
-      } md:block w-full md:w-auto order-3 md:order-2`}
+      } md:block w-full md:w-auto order-3 md:order-2 md:h-full`}
     >
-      <ul className="flex flex-col md:flex-row md:space-x-4 mt-4 md:mt-0">
-        {categories.map((category) => (
-          <li key={category.name} className="mb-2 md:mb-0">
+      <ul className="flex flex-col md:flex-row h-full relative">
+        <div className="absolute left-0 top-0 bottom-0 w-px bg-gray-600"></div>
+        {categories.map((category, index) => (
+          <li
+            key={category.name}
+            className={`
+              relative flex items-center h-full
+              ${
+                index !== categories.length - 1
+                  ? "after:absolute after:right-0 after:top-0 after:bottom-0 after:w-px after:bg-gray-600"
+                  : ""
+              }
+            `}
+          >
             <Link
               href={category.path}
               className={`
-                block text-[#CCCCCC] px-3 py-2 rounded-md text-sm font-medium
-                ${pathname === category.path ? "bg-[#00FF00] text-black" : ""}
+                flex items-center justify-center w-full h-full px-6 text-lg font-medium
+                transition-colors duration-200
+                hover:bg-gray-700
+                ${
+                  pathname === category.path ? "bg-gray-700 text-[#00FF00]" : ""
+                }
               `}
               onClick={closeMobileMenu}
             >
@@ -36,6 +51,7 @@ export function Navigation({
             </Link>
           </li>
         ))}
+        <div className="absolute right-0 top-0 bottom-0 w-px bg-gray-600"></div>
       </ul>
     </nav>
   );

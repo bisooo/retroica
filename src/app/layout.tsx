@@ -4,6 +4,7 @@ import "@/../styles/globals.css";
 import { Navbar } from "@/components/Navbar";
 import { PageLoader } from "@/components/PageLoader";
 import FilmStrips from "@/components/FilmStrips";
+import CustomScrollbar from "@/components/CustomScrollbar";
 
 export const metadata: Metadata = {
   title: "RETRO-ICA",
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={font.className}>
       <body className="bg-black text-[#CCCCCC]">
+        <CustomScrollbar />
         <PageLoader>
           <FilmStrips />
           <div className="relative z-30 flex flex-col min-h-screen">

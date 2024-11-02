@@ -19,10 +19,12 @@ export function Navbar() {
   const { currency, changeCurrency, currencies } = useCurrency();
 
   return (
-    <header className="border-b border-[#00FF00] bg-black text-[#CCCCCC]">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex flex-wrap items-center justify-between md:flex-nowrap">
-          <Logo />
+    <header className="sticky top-0 border-b border-[#00FF00] bg-black text-[#CCCCCC] z-50">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-wrap items-stretch justify-between md:flex-nowrap md:h-16">
+          <div className="flex items-center">
+            <Logo />
+          </div>
           <Navigation
             categories={navCategories}
             isMobileMenuOpen={isMobileMenuOpen}
