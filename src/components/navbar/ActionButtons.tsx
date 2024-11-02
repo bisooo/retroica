@@ -56,23 +56,34 @@ export function ActionButtons({
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"
-            className="bg-black border-[#00FF00] absolute right-0 mt-2"
+            className="bg-black border-[#00FF00] absolute right-0 mt-2 p-1"
             style={{
               zIndex: 1000,
             }}
           >
-            {currencies.map((c) => (
-              <DropdownMenuItem
-                key={c.code}
-                onSelect={() => changeCurrency(c.code)}
-                className={`justify-center text-[#CCCCCC] hover:bg-[#00FF00] hover:text-black ${
-                  currency.code === c.code ? "bg-[#00FF00] text-black" : ""
-                }`}
-              >
-                <span className="mr-2">{getCurrencySymbol(c.code)}</span>
-                {c.code}
-              </DropdownMenuItem>
-            ))}
+            <div className="flex space-x-1">
+              {currencies.map((c) => (
+                <DropdownMenuItem
+                  key={c.code}
+                  onSelect={() => changeCurrency(c.code)}
+                  className={`
+                    flex flex-col items-center justify-center
+                    text-[#CCCCCC] 
+                    border border-transparent
+                    hover:border-[#00FF00]
+                    rounded
+                    p-2
+                    transition-colors
+                    ${currency.code === c.code ? "bg-[#00FF00] text-black" : ""}
+                  `}
+                >
+                  <span className="text-lg font-bold">
+                    {getCurrencySymbol(c.code)}
+                  </span>
+                  <span className="text-xs mt-1">{c.code}</span>
+                </DropdownMenuItem>
+              ))}
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

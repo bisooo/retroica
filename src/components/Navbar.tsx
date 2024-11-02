@@ -19,7 +19,7 @@ export function Navbar() {
   const { currency, changeCurrency, currencies } = useCurrency();
 
   return (
-    <header className="sticky top-0 border-b border-[#00FF00] bg-black text-[#CCCCCC] z-50">
+    <header className="sticky top-0 border-b-4 border-[#00FF00] bg-black text-[#CCCCCC] z-50">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-stretch justify-between md:flex-nowrap md:h-16">
           <div className="flex items-center">
