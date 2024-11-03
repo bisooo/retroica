@@ -10,6 +10,7 @@ import { NavCategory } from "@/types/navbar";
 const navCategories: NavCategory[] = [
   { name: "CAMERAS", path: "/cameras" },
   { name: "CAM-CODERS", path: "/cam-coder" },
+  { name: "ACCESSORIES", path: "/accessories" },
   { name: "CONTENT", path: "/content" },
 ];
 
