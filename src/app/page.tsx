@@ -1,21 +1,41 @@
-import Image from "next/image";
+'use client'
 
-export default function HomePage() {
+import { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import AuthForm from '@/components/auth-form'  // Adjust this import path if necessary
+
+export default function LandingPage() {
+  const [showAuthForm, setShowAuthForm] = useState(false)
+
   return (
-    <main className="container mx-auto px-4 py-8 flex flex-col items-center">
-      <Image
-        src="/RETRO-ICA.png"
-        alt="RETRO-ICA Logo"
-        width={400}
-        height={400}
-        className="object-contain mb-8"
-      />
-      <p className="text-[#0FF000] text-sm font-bold">
-        VINTAGE CAMERAS FOR THE MODERN AGE knk
-      </p>
-      <p className="text-[#0FF000] mt-4 text-sm">
-        Explore our collection of retro cameras and accessories.
-      </p>
-    </main>
-  );
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-4xl font-bold text-center">Welcome to RETROICA</CardTitle>
+          <CardDescription className="text-xl text-center">
+            Quality Retro Cameras At Great Prices!
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col items-center">
+          {!showAuthForm ? (
+            <Button onClick={() => setShowAuthForm(true)}>
+              Sign In / Sign Up
+            </Button>
+          ) : (
+            <div className="w-full">
+              <AuthForm />
+              <Button 
+                variant="link" 
+                className="mt-4" 
+                onClick={() => setShowAuthForm(false)}
+              >
+                Back to Landing Page
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  )
 }
