@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import medusaClient from '@/lib/medusaClient'
 
 export default function AuthForm() {
@@ -100,8 +99,7 @@ export default function AuthForm() {
           )}
           {error && (
             <Alert variant="destructive">
-              <ExclamationTriangleIcon className="h-4 w-4" />
-              <AlertTitle>Error</AlertTitle>
+              <AlertTitle>⚠️ Error</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
@@ -116,7 +114,7 @@ export default function AuthForm() {
           className="w-full"
           onClick={() => setIsLogin(!isLogin)}
         >
-          {isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
+          {isLogin ? "Don&apos;t have an account? Sign Up" : "Already have an account? Sign In"}
         </Button>
       </CardFooter>
     </Card>
