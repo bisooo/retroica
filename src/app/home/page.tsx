@@ -42,7 +42,7 @@ export default function HomePage() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle className="text-2xl font-bold">Welcome, {customer.first_name}!</CardTitle>
-            <CardDescription>You&apos;re now signed in to your account.</CardDescription>
+            <CardDescription>You are now signed in to your account.</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="mb-4">Email: {customer.email}</p>
