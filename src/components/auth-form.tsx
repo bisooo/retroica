@@ -52,14 +52,14 @@ export default function AuthForm() {
     }
   
     return (
-      <Card className="w-[350px]">
+      <Card className="w-full max-w-[350px] mx-auto">
         <CardHeader>
-          <CardTitle>{isLogin ? 'Sign In' : 'Sign Up'}</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">{isLogin ? 'Sign In' : 'Sign Up'}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm font-medium">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -67,36 +67,40 @@ export default function AuthForm() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-2 text-sm"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-sm font-medium">Password</Label>
               <Input
                 id="password"
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 text-sm"
               />
             </div>
             {!isLogin && (
               <>
                 <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name</Label>
+                  <Label htmlFor="firstName" className="text-sm font-medium">First Name</Label>
                   <Input
                     id="firstName"
                     required
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
+                    className="w-full px-3 py-2 text-sm"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name</Label>
+                  <Label htmlFor="lastName" className="text-sm font-medium">Last Name</Label>
                   <Input
                     id="lastName"
                     required
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
+                    className="w-full px-3 py-2 text-sm"
                   />
                 </div>
               </>
@@ -107,7 +111,7 @@ export default function AuthForm() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full py-2 text-sm font-medium">
               {isLogin ? 'Sign In' : 'Sign Up'}
             </Button>
           </form>
@@ -115,7 +119,7 @@ export default function AuthForm() {
         <CardFooter>
           <Button
             variant="link"
-            className="w-full"
+            className="w-full text-sm"
             onClick={() => setIsLogin(!isLogin)}
           >
             {isLogin ? "Don&apos;t have an account? Sign Up" : "Already have an account? Sign In"}
