@@ -19,7 +19,7 @@ export function ProductPage({ product }: ProductPageProps) {
         <ProductHeader name={product.name} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-          <ProductImage src={product.mainImage} alt={product.name} />
+          <ProductImage/>
 
           <div className="space-y-8">
             <ProductInfo
