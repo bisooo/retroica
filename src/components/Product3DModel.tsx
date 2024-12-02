@@ -39,7 +39,7 @@ export default function Product3DModel() {
       />
       <div className="relative z-10 w-full h-full">
         <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
-          <ambientLight intensity={1} />
+          <ambientLight intensity={1.25} />
           <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
           <pointLight position={[-10, -10, -10]} />
           <Suspense fallback={null}>
