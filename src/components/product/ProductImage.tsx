@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Product3DModel from "../Product3DModel";
 
 interface ProductImageProps {
   src: string;
@@ -8,7 +9,7 @@ interface ProductImageProps {
 export function ProductImage({ src, alt }: ProductImageProps) {
   return (
     <div className="aspect-square relative border border-[#CCCCCC]">
-      <Image src={src} alt={alt} fill className="object-cover" />
+      <Product3DModel/>
     </div>
   );
 }
