@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCartIcon, MenuIcon } from "lucide-react";
+import { ShoppingCartIcon, MenuIcon, UserCircle2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Currency } from "@/types/navbar";
+import Link from "next/link";
 
 interface ActionButtonsProps {
   currency: Currency;
@@ -35,13 +36,12 @@ export function ActionButtons({
   changeCurrency,
   toggleMobileMenu,
 }: ActionButtonsProps) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <div className="flex items-center space-x-4 order-2 md:order-3">
       <div className="relative">
-        <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               ref={triggerRef}
@@ -91,14 +91,26 @@ export function ActionButtons({
         variant="ghost"
         size="icon"
         className="text-[#CCCCCC] hover:text-[#00FF00]"
+        aria-label="Shopping cart"
       >
         <ShoppingCartIcon className="h-5 w-5" />
       </Button>
+      <Link href="/profile" passHref>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-[#CCCCCC] hover:text-[#00FF00]"
+          aria-label="Profile"
+        >
+          <UserCircle2 className="h-5 w-5" />
+        </Button>
+      </Link>
       <Button
         variant="ghost"
         size="icon"
         className="md:hidden text-[#CCCCCC] hover:text-[#00FF00]"
         onClick={toggleMobileMenu}
+        aria-label="Toggle mobile menu"
       >
         <MenuIcon className="h-5 w-5" />
       </Button>
