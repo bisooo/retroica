@@ -1,10 +1,11 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import { X, ChevronUp, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Slider } from "@/components/ui/slider"
 
 interface MobileFiltersProps {
   isOpen: boolean
@@ -45,6 +46,16 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
     { name: "DX-CODE", count: 20 },
     { name: "FIXED", count: 3 },
   ]
+
+  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number.parseInt(e.target.value)
+    setPriceRange([value, priceRange[1]])
+  }
+
+  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number.parseInt(e.target.value)
+    setPriceRange([priceRange[0], value])
+  }
 
   if (!isOpen) return null
 
@@ -99,16 +110,47 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
             </button>
             {expandedSections.price && (
               <div className="space-y-4">
+                {/* Custom Dual Range Slider */}
                 <div className="px-2">
-                  <Slider
-                    value={priceRange}
-                    onValueChange={setPriceRange}
-                    max={1000}
-                    min={0}
-                    step={10}
-                    className="w-full [&_[role=slider]]:bg-black [&_[role=slider]]:border-2 [&_[role=slider]]:border-white [&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:shadow-md"
-                  />
+                  <div className="relative">
+                    {/* Track */}
+                    <div className="slider-track">
+                      <div
+                        className="slider-range"
+                        style={{
+                          left: `${(priceRange[0] / 1000) * 100}%`,
+                          width: `${((priceRange[1] - priceRange[0]) / 1000) * 100}%`,
+                        }}
+                      ></div>
+                    </div>
+
+                    {/* Min Handle */}
+                    <input
+                      type="range"
+                      min="0"
+                      max="1000"
+                      step="10"
+                      value={priceRange[0]}
+                      onChange={handleMinChange}
+                      className="absolute w-full h-4 bg-transparent appearance-none cursor-pointer slider-thumb-input"
+                      style={{ zIndex: 1 }}
+                    />
+
+                    {/* Max Handle */}
+                    <input
+                      type="range"
+                      min="0"
+                      max="1000"
+                      step="10"
+                      value={priceRange[1]}
+                      onChange={handleMaxChange}
+                      className="absolute w-full h-4 bg-transparent appearance-none cursor-pointer slider-thumb-input"
+                      style={{ zIndex: 2 }}
+                    />
+                  </div>
                 </div>
+
+                {/* Price Display */}
                 <div className="flex justify-between font-mono text-xs">
                   <span>${priceRange[0]}</span>
                   <span>${priceRange[1]}</span>

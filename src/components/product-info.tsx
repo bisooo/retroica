@@ -18,7 +18,7 @@ interface ProductInfoProps {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   const [expandedSections, setExpandedSections] = useState({
-    details: true,
+    details: false,
     specs: false,
     shipping: false,
   })
