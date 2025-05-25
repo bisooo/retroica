@@ -7,7 +7,7 @@ interface CamerasPageProps {
   }
 }
 
-export default function CamerasPage({ }: CamerasPageProps) {
+export default function CamerasPage({ params }: CamerasPageProps) {
   return (
     <main className="flex min-h-screen">
       {/* Desktop Filters */}
