@@ -24,7 +24,7 @@ const mockProduct = {
   ],
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage({ }: ProductPageProps) {
   return (
     <>
       {/* Desktop Layout */}

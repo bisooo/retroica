@@ -10,7 +10,7 @@ interface ProductImageGalleryProps {
   productName: string
 }
 
-export default function ProductImageGallery({ images, productName }: ProductImageGalleryProps) {
+export default function ProductImageGallery({ images }: ProductImageGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0)
   const router = useRouter()
 
