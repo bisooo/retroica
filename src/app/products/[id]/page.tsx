@@ -2,12 +2,6 @@ import MinimalNavbar from "@/components/minimal-navbar"
 import ProductImageGallery from "@/components/product-image-gallery"
 import ProductInfo from "@/components/product-info"
 
-interface ProductPageProps {
-  params: {
-    id: string
-  }
-}
-
 // Mock product data
 const mockProduct = {
   name: "CAMERA NAME",
@@ -24,7 +18,7 @@ const mockProduct = {
   ],
 }
 
-export default function ProductPage({ }: ProductPageProps) {
+export default function ProductPage() {
   return (
     <>
       {/* Desktop Layout */}

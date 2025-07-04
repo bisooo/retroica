@@ -182,3 +182,52 @@
   background: transparent;
   border: none;
 }
+
+/* Dropdown and Mobile Navigation Animations */
+
+/* Desktop Dropdown Animations - Updated to fade-in only */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-sequence {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile Navigation Animations */
+@keyframes slide-in-top {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.animate-fade-in-sequence {
+  animation: fade-in-sequence 0.3s ease-out;
+  animation-fill-mode: both;
+  opacity: 0;
+}
+
+.animate-slide-in-top {
+  animation: slide-in-top 0.3s ease-out;
+  animation-fill-mode: both;
+}

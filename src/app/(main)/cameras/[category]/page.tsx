@@ -1,13 +1,7 @@
 import ProductFilters from "@/components/product-filters"
 import ProductGrid from "@/components/product-grid"
 
-interface CamerasPageProps {
-  params: {
-    category: string
-  }
-}
-
-export default function CamerasPage({ }: CamerasPageProps) {
+export default function CamerasPage() {
   return (
     <main className="flex min-h-screen">
       {/* Desktop Filters */}
