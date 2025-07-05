@@ -10,10 +10,8 @@ export default function Footer() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="mb-4">
-              <div className="inline-block border-2 border-black px-8 py-4 bg-gray-50 transform -rotate-1">
-                <h2 className="font-mono text-2xl font-bold">RETRO-ICA BRANDING</h2>
-                <p className="font-mono text-sm mt-2">"MESSAGE"</p>
-              </div>
+              <h2 className="font-mono text-2xl font-bold mb-2">RETRO-ICA BRANDING</h2>
+              <p className="font-mono text-sm">"MESSAGE"</p>
             </div>
             <div className="flex justify-center items-center space-x-4 mt-6">
               <div className="w-12 h-12 border-2 border-black rounded-full bg-gray-100"></div>

@@ -1,6 +1,18 @@
+import Image from "next/image"
+
 interface PosterProductsProps {
   items: [string, string, string] // Exactly 3 items
   className?: string
+}
+
+const getImageForItem = (item: string) => {
+  if (item.includes("RETRO KODAK")) return "/images/kodak.jpg"
+  if (item.includes("OLYMPUS MJU")) return "/images/mju.jpg"
+  if (item.includes("Y2K SONY")) return "/images/y2k-2.jpg"
+  if (item.includes("CLASSIC IPODS")) return "/images/ipod.jpg"
+  if (item.includes("CASSETTE PLAYERS")) return "/images/cassette.jpg"
+  if (item.includes("GAMEBOYS")) return "/images/gameboy.jpg"
+  return "/images/film-can.avif" // Default fallback
 }
 
 export default function PosterProducts({ items, className = "" }: PosterProductsProps) {
@@ -12,11 +24,13 @@ export default function PosterProducts({ items, className = "" }: PosterProducts
           {items.map((item, index) => (
             <div key={index} className="text-center">
               <div className="border-2 border-black mb-4 aspect-[3/4] relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200">
-                  <div className="absolute inset-4 border border-gray-300 transform rotate-12"></div>
-                  <div className="absolute inset-6 border border-gray-400 transform -rotate-6"></div>
-                  <div className="absolute inset-8 border border-gray-500 transform rotate-3"></div>
-                </div>
+                <Image
+                  src={getImageForItem(item) || "/placeholder.svg"}
+                  alt={item}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
               <h3 className="font-mono text-sm font-bold">{item}</h3>
             </div>
@@ -29,11 +43,13 @@ export default function PosterProducts({ items, className = "" }: PosterProducts
             {items.map((item, index) => (
               <div key={index} className="flex-shrink-0 text-center w-72">
                 <div className="border-2 border-black mb-4 aspect-[3/4] relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200">
-                    <div className="absolute inset-4 border border-gray-300 transform rotate-12"></div>
-                    <div className="absolute inset-6 border border-gray-400 transform -rotate-6"></div>
-                    <div className="absolute inset-8 border border-gray-500 transform rotate-3"></div>
-                  </div>
+                  <Image
+                    src={getImageForItem(item) || "/placeholder.svg"}
+                    alt={item}
+                    fill
+                    className="object-cover"
+                    sizes="288px"
+                  />
                 </div>
                 <h3 className="font-mono text-sm font-bold">{item}</h3>
               </div>

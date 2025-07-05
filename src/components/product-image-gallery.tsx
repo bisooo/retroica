@@ -4,13 +4,14 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 interface ProductImageGalleryProps {
   images: string[]
   productName: string
 }
 
-export default function ProductImageGallery({ images }: ProductImageGalleryProps) {
+export default function ProductImageGallery({ images, productName }: ProductImageGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0)
   const router = useRouter()
 
@@ -46,16 +47,14 @@ export default function ProductImageGallery({ images }: ProductImageGalleryProps
           </svg>
         </Button>
 
-        {/* Main Product Image Placeholder */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200">
-          <div className="absolute inset-8 border-2 border-gray-300 transform rotate-12"></div>
-          <div className="absolute inset-12 border border-gray-400 transform -rotate-6"></div>
-          <div className="absolute inset-16 border border-gray-500 transform rotate-3"></div>
-          {/* Camera lens circle */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 border-2 border-gray-600 rounded-full">
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-gray-700 rounded-full"></div>
-          </div>
-        </div>
+        {/* Main Product Image */}
+        <Image
+          src="/images/film-can.avif"
+          alt={productName}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
       </div>
 
       {/* Thumbnail Images */}
@@ -68,10 +67,13 @@ export default function ProductImageGallery({ images }: ProductImageGalleryProps
               selectedImage === index ? "border-black" : "border-gray-300 hover:border-gray-400"
             }`}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200">
-              <div className="absolute inset-2 border border-gray-300 transform rotate-12"></div>
-              <div className="absolute inset-3 border border-gray-400 transform -rotate-6"></div>
-            </div>
+            <Image
+              src="/images/film-can.avif"
+              alt={`${productName} view ${index + 1}`}
+              fill
+              className="object-cover"
+              sizes="100px"
+            />
           </button>
         ))}
       </div>

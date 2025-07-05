@@ -28,9 +28,7 @@ export default function MinimalNavbar() {
 
           {/* Logo */}
           <Link href="/">
-            <div className="border-2 border-black px-4 py-2 font-mono text-lg font-bold transform -rotate-1 hover:rotate-0 transition-transform">
-              RETRO-ICA
-            </div>
+            <h1 className="font-mono text-lg font-bold">RETRO-ICA</h1>
           </Link>
 
           {/* Right icons */}

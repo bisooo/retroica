@@ -1,63 +1,64 @@
 import { Star } from "lucide-react"
+import Image from "next/image"
 
 const reviews = [
   {
-    customerPhoto: "/placeholder.svg?height=100&width=100",
+    customerPhoto: "/images/film-can.avif",
     customerName: "SARAH M.",
     reviewText: "Amazing quality cameras! Fast shipping and great customer service. Love the vintage aesthetic.",
     rating: 5,
     date: "2024-01-15",
-    productPhoto: "/placeholder.svg?height=80&width=80",
+    productPhoto: "/images/film-can.avif",
     productName: "OLYMPUS MJU",
     productType: "35MM CAMERA",
   },
   {
-    customerPhoto: "/placeholder.svg?height=100&width=100",
+    customerPhoto: "/images/film-can.avif",
     customerName: "MIKE R.",
     reviewText: "Perfect condition and exactly as described. The camera works beautifully.",
     rating: 4,
     date: "2024-01-12",
-    productPhoto: "/placeholder.svg?height=80&width=80",
+    productPhoto: "/images/film-can.avif",
     productName: "KODAK RETINA",
     productType: "VINTAGE FILM",
   },
   {
-    customerPhoto: "/placeholder.svg?height=100&width=100",
+    customerPhoto: "/images/film-can.avif",
     customerName: "EMMA K.",
     reviewText: "Best place to find authentic retro cameras. Highly recommended for collectors!",
     rating: 5,
     date: "2024-01-10",
-    productPhoto: "/placeholder.svg?height=80&width=80",
+    productPhoto: "/images/film-can.avif",
     productName: "CONTAX T2",
     productType: "POINT & SHOOT",
   },
   {
-    customerPhoto: "/placeholder.svg?height=100&width=100",
+    customerPhoto: "/images/film-can.avif",
     customerName: "ALEX P.",
     reviewText: "Excellent condition cameras and fair prices. Will definitely buy again.",
     rating: 5,
     date: "2024-01-08",
-    productPhoto: "/placeholder.svg?height=80&width=80",
+    productPhoto: "/images/film-can.avif",
     productName: "LEICA M3",
     productType: "RANGEFINDER",
   },
   {
-    customerPhoto: "/placeholder.svg?height=100&width=100",
+    customerPhoto: "/images/film-can.avif",
     customerName: "LISA T.",
     reviewText: "Great selection and knowledgeable staff. Very satisfied with my purchase.",
     rating: 4,
     date: "2024-01-05",
-    productPhoto: "/placeholder.svg?height=80&width=80",
+    productPhoto: "/images/film-can.avif",
     productName: "NIKON FM",
     productType: "SLR CAMERA",
   },
   {
-    customerPhoto: "/placeholder.svg?height=100&width=100",
+    customerPhoto: "/images/film-can.avif",
     customerName: "JAMES K.",
     reviewText: "Incredible collection of vintage cameras. Found exactly what I was looking for!",
     rating: 5,
     date: "2024-01-03",
-    productPhoto: "/placeholder.svg?height=80&width=80",
+    productPhoto: "/images/film-can.avif",
     productName: "CANON AE-1",
     productType: "SLR CAMERA",
   },
@@ -82,10 +83,13 @@ export default function CustomerReviews() {
             <div key={index} className="border-2 border-black bg-white flex flex-col h-full">
               {/* Customer Photo */}
               <div className="aspect-square border-b-2 border-black relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200">
-                  <div className="absolute inset-4 border border-gray-300 rounded-full"></div>
-                  <div className="absolute inset-6 border border-gray-400 rounded-full"></div>
-                </div>
+                <Image
+                  src={review.customerPhoto || "/placeholder.svg"}
+                  alt={review.customerName}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                />
               </div>
 
               {/* Review Content - Fixed Height */}
@@ -109,7 +113,13 @@ export default function CustomerReviews() {
                 <div className="flex items-center space-x-3 w-full">
                   {/* Product Photo */}
                   <div className="w-12 h-12 border border-black relative overflow-hidden bg-gray-50 flex-shrink-0">
-                    <div className="absolute inset-1 bg-gradient-to-br from-gray-200 to-gray-300 transform rotate-12"></div>
+                    <Image
+                      src={review.productPhoto || "/placeholder.svg"}
+                      alt={review.productName}
+                      fill
+                      className="object-cover"
+                      sizes="48px"
+                    />
                   </div>
 
                   {/* Product Info */}
@@ -130,10 +140,13 @@ export default function CustomerReviews() {
               <div key={index} className="flex-shrink-0 border-2 border-black bg-white flex flex-col w-72">
                 {/* Customer Photo - Fixed Aspect Ratio */}
                 <div className="aspect-square border-b-2 border-black relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200">
-                    <div className="absolute inset-4 border border-gray-300 rounded-full"></div>
-                    <div className="absolute inset-6 border border-gray-400 rounded-full"></div>
-                  </div>
+                  <Image
+                    src={review.customerPhoto || "/placeholder.svg"}
+                    alt={review.customerName}
+                    fill
+                    className="object-cover"
+                    sizes="288px"
+                  />
                 </div>
 
                 {/* Review Content */}
@@ -157,7 +170,13 @@ export default function CustomerReviews() {
                   <div className="flex items-center space-x-3 w-full">
                     {/* Product Photo */}
                     <div className="w-12 h-12 border border-black relative overflow-hidden bg-gray-50 flex-shrink-0">
-                      <div className="absolute inset-1 bg-gradient-to-br from-gray-200 to-gray-300 transform rotate-12"></div>
+                      <Image
+                        src={review.productPhoto || "/placeholder.svg"}
+                        alt={review.productName}
+                        fill
+                        className="object-cover"
+                        sizes="48px"
+                      />
                     </div>
 
                     {/* Product Info */}

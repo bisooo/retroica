@@ -1,6 +1,7 @@
 import { Heart, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import Image from "next/image"
 
 interface ProductCardProps {
   id: string
@@ -16,11 +17,13 @@ export default function ProductCard({ id, name, price, rating }: ProductCardProp
       {/* Product Image */}
       <div className="relative aspect-square border-b-2 border-black">
         <Link href={`/products/${id}`} className="block w-full h-full">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 transition-colors">
-            <div className="absolute inset-4 border border-gray-300 transform rotate-12"></div>
-            <div className="absolute inset-6 border border-gray-400 transform -rotate-6"></div>
-            <div className="absolute inset-8 border border-gray-500 transform rotate-3"></div>
-          </div>
+          <Image
+            src="/images/film-can.avif"
+            alt={name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          />
         </Link>
 
         {/* Wishlist Button */}

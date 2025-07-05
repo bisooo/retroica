@@ -4,8 +4,8 @@ import ShopByCategory from "@/components/shop-by-category"
 import CustomerReviews from "@/components/customer-reviews"
 
 export default function HomePage() {
-  const posterItems: [string, string, string] = ["OLYMPUS MJU Δ", "RETRO KODAK Δ", "VINTAGE CONTAX Δ"]
-  const posterItems2: [string, string, string] = ["CLASSIC IPODS Δ", "CASSETTE PLAYERS Δ", "GAMEBOYS Δ"]
+  const posterItems: [string, string, string] = ["OLYMPUS MJU Δ", "RETRO KODAK Δ", "Y2K SONY Δ"]
+  const posterItems2: [string, string, string] = ["CLASSIC IPODS Δ", "GAMEBOYS Δ", "CASSETTE PLAYERS Δ"]
 
   return (
     <main>

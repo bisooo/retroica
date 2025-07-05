@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Search, User, ShoppingCart, Menu, X, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 const navItems = [
   {
@@ -88,14 +89,10 @@ export default function Header() {
   const [mobileSubcategory, setMobileSubcategory] = useState<string | null>(null)
 
   const getVisualElement = () => {
-    // Consistent visual element for all categories
+    // Consistent visual element for all categories using film-can.avif
     return (
-      <div className="w-full h-44 border-2 border-black bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
-        <div className="absolute inset-6 border border-gray-300 transform rotate-12"></div>
-        <div className="absolute inset-8 border border-gray-400 transform -rotate-6"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 border-2 border-gray-600 rounded-full">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-gray-700 rounded-full"></div>
-        </div>
+      <div className="w-full h-44 border-2 border-black relative overflow-hidden">
+        <Image src="/images/film-can.avif" alt="Film canister" fill className="object-cover" sizes="400px" />
       </div>
     )
   }
@@ -268,6 +265,17 @@ export default function Header() {
                 <div className="space-y-6">
                   {/* Subcategory Links */}
                   <div className="space-y-3">
+                    {/* ALL option first */}
+                    <Link
+                      href={navItems.find((item) => item.name === mobileSubcategory)?.href || "#"}
+                      className="block py-2 px-4 font-mono text-sm border-2 border-black bg-black text-white hover:bg-gray-800 transition-all animate-slide-in-top font-bold"
+                      style={{ animationDelay: "0ms" }}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      ALL {mobileSubcategory}
+                    </Link>
+
+                    {/* Individual subcategories */}
                     {navItems
                       .find((item) => item.name === mobileSubcategory)
                       ?.subcategories.map((sub, index) => (
@@ -275,7 +283,7 @@ export default function Header() {
                           key={sub.name}
                           href={sub.href}
                           className="block py-2 px-4 font-mono text-sm border border-black bg-white text-black hover:bg-gray-100 transition-all animate-slide-in-top"
-                          style={{ animationDelay: `${index * 80}ms` }}
+                          style={{ animationDelay: `${(index + 1) * 80}ms` }}
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           {sub.name}

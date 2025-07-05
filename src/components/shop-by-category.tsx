@@ -1,9 +1,10 @@
 import Link from "next/link"
+import Image from "next/image"
 
 const categories = [
-  { name: "POINT & SHOOT Δ", href: "/cameras/point-shoot" },
-  { name: "Y2K DIGITAL Δ", href: "/cameras/digital" },
-  { name: "CAMCORDER Δ", href: "/cameras/camcorder" },
+  { name: "POINT & SHOOT Δ", href: "/cameras/point-shoot", image: "/images/point-n-shoot.jpg" },
+  { name: "Y2K DIGITAL Δ", href: "/cameras/digital", image: "/images/y2k.jpeg" },
+  { name: "CAMCORDER Δ", href: "/cameras/camcorder", image: "/images/camcoder.jpg" },
 ]
 
 export default function ShopByCategory() {
@@ -17,9 +18,13 @@ export default function ShopByCategory() {
           {categories.map((category, index) => (
             <Link key={index} href={category.href} className="text-center group">
               <div className="border-2 border-black rounded-full aspect-square mb-4 relative overflow-hidden bg-gray-50 hover:bg-gray-100 transition-colors">
-                <div className="absolute inset-4">
-                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-full transform rotate-12 group-hover:rotate-0 transition-transform"></div>
-                </div>
+                <Image
+                  src={category.image || "/placeholder.svg"}
+                  alt={category.name}
+                  fill
+                  className="object-cover transition-colors duration-300"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
               <h3 className="font-mono text-sm font-bold group-hover:underline">{category.name}</h3>
             </Link>
@@ -32,9 +37,13 @@ export default function ShopByCategory() {
             {categories.map((category, index) => (
               <Link key={index} href={category.href} className="flex-shrink-0 text-center group w-64">
                 <div className="border-2 border-black rounded-full aspect-square mb-4 relative overflow-hidden bg-gray-50 hover:bg-gray-100 transition-colors">
-                  <div className="absolute inset-4">
-                    <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-full transform rotate-12 group-hover:rotate-0 transition-transform"></div>
-                  </div>
+                  <Image
+                    src={category.image || "/placeholder.svg"}
+                    alt={category.name}
+                    fill
+                    className="object-cover transition-colors duration-300"
+                    sizes="256px"
+                  />
                 </div>
                 <h3 className="font-mono text-sm font-bold group-hover:underline">{category.name}</h3>
               </Link>
