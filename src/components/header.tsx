@@ -88,11 +88,39 @@ export default function Header() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [mobileSubcategory, setMobileSubcategory] = useState<string | null>(null)
 
-  const getVisualElement = () => {
-    // Consistent visual element for all categories using film-can.avif
+  const getVisualElement = (categoryName?: string) => {
+    // Function to get the appropriate GIF for each category
+    const getGifForCategory = (category: string) => {
+      switch (category) {
+        case "P&S FILM":
+          return "/gifs/point-shoot.gif"
+        case "SLR FILM":
+          return "/gifs/slr.gif"
+        case "Y2K DIGITAL":
+          return "/gifs/y2k.gif"
+        case "CAMCORDER":
+          return "/gifs/camcoder.gif"
+        case "SUPER8":
+          return "/gifs/super8.gif"
+        case "ACCESSORIES":
+          return "/gifs/accessories.gif"
+        default:
+          return "/images/film-can.avif" // Fallback to film canister
+      }
+    }
+
+    const imageSrc = categoryName ? getGifForCategory(categoryName) : "/images/film-can.avif"
+
     return (
       <div className="w-full h-44 border-2 border-black relative overflow-hidden">
-        <Image src="/images/film-can.avif" alt="Film canister" fill className="object-cover" sizes="400px" />
+        <Image
+          src={imageSrc || "/placeholder.svg"}
+          alt={categoryName ? `${categoryName} animation` : "Camera equipment"}
+          fill
+          className="object-cover"
+          sizes="400px"
+          unoptimized={imageSrc.endsWith(".gif")} // Important for GIFs to animate
+        />
       </div>
     )
   }
@@ -200,13 +228,13 @@ export default function Header() {
                   </div>
                 </div>
 
-                {/* Right 1/3 - Visual */}
+                {/* Right 1/3 - Visual with category-specific content */}
                 <div
                   key={hoveredItem}
                   className="w-1/3 py-5 pl-6 border-l-2 border-black animate-fade-in-sequence"
                   style={{ animationDelay: "600ms" }}
                 >
-                  {getVisualElement()}
+                  {getVisualElement(hoveredItem)}
                 </div>
               </div>
             </div>
@@ -291,9 +319,9 @@ export default function Header() {
                       ))}
                   </div>
 
-                  {/* Visual Element */}
+                  {/* Visual Element for Mobile */}
                   <div className="animate-slide-in-top" style={{ animationDelay: "400ms" }}>
-                    {getVisualElement()}
+                    {getVisualElement(mobileSubcategory)}
                   </div>
                 </div>
               )}
