@@ -9,15 +9,15 @@ const categories = [
 
 export default function ShopByCategory() {
   return (
-    <section className="py-12 bg-white border-t-2 border-black">
+    <section className="py-12 bg-white dark:bg-black border-t-2 border-black dark:border-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-mono font-bold mb-8 text-center">SHOP BY CATEGORY:</h2>
+        <h2 className="text-2xl font-mono font-bold mb-8 text-center text-black dark:text-white">SHOP BY CATEGORY:</h2>
 
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-3 gap-8">
           {categories.map((category, index) => (
             <Link key={index} href={category.href} className="text-center group">
-              <div className="border-2 border-black rounded-full aspect-square mb-4 relative overflow-hidden bg-gray-50 hover:bg-gray-100 transition-colors">
+              <div className="border-2 border-black dark:border-white rounded-full aspect-square mb-4 relative overflow-hidden bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                 <Image
                   src={category.image || "/placeholder.svg"}
                   alt={category.name}
@@ -26,7 +26,9 @@ export default function ShopByCategory() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
-              <h3 className="font-mono text-sm font-bold group-hover:underline">{category.name}</h3>
+              <h3 className="font-mono text-sm font-bold group-hover:underline text-black dark:text-white">
+                {category.name}
+              </h3>
             </Link>
           ))}
         </div>
@@ -36,7 +38,7 @@ export default function ShopByCategory() {
           <div className="flex space-x-4 px-6">
             {categories.map((category, index) => (
               <Link key={index} href={category.href} className="flex-shrink-0 text-center group w-64">
-                <div className="border-2 border-black rounded-full aspect-square mb-4 relative overflow-hidden bg-gray-50 hover:bg-gray-100 transition-colors">
+                <div className="border-2 border-black dark:border-white rounded-full aspect-square mb-4 relative overflow-hidden bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                   <Image
                     src={category.image || "/placeholder.svg"}
                     alt={category.name}
@@ -45,7 +47,9 @@ export default function ShopByCategory() {
                     sizes="256px"
                   />
                 </div>
-                <h3 className="font-mono text-sm font-bold group-hover:underline">{category.name}</h3>
+                <h3 className="font-mono text-sm font-bold group-hover:underline text-black dark:text-white">
+                  {category.name}
+                </h3>
               </Link>
             ))}
           </div>

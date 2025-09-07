@@ -17,13 +17,13 @@ const getImageForItem = (item: string) => {
 
 export default function PosterProducts({ items, className = "" }: PosterProductsProps) {
   return (
-    <section className={`py-12 bg-white border-t-2 border-black ${className}`}>
+    <section className={`py-12 bg-white dark:bg-black border-t-2 border-black dark:border-white ${className}`}>
       <div className="container mx-auto px-4">
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-3 gap-8">
           {items.map((item, index) => (
             <div key={index} className="text-center">
-              <div className="border-2 border-black mb-4 aspect-[3/4] relative overflow-hidden">
+              <div className="border-2 border-black dark:border-white mb-4 aspect-[3/4] relative overflow-hidden">
                 <Image
                   src={getImageForItem(item) || "/placeholder.svg"}
                   alt={item}
@@ -32,7 +32,7 @@ export default function PosterProducts({ items, className = "" }: PosterProducts
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
-              <h3 className="font-mono text-sm font-bold">{item}</h3>
+              <h3 className="font-mono text-sm font-bold text-black dark:text-white">{item}</h3>
             </div>
           ))}
         </div>
@@ -42,7 +42,7 @@ export default function PosterProducts({ items, className = "" }: PosterProducts
           <div className="flex space-x-4 px-6">
             {items.map((item, index) => (
               <div key={index} className="flex-shrink-0 text-center w-72">
-                <div className="border-2 border-black mb-4 aspect-[3/4] relative overflow-hidden">
+                <div className="border-2 border-black dark:border-white mb-4 aspect-[3/4] relative overflow-hidden">
                   <Image
                     src={getImageForItem(item) || "/placeholder.svg"}
                     alt={item}
@@ -51,7 +51,7 @@ export default function PosterProducts({ items, className = "" }: PosterProducts
                     sizes="288px"
                   />
                 </div>
-                <h3 className="font-mono text-sm font-bold">{item}</h3>
+                <h3 className="font-mono text-sm font-bold text-black dark:text-white">{item}</h3>
               </div>
             ))}
           </div>

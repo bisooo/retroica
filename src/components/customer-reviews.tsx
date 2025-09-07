@@ -66,23 +66,26 @@ const reviews = [
 
 export default function CustomerReviews() {
   return (
-    <section className="py-12 bg-white border-t-2 border-black">
+    <section className="py-12 bg-white dark:bg-black border-t-2 border-black dark:border-white">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-center mb-8">
           <div className="flex">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="h-6 w-6 fill-black" />
+              <Star key={i} className="h-6 w-6 fill-black dark:fill-white" />
             ))}
           </div>
-          <span className="ml-2 font-mono text-sm">4.7/5.0 REVIEWS</span>
+          <span className="ml-2 font-mono text-sm text-black dark:text-white">4.7/5.0 REVIEWS</span>
         </div>
 
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-6">
           {reviews.map((review, index) => (
-            <div key={index} className="border-2 border-black bg-white flex flex-col h-full">
+            <div
+              key={index}
+              className="border-2 border-black dark:border-white bg-white dark:bg-black flex flex-col h-full"
+            >
               {/* Customer Photo */}
-              <div className="aspect-square border-b-2 border-black relative overflow-hidden">
+              <div className="aspect-square border-b-2 border-black dark:border-white relative overflow-hidden">
                 <Image
                   src={review.customerPhoto || "/placeholder.svg"}
                   alt={review.customerName}
@@ -93,18 +96,23 @@ export default function CustomerReviews() {
               </div>
 
               {/* Review Content - Fixed Height */}
-              <div className="p-4 border-b-2 border-black flex-1 flex flex-col">
-                <h4 className="font-mono text-xs font-bold mb-2">{review.customerName}</h4>
-                <p className="font-mono text-xs mb-3 leading-relaxed flex-1">{review.reviewText}</p>
+              <div className="p-4 border-b-2 border-black dark:border-white flex-1 flex flex-col">
+                <h4 className="font-mono text-xs font-bold mb-2 text-black dark:text-white">{review.customerName}</h4>
+                <p className="font-mono text-xs mb-3 leading-relaxed flex-1 text-black dark:text-white">
+                  {review.reviewText}
+                </p>
 
                 {/* Stars and Date */}
                 <div className="flex items-center justify-between">
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`h-3 w-3 ${i < review.rating ? "fill-black" : "fill-gray-200"}`} />
+                      <Star
+                        key={i}
+                        className={`h-3 w-3 ${i < review.rating ? "fill-black dark:fill-white" : "fill-gray-200 dark:fill-gray-600"}`}
+                      />
                     ))}
                   </div>
-                  <span className="font-mono text-xs text-gray-600">{review.date}</span>
+                  <span className="font-mono text-xs text-gray-600 dark:text-gray-400">{review.date}</span>
                 </div>
               </div>
 
@@ -112,7 +120,7 @@ export default function CustomerReviews() {
               <div className="p-4 h-20 flex items-center">
                 <div className="flex items-center space-x-3 w-full">
                   {/* Product Photo */}
-                  <div className="w-12 h-12 border border-black relative overflow-hidden bg-gray-50 flex-shrink-0">
+                  <div className="w-12 h-12 border border-black dark:border-white relative overflow-hidden bg-gray-50 dark:bg-gray-800 flex-shrink-0">
                     <Image
                       src={review.productPhoto || "/placeholder.svg"}
                       alt={review.productName}
@@ -124,8 +132,10 @@ export default function CustomerReviews() {
 
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
-                    <h5 className="font-mono text-xs font-bold truncate">{review.productName}</h5>
-                    <p className="font-mono text-xs text-gray-600 truncate">{review.productType}</p>
+                    <h5 className="font-mono text-xs font-bold truncate text-black dark:text-white">
+                      {review.productName}
+                    </h5>
+                    <p className="font-mono text-xs text-gray-600 dark:text-gray-400 truncate">{review.productType}</p>
                   </div>
                 </div>
               </div>
@@ -137,9 +147,12 @@ export default function CustomerReviews() {
         <div className="md:hidden overflow-x-auto scrollbar-hide">
           <div className="flex space-x-4 px-6">
             {reviews.map((review, index) => (
-              <div key={index} className="flex-shrink-0 border-2 border-black bg-white flex flex-col w-72">
+              <div
+                key={index}
+                className="flex-shrink-0 border-2 border-black dark:border-white bg-white dark:bg-black flex flex-col w-72"
+              >
                 {/* Customer Photo - Fixed Aspect Ratio */}
-                <div className="aspect-square border-b-2 border-black relative overflow-hidden">
+                <div className="aspect-square border-b-2 border-black dark:border-white relative overflow-hidden">
                   <Image
                     src={review.customerPhoto || "/placeholder.svg"}
                     alt={review.customerName}
@@ -150,18 +163,23 @@ export default function CustomerReviews() {
                 </div>
 
                 {/* Review Content */}
-                <div className="p-4 border-b-2 border-black flex-1 flex flex-col">
-                  <h4 className="font-mono text-xs font-bold mb-2">{review.customerName}</h4>
-                  <p className="font-mono text-xs mb-3 leading-relaxed flex-1">{review.reviewText}</p>
+                <div className="p-4 border-b-2 border-black dark:border-white flex-1 flex flex-col">
+                  <h4 className="font-mono text-xs font-bold mb-2 text-black dark:text-white">{review.customerName}</h4>
+                  <p className="font-mono text-xs mb-3 leading-relaxed flex-1 text-black dark:text-white">
+                    {review.reviewText}
+                  </p>
 
                   {/* Stars and Date */}
                   <div className="flex items-center justify-between">
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`h-3 w-3 ${i < review.rating ? "fill-black" : "fill-gray-200"}`} />
+                        <Star
+                          key={i}
+                          className={`h-3 w-3 ${i < review.rating ? "fill-black dark:fill-white" : "fill-gray-200 dark:fill-gray-600"}`}
+                        />
                       ))}
                     </div>
-                    <span className="font-mono text-xs text-gray-600">{review.date}</span>
+                    <span className="font-mono text-xs text-gray-600 dark:text-gray-400">{review.date}</span>
                   </div>
                 </div>
 
@@ -169,7 +187,7 @@ export default function CustomerReviews() {
                 <div className="p-4 h-20 flex items-center">
                   <div className="flex items-center space-x-3 w-full">
                     {/* Product Photo */}
-                    <div className="w-12 h-12 border border-black relative overflow-hidden bg-gray-50 flex-shrink-0">
+                    <div className="w-12 h-12 border border-black dark:border-white relative overflow-hidden bg-gray-50 dark:bg-gray-800 flex-shrink-0">
                       <Image
                         src={review.productPhoto || "/placeholder.svg"}
                         alt={review.productName}
@@ -181,8 +199,12 @@ export default function CustomerReviews() {
 
                     {/* Product Info */}
                     <div className="flex-1 min-w-0">
-                      <h5 className="font-mono text-xs font-bold truncate">{review.productName}</h5>
-                      <p className="font-mono text-xs text-gray-600 truncate">{review.productType}</p>
+                      <h5 className="font-mono text-xs font-bold truncate text-black dark:text-white">
+                        {review.productName}
+                      </h5>
+                      <p className="font-mono text-xs text-gray-600 dark:text-gray-400 truncate">
+                        {review.productType}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -192,7 +214,9 @@ export default function CustomerReviews() {
         </div>
 
         <div className="text-center mt-6">
-          <span className="font-mono text-sm font-bold cursor-pointer hover:underline">[SHOW MORE]</span>
+          <span className="font-mono text-sm font-bold cursor-pointer hover:underline text-black dark:text-white">
+            [SHOW MORE]
+          </span>
         </div>
       </div>
     </section>

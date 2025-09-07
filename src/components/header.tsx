@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Search, User, ShoppingCart, Menu, X, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import ThemeToggle from "./theme-toggle"
 
 const navItems = [
   {
@@ -112,7 +113,7 @@ export default function Header() {
     const imageSrc = categoryName ? getGifForCategory(categoryName) : "/images/film-can.avif"
 
     return (
-      <div className="w-full h-44 border-2 border-black relative overflow-hidden">
+      <div className="w-full h-44 border-2 border-black dark:border-white relative overflow-hidden">
         <Image
           src={imageSrc || "/placeholder.svg"}
           alt={categoryName ? `${categoryName} animation` : "Camera equipment"}
@@ -139,12 +140,15 @@ export default function Header() {
 
   return (
     <>
-      <div className="sticky top-0 z-50 bg-white">
-        <header className="border-b-2 border-black">
+      <div className="sticky top-0 z-50 bg-white dark:bg-black">
+        <header className="border-b-2 border-black dark:border-white">
           <div className="container mx-auto px-4">
             {/* Top message bar with scrolling animation */}
-            <div className="border-b border-black py-2 overflow-hidden relative" onMouseEnter={handleMessageAreaEnter}>
-              <div className="animate-scroll-left font-mono text-sm whitespace-nowrap">
+            <div
+              className="border-b border-black dark:border-white py-2 overflow-hidden relative"
+              onMouseEnter={handleMessageAreaEnter}
+            >
+              <div className="animate-scroll-left font-mono text-sm whitespace-nowrap text-black dark:text-white">
                 "MESSAGE" • WELCOME TO RETRO-ICA • FREE SHIPPING ON ORDERS OVER $100 • AUTHENTIC VINTAGE CAMERAS •
                 "MESSAGE"
               </div>
@@ -153,16 +157,27 @@ export default function Header() {
             {/* Main header */}
             <div className="flex items-center justify-between py-4">
               {/* Mobile menu */}
-              <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setMobileMenuOpen(true)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="lg:hidden text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                onClick={() => setMobileMenuOpen(true)}
+              >
                 <Menu className="h-5 w-5" />
               </Button>
 
-              {/* Logo */}
-              <Link href="/" className="flex-1 lg:flex-none">
-                <div className="text-center lg:text-left">
-                  <h1 className="font-mono text-xl font-bold">RETRO-ICA</h1>
+              {/* Logo and Theme Toggle Container */}
+              <div className="flex items-center space-x-4 flex-1 lg:flex-none">
+                <Link href="/">
+                  <div className="text-center lg:text-left">
+                    <h1 className="font-mono text-xl font-bold text-black dark:text-white">RETRO-ICA</h1>
+                  </div>
+                </Link>
+                {/* Desktop Theme Toggle */}
+                <div className="hidden lg:block">
+                  <ThemeToggle variant="desktop" />
                 </div>
-              </Link>
+              </div>
 
               {/* Desktop Navigation */}
               <nav className="hidden lg:flex items-center space-x-8 font-mono text-sm relative">
@@ -173,7 +188,9 @@ export default function Header() {
                       <Link
                         href={item.href}
                         className={`hover:underline transition-all ${
-                          isActive ? "underline font-bold text-black" : "text-gray-700"
+                          isActive
+                            ? "underline font-bold text-black dark:text-white"
+                            : "text-gray-700 dark:text-gray-300"
                         }`}
                       >
                         {item.name}
@@ -185,15 +202,27 @@ export default function Header() {
 
               {/* Right icons */}
               <div className="flex items-center space-x-4">
-                <Button variant="ghost" size="icon">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
                   <Search className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
                   <User className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="relative text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
                   <ShoppingCart className="h-5 w-5" />
-                  <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-black dark:bg-white text-white dark:text-black text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     1
                   </span>
                 </Button>
@@ -205,10 +234,10 @@ export default function Header() {
         {/* Full-width Desktop Dropdown */}
         {hoveredItem && (
           <div
-            className="hidden lg:block absolute top-full left-0 w-full bg-white border-b-2 border-black shadow-lg z-50 animate-fade-in"
+            className="hidden lg:block absolute top-full left-0 w-full bg-white dark:bg-black border-b-2 border-black dark:border-white shadow-lg z-50 animate-fade-in"
             onMouseLeave={handleMouseLeaveContainer}
           >
-            <div className="container mx-auto px-4 border-t-2 border-black">
+            <div className="container mx-auto px-4 border-t-2 border-black dark:border-white">
               <div className="flex">
                 {/* Left 2/3 - Subcategories */}
                 <div className="w-2/3 py-5 pr-6">
@@ -219,7 +248,7 @@ export default function Header() {
                         <Link
                           key={sub.name}
                           href={sub.href}
-                          className="block font-mono text-sm hover:underline text-gray-700 hover:text-black transition-all animate-fade-in-sequence py-1"
+                          className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
                           style={{ animationDelay: `${index * 100}ms` }}
                         >
                           {sub.name}
@@ -231,7 +260,7 @@ export default function Header() {
                 {/* Right 1/3 - Visual with category-specific content */}
                 <div
                   key={hoveredItem}
-                  className="w-1/3 py-5 pl-6 border-l-2 border-black animate-fade-in-sequence"
+                  className="w-1/3 py-5 pl-6 border-l-2 border-black dark:border-white animate-fade-in-sequence"
                   style={{ animationDelay: "600ms" }}
                 >
                   {getVisualElement(hoveredItem)}
@@ -249,26 +278,36 @@ export default function Header() {
           <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)} />
 
           {/* Sidebar */}
-          <div className="absolute left-0 top-0 h-full w-80 bg-white border-r-2 border-black overflow-y-auto">
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b-2 border-black">
+          <div className="absolute left-0 top-0 h-full w-80 bg-white dark:bg-black border-r-2 border-black dark:border-white flex flex-col">
+            {/* Header - Fixed */}
+            <div className="flex items-center justify-between p-4 border-b-2 border-black dark:border-white flex-shrink-0">
               {mobileSubcategory ? (
                 <>
-                  <Button variant="ghost" size="icon" onClick={() => setMobileSubcategory(null)} className="mr-2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setMobileSubcategory(null)}
+                    className="mr-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
                     <ChevronLeft className="h-5 w-5" />
                   </Button>
-                  <h2 className="font-mono text-lg font-bold flex-1">{mobileSubcategory}</h2>
+                  <h2 className="font-mono text-lg font-bold flex-1 text-black dark:text-white">{mobileSubcategory}</h2>
                 </>
               ) : (
-                <h2 className="font-mono text-lg font-bold">CATEGORIES</h2>
+                <h2 className="font-mono text-lg font-bold text-black dark:text-white">CATEGORIES</h2>
               )}
-              <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
                 <X className="h-5 w-5" />
               </Button>
             </div>
 
-            {/* Navigation Content */}
-            <div className="p-4">
+            {/* Content - Scrollable */}
+            <div className="flex-1 overflow-y-auto p-4">
               {!mobileSubcategory ? (
                 /* Main Categories */
                 <div className="space-y-4">
@@ -278,8 +317,10 @@ export default function Header() {
                       <button
                         key={item.name}
                         onClick={() => setMobileSubcategory(item.name)}
-                        className={`block w-full text-left py-3 px-4 font-mono text-sm border-2 border-black transition-all animate-slide-in-top ${
-                          isActive ? "bg-black text-white font-bold" : "bg-white text-black hover:bg-gray-100"
+                        className={`block w-full text-left py-3 px-4 font-mono text-sm border-2 border-black dark:border-white transition-all animate-slide-in-top ${
+                          isActive
+                            ? "bg-black dark:bg-white text-white dark:text-black font-bold"
+                            : "bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
                         }`}
                         style={{ animationDelay: `${index * 100}ms` }}
                       >
@@ -296,7 +337,7 @@ export default function Header() {
                     {/* ALL option first */}
                     <Link
                       href={navItems.find((item) => item.name === mobileSubcategory)?.href || "#"}
-                      className="block py-2 px-4 font-mono text-sm border-2 border-black bg-black text-white hover:bg-gray-800 transition-all animate-slide-in-top font-bold"
+                      className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 transition-all animate-slide-in-top font-bold"
                       style={{ animationDelay: "0ms" }}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -310,7 +351,7 @@ export default function Header() {
                         <Link
                           key={sub.name}
                           href={sub.href}
-                          className="block py-2 px-4 font-mono text-sm border border-black bg-white text-black hover:bg-gray-100 transition-all animate-slide-in-top"
+                          className="block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top"
                           style={{ animationDelay: `${(index + 1) * 80}ms` }}
                           onClick={() => setMobileMenuOpen(false)}
                         >
@@ -325,6 +366,11 @@ export default function Header() {
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* Dark Mode Toggle - Fixed at bottom */}
+            <div className="p-4 border-t-2 border-black dark:border-white flex-shrink-0">
+              <ThemeToggle variant="mobile" />
             </div>
           </div>
         </div>

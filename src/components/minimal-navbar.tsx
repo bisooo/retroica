@@ -19,20 +19,29 @@ export default function MinimalNavbar() {
 
   return (
     <>
-      <div className="border-b-2 border-black bg-white">
+      <div className="border-b-2 border-black dark:border-white bg-white dark:bg-black">
         <div className="flex items-center justify-between p-4">
           {/* Mobile menu */}
-          <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileMenuOpen(true)}
+            className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
             <Menu className="h-5 w-5" />
           </Button>
 
           {/* Logo */}
           <Link href="/">
-            <h1 className="font-mono text-lg font-bold">RETRO-ICA</h1>
+            <h1 className="font-mono text-lg font-bold text-black dark:text-white">RETRO-ICA</h1>
           </Link>
 
           {/* Right icons */}
-          <Button variant="ghost" size="icon">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
             <Search className="h-5 w-5" />
           </Button>
         </div>
@@ -45,11 +54,16 @@ export default function MinimalNavbar() {
           <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)} />
 
           {/* Sidebar */}
-          <div className="absolute left-0 top-0 h-full w-80 bg-white border-r-2 border-black">
+          <div className="absolute left-0 top-0 h-full w-80 bg-white dark:bg-black border-r-2 border-black dark:border-white">
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b-2 border-black">
-              <h2 className="font-mono text-xl font-bold">CATEGORIES</h2>
-              <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
+            <div className="flex items-center justify-between p-6 border-b-2 border-black dark:border-white">
+              <h2 className="font-mono text-xl font-bold text-black dark:text-white">CATEGORIES</h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
                 <X className="h-6 w-6" />
               </Button>
             </div>
@@ -61,7 +75,7 @@ export default function MinimalNavbar() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block py-4 px-6 font-mono text-sm border-2 border-black bg-white text-black hover:bg-gray-100 transition-all"
+                    className="block py-4 px-6 font-mono text-sm border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}

@@ -13,9 +13,9 @@ const newArrivals = [
 
 export default function NewArrivals() {
   return (
-    <section className="py-12 bg-white border-t-2 border-black">
+    <section className="py-12 bg-white dark:bg-black border-t-2 border-black dark:border-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-mono font-bold mb-8 text-center">NEW ARRIVALS:</h2>
+        <h2 className="text-2xl font-mono font-bold mb-8 text-center text-black dark:text-white">NEW ARRIVALS:</h2>
 
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-4 gap-6">

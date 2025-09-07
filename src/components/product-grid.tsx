@@ -22,7 +22,7 @@ export default function ProductGrid() {
   const [filtersOpen, setFiltersOpen] = useState(false)
 
   return (
-    <div className="flex-1 p-4 lg:p-6 w-full">
+    <div className="flex-1 p-4 lg:p-6 w-full bg-white dark:bg-black">
       <ProductGridControls
         productCount={products.length}
         viewMode={viewMode}

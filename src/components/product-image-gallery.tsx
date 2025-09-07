@@ -22,7 +22,7 @@ export default function ProductImageGallery({ images, productName }: ProductImag
         <Button
           variant="ghost"
           size="icon"
-          className="border-2 border-black hover:bg-gray-100 w-10 h-10"
+          className="border-2 border-black dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800 w-10 h-10 text-black dark:text-white"
           onClick={() => router.back()}
         >
           <ChevronLeft className="h-5 w-5" />
@@ -30,12 +30,12 @@ export default function ProductImageGallery({ images, productName }: ProductImag
       </div>
 
       {/* Main Image */}
-      <div className="flex-1 min-h-0 aspect-square border-2 border-black bg-gray-50 overflow-hidden relative">
+      <div className="flex-1 min-h-0 aspect-square border-2 border-black dark:border-white bg-gray-50 dark:bg-gray-800 overflow-hidden relative">
         {/* Heart icon for wishlist */}
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-4 right-4 z-10 bg-white border-2 border-black hover:bg-gray-100 w-10 h-10"
+          className="absolute top-4 right-4 z-10 bg-white dark:bg-black border-2 border-black dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800 w-10 h-10 text-black dark:text-white"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -63,8 +63,10 @@ export default function ProductImageGallery({ images, productName }: ProductImag
           <button
             key={index}
             onClick={() => setSelectedImage(index)}
-            className={`aspect-square border-2 bg-gray-50 relative overflow-hidden transition-all ${
-              selectedImage === index ? "border-black" : "border-gray-300 hover:border-gray-400"
+            className={`aspect-square border-2 bg-gray-50 dark:bg-gray-800 relative overflow-hidden transition-all ${
+              selectedImage === index
+                ? "border-black dark:border-white"
+                : "border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500"
             }`}
           >
             <Image

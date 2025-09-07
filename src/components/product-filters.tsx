@@ -52,7 +52,7 @@ export default function ProductFilters() {
   }
 
   return (
-    <aside className="w-64 border-r-2 border-black bg-white h-screen sticky top-0">
+    <aside className="w-64 border-r-2 border-black dark:border-white bg-white dark:bg-black h-screen sticky top-0">
       <div className="p-6 h-full overflow-y-auto">
         {/* Brand Filter */}
         <div className="mb-8">
@@ -60,15 +60,22 @@ export default function ProductFilters() {
             onClick={() => toggleSection("brand")}
             className="flex items-center justify-between w-full mb-4 text-left"
           >
-            <h3 className="font-mono text-sm font-bold">BRAND</h3>
-            {expandedSections.brand ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            <h3 className="font-mono text-sm font-bold text-black dark:text-white">BRAND</h3>
+            {expandedSections.brand ? (
+              <ChevronUp className="h-4 w-4 text-black dark:text-white" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-black dark:text-white" />
+            )}
           </button>
           {expandedSections.brand && (
             <div className="space-y-3">
               {brands.map((brand) => (
                 <div key={brand.name} className="flex items-center space-x-2">
                   <Checkbox id={brand.name.toLowerCase()} />
-                  <label htmlFor={brand.name.toLowerCase()} className="font-mono text-xs cursor-pointer">
+                  <label
+                    htmlFor={brand.name.toLowerCase()}
+                    className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                  >
                     {brand.name} ({brand.count})
                   </label>
                 </div>
@@ -83,8 +90,12 @@ export default function ProductFilters() {
             onClick={() => toggleSection("price")}
             className="flex items-center justify-between w-full mb-4 text-left"
           >
-            <h3 className="font-mono text-sm font-bold">PRICE</h3>
-            {expandedSections.price ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            <h3 className="font-mono text-sm font-bold text-black dark:text-white">PRICE</h3>
+            {expandedSections.price ? (
+              <ChevronUp className="h-4 w-4 text-black dark:text-white" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-black dark:text-white" />
+            )}
           </button>
           {expandedSections.price && (
             <div className="space-y-4">
@@ -129,11 +140,11 @@ export default function ProductFilters() {
               </div>
 
               {/* Price Display */}
-              <div className="flex justify-between font-mono text-xs">
+              <div className="flex justify-between font-mono text-xs text-black dark:text-white">
                 <span>${priceRange[0]}</span>
                 <span>${priceRange[1]}</span>
               </div>
-              </div>
+            </div>
           )}
         </div>
 
@@ -143,15 +154,22 @@ export default function ProductFilters() {
             onClick={() => toggleSection("format")}
             className="flex items-center justify-between w-full mb-4 text-left"
           >
-            <h3 className="font-mono text-sm font-bold">FORMAT</h3>
-            {expandedSections.format ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            <h3 className="font-mono text-sm font-bold text-black dark:text-white">FORMAT</h3>
+            {expandedSections.format ? (
+              <ChevronUp className="h-4 w-4 text-black dark:text-white" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-black dark:text-white" />
+            )}
           </button>
           {expandedSections.format && (
             <div className="space-y-3">
               {formats.map((format) => (
                 <div key={format.name} className="flex items-center space-x-2">
                   <Checkbox id={format.name.toLowerCase()} />
-                  <label htmlFor={format.name.toLowerCase()} className="font-mono text-xs cursor-pointer">
+                  <label
+                    htmlFor={format.name.toLowerCase()}
+                    className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                  >
                     {format.name} ({format.count})
                   </label>
                 </div>
@@ -166,15 +184,22 @@ export default function ProductFilters() {
             onClick={() => toggleSection("iso")}
             className="flex items-center justify-between w-full mb-4 text-left"
           >
-            <h3 className="font-mono text-sm font-bold">ISO</h3>
-            {expandedSections.iso ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            <h3 className="font-mono text-sm font-bold text-black dark:text-white">ISO</h3>
+            {expandedSections.iso ? (
+              <ChevronUp className="h-4 w-4 text-black dark:text-white" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-black dark:text-white" />
+            )}
           </button>
           {expandedSections.iso && (
             <div className="space-y-3">
               {isoTypes.map((iso) => (
                 <div key={iso.name} className="flex items-center space-x-2">
                   <Checkbox id={iso.name.toLowerCase()} />
-                  <label htmlFor={iso.name.toLowerCase()} className="font-mono text-xs cursor-pointer">
+                  <label
+                    htmlFor={iso.name.toLowerCase()}
+                    className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                  >
                     {iso.name} ({iso.count})
                   </label>
                 </div>
