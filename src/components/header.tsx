@@ -10,75 +10,58 @@ import ThemeToggle from "./theme-toggle"
 
 const navItems = [
   {
-    name: "P&S FILM",
-    href: "/cameras/point-shoot",
-    subcategories: [
-      { name: "35MM COMPACT", href: "/cameras/point-shoot" },
-      { name: "WATERPROOF", href: "/cameras/point-shoot" },
-      { name: "PANORAMIC", href: "/cameras/point-shoot" },
-      { name: "INSTANT", href: "/cameras/point-shoot" },
-      { name: "VINTAGE KODAK", href: "/cameras/point-shoot" },
-      { name: "OLYMPUS MJU", href: "/cameras/point-shoot" },
+    name: "PHOTO",
+    href: "/photo",
+    analog: [
+      { name: "POINT & SHOOT (35mm)", href: "/photo?subcategory=point-shoot" },
+      { name: "MEDIUM FORMAT (120mm)", href: "/photo?subcategory=medium-format" },
+      { name: "APS", href: "/photo?subcategory=aps" },
+      { name: "SLR", href: "/photo?subcategory=slr" },
+    ],
+    digital: [
+      { name: "POCKET DIGICAM", href: "/photo?subcategory=pocket-digicam" },
+      { name: "SONY DIGICAM", href: "/photo?subcategory=sony-digicam" },
+      { name: "SUPERZOOM DIGICAM", href: "/photo?subcategory=superzoom-digicam" },
+      { name: "DSLR", href: "/photo?subcategory=dslr" },
     ],
   },
   {
-    name: "SLR FILM",
-    href: "/cameras/slr",
-    subcategories: [
-      { name: "CANON AE-1", href: "/cameras/slr" },
-      { name: "NIKON FM", href: "/cameras/slr" },
-      { name: "PENTAX K1000", href: "/cameras/slr" },
-      { name: "MINOLTA X-700", href: "/cameras/slr" },
-      { name: "OLYMPUS OM", href: "/cameras/slr" },
-      { name: "LEICA R", href: "/cameras/slr" },
+    name: "VIDEO",
+    href: "/video",
+    analog: [
+      { name: "SUPER 8 (8mm)", href: "/video?subcategory=super8" },
+      { name: "FILM MOVIE (16mm)", href: "/video?subcategory=film-movie" },
+    ],
+    digital: [
+      { name: "CAMCODER TAPE", href: "/video?subcategory=camcoder-tape" },
+      { name: "CAMCODER DVD", href: "/video?subcategory=camcoder-dvd" },
+      { name: "CAMCODER SD/HDD", href: "/video?subcategory=camcoder-sd" },
     ],
   },
   {
-    name: "Y2K DIGITAL",
-    href: "/cameras/digital",
-    subcategories: [
-      { name: "EARLY 2000S", href: "/cameras/digital" },
-      { name: "FLIP SCREEN", href: "/cameras/digital" },
-      { name: "COMPACT DIGITAL", href: "/cameras/digital" },
-      { name: "SONY MAVICA", href: "/cameras/digital" },
-      { name: "CANON POWERSHOT", href: "/cameras/digital" },
-      { name: "FUJI FINEPIX", href: "/cameras/digital" },
+    name: "MUSIC",
+    href: "/music",
+    analog: [
+      { name: "CASSETTE PLAYERS", href: "/music?subcategory=cassette" },
+      { name: "VINYL PLAYERS", href: "/music?subcategory=vinyl" },
+      { name: "BOOMBOX", href: "/music?subcategory=boombox" },
     ],
-  },
-  {
-    name: "CAMCORDER",
-    href: "/cameras/camcorder",
-    subcategories: [
-      { name: "8MM TAPES", href: "/cameras/camcorder" },
-      { name: "MINI DV", href: "/cameras/camcorder" },
-      { name: "VHS-C", href: "/cameras/camcorder" },
-      { name: "DIGITAL8", href: "/cameras/camcorder" },
-      { name: "SONY HANDYCAM", href: "/cameras/camcorder" },
-      { name: "PANASONIC", href: "/cameras/camcorder" },
-    ],
-  },
-  {
-    name: "SUPER8",
-    href: "/cameras/super8",
-    subcategories: [
-      { name: "KODAK SUPER8", href: "/cameras/super8" },
-      { name: "CANON SUPER8", href: "/cameras/super8" },
-      { name: "NIZO SUPER8", href: "/cameras/super8" },
-      { name: "BOLEX", href: "/cameras/super8" },
-      { name: "FILM CARTRIDGES", href: "/cameras/super8" },
-      { name: "PROJECTORS", href: "/cameras/super8" },
+    digital: [
+      { name: "IPODs", href: "/music?subcategory=ipods" },
+      { name: "CD PLAYERS", href: "/music?subcategory=cd-players" },
+      { name: "SPEAKERS", href: "/music?subcategory=speakers" },
     ],
   },
   {
     name: "ACCESSORIES",
-    href: "/cameras/accessories",
+    href: "/accessories",
     subcategories: [
-      { name: "CAMERA BAGS", href: "/cameras/accessories" },
-      { name: "FILM ROLLS", href: "/cameras/accessories" },
-      { name: "FLASH UNITS", href: "/cameras/accessories" },
-      { name: "TRIPODS", href: "/cameras/accessories" },
-      { name: "LENS FILTERS", href: "/cameras/accessories" },
-      { name: "CLEANING KITS", href: "/cameras/accessories" },
+      { name: "CAMERA BAGS", href: "/accessories?subcategory=bags" },
+      { name: "FILM ROLLS", href: "/accessories?subcategory=film" },
+      { name: "FLASH UNITS", href: "/accessories?subcategory=flash" },
+      { name: "TRIPODS", href: "/accessories?subcategory=tripods" },
+      { name: "LENS FILTERS", href: "/accessories?subcategory=filters" },
+      { name: "CLEANING KITS", href: "/accessories?subcategory=cleaning" },
     ],
   },
 ]
@@ -90,23 +73,18 @@ export default function Header() {
   const [mobileSubcategory, setMobileSubcategory] = useState<string | null>(null)
 
   const getVisualElement = (categoryName?: string) => {
-    // Function to get the appropriate GIF for each category
     const getGifForCategory = (category: string) => {
       switch (category) {
-        case "P&S FILM":
+        case "PHOTO":
           return "/gifs/point-shoot.gif"
-        case "SLR FILM":
-          return "/gifs/slr.gif"
-        case "Y2K DIGITAL":
-          return "/gifs/y2k.gif"
-        case "CAMCORDER":
+        case "VIDEO":
           return "/gifs/camcoder.gif"
-        case "SUPER8":
-          return "/gifs/super8.gif"
+        case "MUSIC":
+          return "/images/cassette.jpg"
         case "ACCESSORIES":
           return "/gifs/accessories.gif"
         default:
-          return "/images/film-can.avif" // Fallback to film canister
+          return "/images/film-can.avif"
       }
     }
 
@@ -116,11 +94,11 @@ export default function Header() {
       <div className="w-full h-44 border-2 border-black dark:border-white relative overflow-hidden">
         <Image
           src={imageSrc || "/placeholder.svg"}
-          alt={categoryName ? `${categoryName} animation` : "Camera equipment"}
+          alt={categoryName ? `${categoryName} equipment` : "Camera equipment"}
           fill
           className="object-cover"
           sizes="400px"
-          unoptimized={imageSrc.endsWith(".gif")} // Important for GIFs to animate
+          unoptimized={imageSrc.endsWith(".gif")}
         />
       </div>
     )
@@ -239,25 +217,77 @@ export default function Header() {
           >
             <div className="container mx-auto px-4 border-t-2 border-black dark:border-white">
               <div className="flex">
-                {/* Left 2/3 - Subcategories */}
+                {/* Left 2/3 - Split Categories */}
                 <div className="w-2/3 py-5 pr-6">
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-                    {navItems
-                      .find((item) => item.name === hoveredItem)
-                      ?.subcategories.map((sub, index) => (
+                  {navItems.find((item) => item.name === hoveredItem)?.name === "ACCESSORIES" ? (
+                    /* Accessories - Single Column */
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                      {navItems
+                        .find((item) => item.name === hoveredItem)
+                        ?.subcategories?.map((sub, index) => (
+                          <Link
+                            key={sub.name}
+                            href={sub.href}
+                            className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
+                            style={{ animationDelay: `${index * 100}ms` }}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                    </div>
+                  ) : (
+                    /* Photo/Video/Music - Analog/Digital Split */
+                    <div className="grid grid-cols-2 gap-x-8">
+                      {/* Analog Column */}
+                      <div>
                         <Link
-                          key={sub.name}
-                          href={sub.href}
-                          className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
-                          style={{ animationDelay: `${index * 100}ms` }}
+                          href={`${navItems.find((item) => item.name === hoveredItem)?.href}?type=analog`}
+                          className="font-mono text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
+                          style={{ animationDelay: "0ms" }}
                         >
-                          {sub.name}
+                          ANALOG
                         </Link>
-                      ))}
-                  </div>
+                        {navItems
+                          .find((item) => item.name === hoveredItem)
+                          ?.analog?.map((sub, index) => (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
+                              style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                      </div>
+
+                      {/* Digital Column */}
+                      <div>
+                        <Link
+                          href={`${navItems.find((item) => item.name === hoveredItem)?.href}?type=digital`}
+                          className="font-mono text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
+                          style={{ animationDelay: "0ms" }}
+                        >
+                          DIGITAL
+                        </Link>
+                        {navItems
+                          .find((item) => item.name === hoveredItem)
+                          ?.digital?.map((sub, index) => (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
+                              style={{ animationDelay: `${(index + 1) * 100}ms` }}
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* Right 1/3 - Visual with category-specific content */}
+                {/* Right 1/3 - Visual */}
                 <div
                   key={hoveredItem}
                   className="w-1/3 py-5 pl-6 border-l-2 border-black dark:border-white animate-fade-in-sequence"
@@ -332,7 +362,6 @@ export default function Header() {
               ) : (
                 /* Subcategories */
                 <div className="space-y-6">
-                  {/* Subcategory Links */}
                   <div className="space-y-3">
                     {/* ALL option first */}
                     <Link
@@ -344,20 +373,79 @@ export default function Header() {
                       ALL {mobileSubcategory}
                     </Link>
 
-                    {/* Individual subcategories */}
-                    {navItems
-                      .find((item) => item.name === mobileSubcategory)
-                      ?.subcategories.map((sub, index) => (
+                    {mobileSubcategory === "ACCESSORIES" ? (
+                      /* Accessories - Regular subcategories */
+                      navItems
+                        .find((item) => item.name === mobileSubcategory)
+                        ?.subcategories?.map((sub, index) => (
+                          <Link
+                            key={sub.name}
+                            href={sub.href}
+                            className="block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top"
+                            style={{ animationDelay: `${(index + 1) * 80}ms` }}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))
+                    ) : (
+                      /* Photo/Video/Music - Analog/Digital sections */
+                      <>
+                        {/* ALL ANALOG */}
                         <Link
-                          key={sub.name}
-                          href={sub.href}
-                          className="block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top"
-                          style={{ animationDelay: `${(index + 1) * 80}ms` }}
+                          href={`${navItems.find((item) => item.name === mobileSubcategory)?.href}?type=analog`}
+                          className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold"
+                          style={{ animationDelay: "80ms" }}
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          {sub.name}
+                          ALL ANALOG
                         </Link>
-                      ))}
+
+                        {/* Analog subcategories */}
+                        {navItems
+                          .find((item) => item.name === mobileSubcategory)
+                          ?.analog?.map((sub, index) => (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              className="block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top ml-4"
+                              style={{ animationDelay: `${(index + 2) * 80}ms` }}
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+
+                        {/* ALL DIGITAL */}
+                        <Link
+                          href={`${navItems.find((item) => item.name === mobileSubcategory)?.href}?type=digital`}
+                          className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold mt-4"
+                          style={{
+                            animationDelay: `${(navItems.find((item) => item.name === mobileSubcategory)?.analog?.length || 0 + 3) * 80}ms`,
+                          }}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          ALL DIGITAL
+                        </Link>
+
+                        {/* Digital subcategories */}
+                        {navItems
+                          .find((item) => item.name === mobileSubcategory)
+                          ?.digital?.map((sub, index) => (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              className="block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top ml-4"
+                              style={{
+                                animationDelay: `${(navItems.find((item) => item.name === mobileSubcategory)?.analog?.length || 0 + index + 4) * 80}ms`,
+                              }}
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                      </>
+                    )}
                   </div>
 
                   {/* Visual Element for Mobile */}

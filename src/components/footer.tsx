@@ -34,28 +34,18 @@ export default function Footer() {
               <h3 className="font-mono text-sm font-bold mb-4 text-black dark:text-white">SHOP</h3>
               <ul className="space-y-2 font-mono text-xs">
                 <li>
-                  <Link href="/cameras/point-shoot" className="hover:underline text-black dark:text-white">
-                    P&S FILM
+                  <Link href="/photo" className="hover:underline text-black dark:text-white">
+                    PHOTO
                   </Link>
                 </li>
                 <li>
-                  <Link href="/cameras/slr" className="hover:underline text-black dark:text-white">
-                    SLR FILM
+                  <Link href="/video" className="hover:underline text-black dark:text-white">
+                    VIDEO
                   </Link>
                 </li>
                 <li>
-                  <Link href="/cameras/digital" className="hover:underline text-black dark:text-white">
-                    Y2K DIGITAL
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cameras/camcorder" className="hover:underline text-black dark:text-white">
-                    CAMCORDER
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cameras/super8" className="hover:underline text-black dark:text-white">
-                    SUPER8
+                  <Link href="/music" className="hover:underline text-black dark:text-white">
+                    MUSIC
                   </Link>
                 </li>
                 <li>

@@ -4,12 +4,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const categories = [
-  { name: "P&S FILM", href: "/cameras/point-shoot" },
-  { name: "SLR FILM", href: "/cameras/slr" },
-  { name: "Y2K DIGITAL", href: "/cameras/digital" },
-  { name: "CAMCODER", href: "/cameras/camcoder" },
-  { name: "SUPER8", href: "/cameras/super8" },
-  { name: "ACCESSORIES", href: "/cameras/accessories" },
+  { name: "PHOTO", href: "/photo" },
+  { name: "VIDEO", href: "/video" },
+  { name: "MUSIC", href: "/music" },
+  { name: "ACCESSORIES", href: "/accessories" },
 ]
 
 export default function CategoryNavigation() {
