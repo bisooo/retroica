@@ -3,92 +3,21 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Search, User, ShoppingCart, Menu, X, ChevronLeft } from "lucide-react"
+import { Search, User, ShoppingCart, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import ThemeToggle from "./theme-toggle"
-
-const navItems = [
-  {
-    name: "PHOTO",
-    href: "/photo",
-    analog: [
-      { name: "POINT & SHOOT (35mm)", href: "/photo?subcategory=point-shoot" },
-      { name: "MEDIUM FORMAT (120mm)", href: "/photo?subcategory=medium-format" },
-      { name: "APS", href: "/photo?subcategory=aps" },
-      { name: "SLR", href: "/photo?subcategory=slr" },
-    ],
-    digital: [
-      { name: "POCKET DIGICAM", href: "/photo?subcategory=pocket-digicam" },
-      { name: "SONY DIGICAM", href: "/photo?subcategory=sony-digicam" },
-      { name: "SUPERZOOM DIGICAM", href: "/photo?subcategory=superzoom-digicam" },
-      { name: "DSLR", href: "/photo?subcategory=dslr" },
-    ],
-  },
-  {
-    name: "VIDEO",
-    href: "/video",
-    analog: [
-      { name: "SUPER 8 (8mm)", href: "/video?subcategory=super8" },
-      { name: "FILM MOVIE (16mm)", href: "/video?subcategory=film-movie" },
-    ],
-    digital: [
-      { name: "CAMCODER TAPE", href: "/video?subcategory=camcoder-tape" },
-      { name: "CAMCODER DVD", href: "/video?subcategory=camcoder-dvd" },
-      { name: "CAMCODER SD/HDD", href: "/video?subcategory=camcoder-sd" },
-    ],
-  },
-  {
-    name: "MUSIC",
-    href: "/music",
-    analog: [
-      { name: "CASSETTE PLAYERS", href: "/music?subcategory=cassette" },
-      { name: "VINYL PLAYERS", href: "/music?subcategory=vinyl" },
-      { name: "BOOMBOX", href: "/music?subcategory=boombox" },
-    ],
-    digital: [
-      { name: "IPODs", href: "/music?subcategory=ipods" },
-      { name: "CD PLAYERS", href: "/music?subcategory=cd-players" },
-      { name: "SPEAKERS", href: "/music?subcategory=speakers" },
-    ],
-  },
-  {
-    name: "ACCESSORIES",
-    href: "/accessories",
-    subcategories: [
-      { name: "CAMERA BAGS", href: "/accessories?subcategory=bags" },
-      { name: "FILM ROLLS", href: "/accessories?subcategory=film" },
-      { name: "FLASH UNITS", href: "/accessories?subcategory=flash" },
-      { name: "TRIPODS", href: "/accessories?subcategory=tripods" },
-      { name: "LENS FILTERS", href: "/accessories?subcategory=filters" },
-      { name: "CLEANING KITS", href: "/accessories?subcategory=cleaning" },
-    ],
-  },
-]
+import MobileNavigationMenu from "./mobile-navigation-menu"
+import { navItems } from "@/lib/navigation-data"
 
 export default function Header() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
-  const [mobileSubcategory, setMobileSubcategory] = useState<string | null>(null)
 
   const getVisualElement = (categoryName?: string) => {
-    const getGifForCategory = (category: string) => {
-      switch (category) {
-        case "PHOTO":
-          return "/gifs/point-shoot.gif"
-        case "VIDEO":
-          return "/gifs/camcoder.gif"
-        case "MUSIC":
-          return "/images/cassette.jpg"
-        case "ACCESSORIES":
-          return "/gifs/accessories.gif"
-        default:
-          return "/images/film-can.avif"
-      }
-    }
-
-    const imageSrc = categoryName ? getGifForCategory(categoryName) : "/images/film-can.avif"
+    const category = navItems.find((item) => item.name === categoryName)
+    const imageSrc = category?.gif || "/images/film-can.avif"
 
     return (
       <div className="w-full h-44 border-2 border-black dark:border-white relative overflow-hidden">
@@ -134,7 +63,6 @@ export default function Header() {
 
             {/* Main header */}
             <div className="flex items-center justify-between py-4">
-              {/* Mobile menu */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -301,168 +229,9 @@ export default function Header() {
         )}
       </div>
 
-      {/* Mobile Navigation Popup */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)} />
-
-          {/* Sidebar */}
-          <div className="absolute left-0 top-0 h-full w-80 bg-white dark:bg-black border-r-2 border-black dark:border-white flex flex-col">
-            {/* Header - Fixed */}
-            <div className="flex items-center justify-between p-4 border-b-2 border-black dark:border-white flex-shrink-0">
-              {mobileSubcategory ? (
-                <>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setMobileSubcategory(null)}
-                    className="mr-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </Button>
-                  <h2 className="font-mono text-lg font-bold flex-1 text-black dark:text-white">{mobileSubcategory}</h2>
-                </>
-              ) : (
-                <h2 className="font-mono text-lg font-bold text-black dark:text-white">CATEGORIES</h2>
-              )}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-
-            {/* Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto p-4">
-              {!mobileSubcategory ? (
-                /* Main Categories */
-                <div className="space-y-4">
-                  {navItems.map((item, index) => {
-                    const isActive = pathname === item.href
-                    return (
-                      <button
-                        key={item.name}
-                        onClick={() => setMobileSubcategory(item.name)}
-                        className={`block w-full text-left py-3 px-4 font-mono text-sm border-2 border-black dark:border-white transition-all animate-slide-in-top ${
-                          isActive
-                            ? "bg-black dark:bg-white text-white dark:text-black font-bold"
-                            : "bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
-                        }`}
-                        style={{ animationDelay: `${index * 100}ms` }}
-                      >
-                        {item.name}
-                      </button>
-                    )
-                  })}
-                </div>
-              ) : (
-                /* Subcategories */
-                <div className="space-y-6">
-                  <div className="space-y-3">
-                    {/* ALL option first */}
-                    <Link
-                      href={navItems.find((item) => item.name === mobileSubcategory)?.href || "#"}
-                      className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 transition-all animate-slide-in-top font-bold"
-                      style={{ animationDelay: "0ms" }}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      ALL {mobileSubcategory}
-                    </Link>
-
-                    {mobileSubcategory === "ACCESSORIES" ? (
-                      /* Accessories - Regular subcategories */
-                      navItems
-                        .find((item) => item.name === mobileSubcategory)
-                        ?.subcategories?.map((sub, index) => (
-                          <Link
-                            key={sub.name}
-                            href={sub.href}
-                            className="block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top"
-                            style={{ animationDelay: `${(index + 1) * 80}ms` }}
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            {sub.name}
-                          </Link>
-                        ))
-                    ) : (
-                      /* Photo/Video/Music - Analog/Digital sections */
-                      <>
-                        {/* ALL ANALOG */}
-                        <Link
-                          href={`${navItems.find((item) => item.name === mobileSubcategory)?.href}?type=analog`}
-                          className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold"
-                          style={{ animationDelay: "80ms" }}
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          ALL ANALOG
-                        </Link>
-
-                        {/* Analog subcategories */}
-                        {navItems
-                          .find((item) => item.name === mobileSubcategory)
-                          ?.analog?.map((sub, index) => (
-                            <Link
-                              key={sub.name}
-                              href={sub.href}
-                              className="block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top ml-4"
-                              style={{ animationDelay: `${(index + 2) * 80}ms` }}
-                              onClick={() => setMobileMenuOpen(false)}
-                            >
-                              {sub.name}
-                            </Link>
-                          ))}
-
-                        {/* ALL DIGITAL */}
-                        <Link
-                          href={`${navItems.find((item) => item.name === mobileSubcategory)?.href}?type=digital`}
-                          className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold mt-4"
-                          style={{
-                            animationDelay: `${(navItems.find((item) => item.name === mobileSubcategory)?.analog?.length || 0 + 3) * 80}ms`,
-                          }}
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          ALL DIGITAL
-                        </Link>
-
-                        {/* Digital subcategories */}
-                        {navItems
-                          .find((item) => item.name === mobileSubcategory)
-                          ?.digital?.map((sub, index) => (
-                            <Link
-                              key={sub.name}
-                              href={sub.href}
-                              className="block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top ml-4"
-                              style={{
-                                animationDelay: `${(navItems.find((item) => item.name === mobileSubcategory)?.analog?.length || 0 + index + 4) * 80}ms`,
-                              }}
-                              onClick={() => setMobileMenuOpen(false)}
-                            >
-                              {sub.name}
-                            </Link>
-                          ))}
-                      </>
-                    )}
-                  </div>
-
-                  {/* Visual Element for Mobile */}
-                  <div className="animate-slide-in-top" style={{ animationDelay: "400ms" }}>
-                    {getVisualElement(mobileSubcategory)}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Dark Mode Toggle - Fixed at bottom */}
-            <div className="p-4 border-t-2 border-black dark:border-white flex-shrink-0">
-              <ThemeToggle variant="mobile" />
-            </div>
-          </div>
-        </div>
-      )}
+      <MobileNavigationMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
+        <ThemeToggle variant="mobile" />
+      </MobileNavigationMenu>
     </>
   )
 }
