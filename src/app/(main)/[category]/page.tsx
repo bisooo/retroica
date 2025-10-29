@@ -1,5 +1,7 @@
 import ProductFilters from "@/components/product-filters"
 import ProductGrid from "@/components/product-grid"
+import { ProductService } from "@/lib/services/product.service"
+import { ProductMapper } from "@/lib/mappers/product.mapper"
 
 interface CategoryPageProps {
   params: {
@@ -11,25 +13,22 @@ interface CategoryPageProps {
   }
 }
 
-export default function CategoryPage({ params, searchParams }: CategoryPageProps) {
+export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const { category } = params
-  const { type, subcategory } = searchParams
+  const { subcategory } = searchParams
 
-  // You can use these params to filter products later
-  // For now, we'll just render the same layout
+  const categoryHandle = subcategory || category
+  // TODO: currently only 20 products are fetched, implement pagination
+  const medusaProducts = await ProductService.getProductsByHandle(categoryHandle, 20)
+  const products = ProductMapper.toProductCards(medusaProducts)
+
 
   return (
     <main className="flex min-h-screen">
-      {/* Desktop Filters */}
       <div className="hidden lg:block">
         <ProductFilters />
       </div>
-      <ProductGrid />
+      <ProductGrid products={products} />
     </main>
   )
-}
-
-// Generate static params for the main categories
-export function generateStaticParams() {
-  return [{ category: "photo" }, { category: "video" }, { category: "music" }, { category: "accessories" }]
 }
