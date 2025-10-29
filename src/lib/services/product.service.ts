@@ -77,15 +77,15 @@ export class ProductService {
     }
   }
 
-  static async getProductsByCollection(collectionHandle: string, limit = 20): Promise<MedusaProduct[]> {
+  static async getProductsByCollection(collectionHandle: string, limit = 20, offset = 0): Promise<MedusaProduct[]> {
     try {
       const collectionId = await this.getCollectionId(collectionHandle)
-      if (!collectionId) return mockProducts.slice(0, limit)
+      if (!collectionId) return mockProducts.slice(offset, offset + limit)
 
       const regionId = await this.getRegionId()
       if (!regionId) {
         console.error("Cannot fetch products: region not found, using mock data")
-        return mockProducts.slice(0, limit)
+        return mockProducts.slice(offset, offset + limit)
       }
 
       const response = await sdk.store.product.list({
@@ -93,24 +93,25 @@ export class ProductService {
         region_id: regionId,
         fields: PRODUCT_FIELDS,
         limit,
+        offset,
       })
 
       return response.products as MedusaProduct[]
     } catch (error) {
       console.error(`Error fetching products for collection ${collectionHandle}:`, error)
-      return mockProducts.slice(0, limit)
+      return mockProducts.slice(offset, offset + limit)
     }
   }
 
-  static async getProductsByCategory(categoryHandle: string, limit = 20): Promise<MedusaProduct[]> {
+  static async getProductsByCategory(categoryHandle: string, limit = 20, offset = 0): Promise<MedusaProduct[]> {
     try {
       const categoryId = await this.getCategoryId(categoryHandle)
-      if (!categoryId) return mockProducts.slice(0, limit)
+      if (!categoryId) return mockProducts.slice(offset, offset + limit)
 
       const regionId = await this.getRegionId()
       if (!regionId) {
         console.error("Cannot fetch products: region not found, using mock data")
-        return mockProducts.slice(0, limit)
+        return mockProducts.slice(offset, offset + limit)
       }
 
       const response = await sdk.store.product.list({
@@ -118,12 +119,13 @@ export class ProductService {
         region_id: regionId,
         fields: PRODUCT_FIELDS,
         limit,
+        offset,
       })
 
       return response.products as MedusaProduct[]
     } catch (error) {
       console.error(`Error fetching products for category ${categoryHandle}:`, error)
-      return mockProducts.slice(0, limit)
+      return mockProducts.slice(offset, offset + limit)
     }
   }
 
@@ -186,11 +188,11 @@ export class ProductService {
     }
   }
 
-  static async getProductsByHandle(handle: string, limit = 20): Promise<MedusaProduct[]> {
+  static async getProductsByHandle(handle: string, limit = 20, offset = 0): Promise<MedusaProduct[]> {
     if (isCollection(handle)) {
-      return this.getProductsByCollection(handle, limit)
+      return this.getProductsByCollection(handle, limit, offset)
     } else {
-      return this.getProductsByCategory(handle, limit)
+      return this.getProductsByCategory(handle, limit, offset)
     }
   }
 

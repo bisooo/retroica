@@ -31,7 +31,7 @@ export default async function TestMedusaPage() {
     connectionStatus.success = true
   } catch (e) {
     connectionStatus.error = e instanceof Error ? e.message : "Unknown error"
-    console.error("[v0] Medusa connection error:", e)
+    console.error("Medusa connection error:", e)
   }
 
   // Test 2: Fetch products with region_id
@@ -44,7 +44,7 @@ export default async function TestMedusaPage() {
       })
       allProducts = response.products
     } catch (e) {
-      console.error("[v0] Error fetching products:", e)
+      console.error("Error fetching products:", e)
     }
   }
 
