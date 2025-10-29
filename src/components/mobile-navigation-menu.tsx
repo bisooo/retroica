@@ -65,7 +65,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
         </div>
 
         {/* Content */}
-        <div className="flex-1 p-4 flex flex-col min-h-0">
+        <div className="flex-1 p-4 flex flex-col min-h-0 overflow-y-auto scrollbar-hide">
           {!activeCategory ? (
             <div className="space-y-4">
               {navItems.map((item, index) => (
@@ -80,7 +80,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
               ))}
             </div>
           ) : (
-            <div className="space-y-6 flex-1 flex flex-col min-h-0">
+            <div className="space-y-6 flex flex-col">
               <div className="space-y-3 flex-shrink-0">
                 <Link
                   href={currentCategory?.href || "#"}
@@ -119,7 +119,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
                 )}
               </div>
 
-              <div className="animate-slide-in-top flex-shrink-0 mt-auto" style={{ animationDelay: "400ms" }}>
+              <div className="animate-slide-in-top flex-shrink-0 mt-4" style={{ animationDelay: "400ms" }}>
                 <div className="w-full h-44 border-2 border-black dark:border-white relative overflow-hidden">
                   <Image
                     src={currentCategory?.gif || "/images/film-can.avif"}

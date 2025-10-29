@@ -2,7 +2,6 @@ import MinimalNavbar from "@/components/minimal-navbar"
 import ProductImageGallery from "@/components/product-image-gallery"
 import ProductInfo from "@/components/product-info"
 import { ProductService } from "@/lib/services/product.service"
-import { notFound } from "next/navigation"
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const { handle } = params
@@ -10,7 +9,7 @@ export default async function ProductPage({ params }: { params: { handle: string
   const product = await ProductService.getProductByHandle(handle)
 
   if (!product) {
-    notFound()
+    return <div>PRODUCT NOT FOUND.</div>
   }
 
   const images = product.images?.map((img) => img.url) || [product.thumbnail || "/images/film-can.avif"]
@@ -22,7 +21,9 @@ export default async function ProductPage({ params }: { params: { handle: string
   const productData = {
     name: product.title,
     brand: (product.metadata?.brand as string) || "RETRO-ICA",
-    price: product.variants?.[0]?.calculated_price?.calculated_amount ? product.variants[0].calculated_price.calculated_amount : 21000,
+    price: product.variants?.[0]?.calculated_price?.calculated_amount
+      ? product.variants[0].calculated_price.calculated_amount
+      : 21000,
     currency: product.variants?.[0]?.calculated_price?.currency_code || "EUR",
     condition: conditionRating,
     year: (product.metadata?.year as string) || "YEAR",

@@ -1,76 +1,152 @@
-import type { ProductCardData } from "@/lib/types/product.types"
+import type { MedusaProduct } from "@/lib/types/product.types"
 
-export const MOCK_PRODUCTS: ProductCardData[] = [
+export const mockProducts: MedusaProduct[] = [
   {
-    id: "mock-1",
-    name: "Canon AE-1 Program",
-    currency: "€",
-    price: 299.0,
-    rating: 5,
-    image: "/images/film-can.avif",
-    condition: "9.5",
+    id: "mock-contax-t2-1",
+    title: "Contax T2",
+    handle: "mock-contax-t2-1",
+    thumbnail: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+    images: [
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+    ],
+    variants: [
+      {
+        calculated_price: {
+          calculated_amount: 2100,
+          currency_code: "eur",
+        },
+      },
+    ],
+    metadata: {
+      condition: "9.2/10",
+      lens: "Carl Zeiss Sonnar T* (38mm)",
+      iso_range: "25 - 5000",
+      iso_type: "DX Code",
+      shutter_speed: "8 - 1/500 s",
+      features: "autofocus, manual exposure compensation, self timer, titanium body",
+      flash: "Auto, double pre-flash",
+      dimensions_and_weight: "119 x 66 x 33 mm, 295 g",
+      powered_by: "1x CR123A battery (*not included)",
+      delivery_includes: "Original box and documents, Original case, Original neck and wrist straps.",
+    },
   },
   {
-    id: "mock-2",
-    name: "Sony Walkman WM-D6C",
-    currency: "€",
-    price: 450.0,
-    rating: 5,
-    image: "/images/film-can.avif",
-    condition: "9.0",
+    id: "mock-contax-t2-2",
+    title: "Contax T2",
+    handle: "mock-contax-t2-2",
+    thumbnail: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+    images: [
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+    ],
+    variants: [
+      {
+        calculated_price: {
+          calculated_amount: 2100,
+          currency_code: "eur",
+        },
+      },
+    ],
+    metadata: {
+      condition: "9.2/10",
+      lens: "Carl Zeiss Sonnar T* (38mm)",
+      iso_range: "25 - 5000",
+      iso_type: "DX Code",
+      shutter_speed: "8 - 1/500 s",
+      features: "autofocus, manual exposure compensation, self timer, titanium body",
+      flash: "Auto, double pre-flash",
+      dimensions_and_weight: "119 x 66 x 33 mm, 295 g",
+      powered_by: "1x CR123A battery (*not included)",
+      delivery_includes: "Original box and documents, Original case, Original neck and wrist straps.",
+    },
   },
   {
-    id: "mock-3",
-    name: "Nintendo Game Boy Color",
-    currency: "€",
-    price: 120.0,
-    rating: 4,
-    image: "/images/film-can.avif",
-    condition: "8.5",
+    id: "mock-contax-t2-3",
+    title: "Contax T2",
+    handle: "mock-contax-t2-3",
+    thumbnail: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+    images: [
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+    ],
+    variants: [
+      {
+        calculated_price: {
+          calculated_amount: 2100,
+          currency_code: "eur",
+        },
+      },
+    ],
+    metadata: {
+      condition: "9.2/10",
+      lens: "Carl Zeiss Sonnar T* (38mm)",
+      iso_range: "25 - 5000",
+      iso_type: "DX Code",
+      shutter_speed: "8 - 1/500 s",
+      features: "autofocus, manual exposure compensation, self timer, titanium body",
+      flash: "Auto, double pre-flash",
+      dimensions_and_weight: "119 x 66 x 33 mm, 295 g",
+      powered_by: "1x CR123A battery (*not included)",
+      delivery_includes: "Original box and documents, Original case, Original neck and wrist straps.",
+    },
   },
   {
-    id: "mock-4",
-    name: "Sony Handycam DCR-VX1000",
-    currency: "€",
-    price: 380.0,
-    rating: 5,
-    image: "/images/film-can.avif",
-    condition: "9.2",
-  },
-  {
-    id: "mock-5",
-    name: "Olympus Mju II",
-    currency: "€",
-    price: 220.0,
-    rating: 5,
-    image: "/images/film-can.avif",
-    condition: "9.8",
-  },
-  {
-    id: "mock-6",
-    name: "Sony Cyber-shot DSC-T1",
-    currency: "€",
-    price: 85.0,
-    rating: 4,
-    image: "/images/film-can.avif",
-    condition: "8.0",
-  },
-  {
-    id: "mock-7",
-    name: "Canon EOS 5D",
-    currency: "€",
-    price: 650.0,
-    rating: 5,
-    image: "/images/film-can.avif",
-    condition: "9.3",
-  },
-  {
-    id: "mock-8",
-    name: "Panasonic AG-DVX100",
-    currency: "€",
-    price: 520.0,
-    rating: 4,
-    image: "/images/film-can.avif",
-    condition: "8.8",
+    id: "mock-contax-t2-4",
+    title: "Contax T2",
+    handle: "mock-contax-t2-4",
+    thumbnail: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+    images: [
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+      {
+        url: "https://i.etsystatic.com/24548542/r/il/62ab1a/6821913790/il_fullxfull.6821913790_39j2.jpg",
+      },
+    ],
+    variants: [
+      {
+        calculated_price: {
+          calculated_amount: 2100,
+          currency_code: "eur",
+        },
+      },
+    ],
+    metadata: {
+      condition: "9.2/10",
+      lens: "Carl Zeiss Sonnar T* (38mm)",
+      iso_range: "25 - 5000",
+      iso_type: "DX Code",
+      shutter_speed: "8 - 1/500 s",
+      features: "autofocus, manual exposure compensation, self timer, titanium body",
+      flash: "Auto, double pre-flash",
+      dimensions_and_weight: "119 x 66 x 33 mm, 295 g",
+      powered_by: "1x CR123A battery (*not included)",
+      delivery_includes: "Original box and documents, Original case, Original neck and wrist straps.",
+    },
   },
 ]

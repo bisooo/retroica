@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Search, User, ShoppingCart, Menu } from "lucide-react"
@@ -14,6 +14,29 @@ export default function Header() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (hoveredItem) {
+        setHoveredItem(null)
+      }
+    }
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (hoveredItem && dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setHoveredItem(null)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("touchstart", handleTouchStart)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("touchstart", handleTouchStart)
+    }
+  }, [hoveredItem])
 
   const getVisualElement = (categoryName?: string) => {
     const category = navItems.find((item) => item.name === categoryName)
@@ -140,6 +163,7 @@ export default function Header() {
         {/* Full-width Desktop Dropdown */}
         {hoveredItem && (
           <div
+            ref={dropdownRef}
             className="hidden lg:block absolute top-full left-0 w-full bg-white dark:bg-black border-b-2 border-black dark:border-white shadow-lg z-50 animate-fade-in"
             onMouseLeave={handleMouseLeaveContainer}
           >
