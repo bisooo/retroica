@@ -169,7 +169,7 @@ export default function Header() {
                       {/* Analog Column */}
                       <div>
                         <Link
-                          href={`${navItems.find((item) => item.name === hoveredItem)?.href}?type=analog`}
+                          href={`${navItems.find((item) => item.name === hoveredItem)?.href}-analog`}
                           className="font-mono text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
                           style={{ animationDelay: "0ms" }}
                         >
@@ -192,7 +192,7 @@ export default function Header() {
                       {/* Digital Column */}
                       <div>
                         <Link
-                          href={`${navItems.find((item) => item.name === hoveredItem)?.href}?type=digital`}
+                          href={`${navItems.find((item) => item.name === hoveredItem)?.href}-digital`}
                           className="font-mono text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
                           style={{ animationDelay: "0ms" }}
                         >

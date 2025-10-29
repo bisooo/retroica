@@ -234,7 +234,7 @@ export class ProductService {
 
       return null
     } catch (error) {
-      console.error(`[v0Error fetching product by handle ${handle}:`, error)
+      console.error(`Error fetching product by handle ${handle}:`, error)
       return null
     }
   }

@@ -57,34 +57,38 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
         </Button>
       </div>
 
-      {/* Product Info */}
-      <div className="p-4">
-        <Link href={productUrl}>
-          <h3 className="font-mono text-sm font-bold mb-1 hover:underline text-black dark:text-white line-clamp-2">
+      <div className="p-4 flex flex-col">
+        {/* Product Name - Fixed height for uniformity */}
+        <Link href={productUrl} className="block">
+          <h3 className="font-mono text-sm font-bold mb-3 hover:underline text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
             {name}
           </h3>
         </Link>
-        <p className="font-mono text-sm mb-2 text-black dark:text-white">
+
+        {/* Divider */}
+        <div className="border-t border-black dark:border-white mb-3" />
+
+        {/* Price - Centrally aligned */}
+        <p className="font-mono text-sm text-black dark:text-white text-center mb-3">
           {getCurrencySymbol(currency)}
           {price.toFixed(2)}
         </p>
 
-        <div className="flex items-center gap-1">
-          <div className="flex flex-wrap gap-0.5">
-            {[...Array(10)].map((_, i) => (
-              <Star
-                key={i}
-                className={`h-2.5 w-2.5 sm:h-3 sm:w-3 ${
-                  i < conditionStars
-                    ? "fill-black dark:fill-white stroke-black dark:stroke-white"
-                    : "fill-none stroke-gray-300 dark:stroke-gray-600"
-                }`}
-              />
-            ))}
-          </div>
-          {condition && (
-            <span className="ml-1 font-mono text-xs text-black dark:text-white whitespace-nowrap">{condition}</span>
-          )}
+        {/* Divider */}
+        <div className="border-t border-black dark:border-white mb-3" />
+
+        {/* Condition Stars - Centrally aligned */}
+        <div className="flex items-center justify-center gap-[2px] sm:gap-0.5">
+          {[...Array(10)].map((_, i) => (
+            <Star
+              key={i}
+              className={`h-2 w-2 sm:h-3 sm:w-3 ${
+                i < conditionStars
+                  ? "fill-black dark:fill-white stroke-black dark:stroke-white"
+                  : "fill-none stroke-gray-300 dark:stroke-gray-600"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </div>

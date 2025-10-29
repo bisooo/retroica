@@ -18,16 +18,16 @@ export const navItems: NavItem[] = [
     href: "/photo",
     gif: "/gifs/point-shoot.gif",
     analog: [
-      { name: "POINT & SHOOT (35mm)", href: "/photo?subcategory=point-shoot" },
-      { name: "MEDIUM FORMAT (120mm)", href: "/photo?subcategory=medium-format" },
-      { name: "APS", href: "/photo?subcategory=aps" },
-      { name: "SLR", href: "/photo?subcategory=slr" },
+      { name: "POINT & SHOOT (35mm)", href: "/point-n-shoot" },
+      { name: "MEDIUM FORMAT (120mm)", href: "/medium-format" },
+      { name: "APS", href: "/aps" },
+      { name: "SLR", href: "/slr" },
     ],
     digital: [
-      { name: "POCKET DIGICAM", href: "/photo?subcategory=pocket-digicam" },
-      { name: "SONY DIGICAM", href: "/photo?subcategory=sony-digicam" },
-      { name: "SUPERZOOM DIGICAM", href: "/photo?subcategory=superzoom-digicam" },
-      { name: "DSLR", href: "/photo?subcategory=dslr" },
+      { name: "POCKET DIGICAM", href: "/pocket-digicam" },
+      { name: "SONY DIGICAM", href: "/sony-digicam" },
+      { name: "SUPERZOOM DIGICAM", href: "/superzoom-digicam" },
+      { name: "DSLR", href: "/dslr" },
     ],
   },
   {
@@ -35,13 +35,13 @@ export const navItems: NavItem[] = [
     href: "/video",
     gif: "/gifs/camcoder.gif",
     analog: [
-      { name: "SUPER 8 (8mm)", href: "/video?subcategory=super8" },
-      { name: "FILM MOVIE (16mm)", href: "/video?subcategory=film-movie" },
+      { name: "SUPER 8 (8mm)", href: "/super8" },
+      { name: "FILM MOVIE (16mm)", href: "/film-movie" },
     ],
     digital: [
-      { name: "CAMCODER TAPE", href: "/video?subcategory=camcoder-tape" },
-      { name: "CAMCODER DVD", href: "/video?subcategory=camcoder-dvd" },
-      { name: "CAMCODER SD/HDD", href: "/video?subcategory=camcoder-sd" },
+      { name: "CAMCODER TAPE", href: "/camcoder-tape" },
+      { name: "CAMCODER DVD", href: "/camcoder-dvd" },
+      { name: "CAMCODER SD/HDD", href: "/camcoder-sd" },
     ],
   },
   {
@@ -49,14 +49,14 @@ export const navItems: NavItem[] = [
     href: "/music",
     gif: "/gifs/music.gif",
     analog: [
-      { name: "CASSETTE PLAYERS", href: "/music?subcategory=cassette" },
-      { name: "VINYL PLAYERS", href: "/music?subcategory=vinyl" },
-      { name: "BOOMBOX", href: "/music?subcategory=boombox" },
+      { name: "CASSETTE PLAYERS", href: "/cassette" },
+      { name: "VINYL PLAYERS", href: "/vinyl" },
+      { name: "BOOMBOX", href: "/boombox" },
     ],
     digital: [
-      { name: "IPODs", href: "/music?subcategory=ipods" },
-      { name: "CD PLAYERS", href: "/music?subcategory=cd-players" },
-      { name: "SPEAKERS", href: "/music?subcategory=speakers" },
+      { name: "IPODs", href: "/ipods" },
+      { name: "CD PLAYERS", href: "/cd-players" },
+      { name: "SPEAKERS", href: "/speakers" },
     ],
   },
   {
@@ -64,12 +64,16 @@ export const navItems: NavItem[] = [
     href: "/accessories",
     gif: "/gifs/accessories.gif",
     subcategories: [
-      { name: "CAMERA BAGS", href: "/accessories?subcategory=bags" },
-      { name: "FILM ROLLS", href: "/accessories?subcategory=film" },
-      { name: "FLASH UNITS", href: "/accessories?subcategory=flash" },
-      { name: "TRIPODS", href: "/accessories?subcategory=tripods" },
-      { name: "LENS FILTERS", href: "/accessories?subcategory=filters" },
-      { name: "CLEANING KITS", href: "/accessories?subcategory=cleaning" },
+      { name: "CAMERA BAGS", href: "/bags" },
+      { name: "FILM ROLLS", href: "/film" },
+      { name: "FLASH UNITS", href: "/flash" },
+      { name: "TRIPODS", href: "/tripods" },
+      { name: "LENS FILTERS", href: "/filters" },
+      { name: "CLEANING KITS", href: "/cleaning" },
     ],
   },
 ]
+
+export const getTypeUrl = (categoryHref: string, type: "analog" | "digital"): string => {
+  return `${categoryHref}-${type}`
+}

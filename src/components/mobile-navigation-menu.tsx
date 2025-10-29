@@ -95,7 +95,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
                 ) : (
                   <>
                     <Link
-                      href={`${currentCategory?.href}?type=analog`}
+                      href={`${currentCategory?.href}-analog`}
                       className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold"
                       style={{ animationDelay: "80ms" }}
                       onClick={onClose}
@@ -105,7 +105,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
                     {currentCategory?.analog?.map((sub, i) => renderSubcategoryLink(sub, i + 2, true))}
 
                     <Link
-                      href={`${currentCategory?.href}?type=digital`}
+                      href={`${currentCategory?.href}-digital`}
                       className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold mt-4"
                       style={{ animationDelay: `${((currentCategory?.analog?.length || 0) + 3) * 80}ms` }}
                       onClick={onClose}
