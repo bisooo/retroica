@@ -31,7 +31,7 @@ function getCurrencySymbol(currency: string): string {
 
 export default function ProductCard({ id, handle, name, price, currency, image, condition }: ProductCardProps) {
   const conditionStars = parseCondition(condition)
-  const productUrl = `/products/${handle || id}`
+  const productUrl = `/product/${handle || id}`
 
   return (
     <div className="border-2 border-black dark:border-white bg-white dark:bg-black group hover:shadow-lg transition-shadow">

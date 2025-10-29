@@ -15,7 +15,7 @@ export default async function ProductPage({ params }: { params: { handle: string
   const images = product.images?.map((img) => img.url) || [product.thumbnail || "/images/film-can.avif"]
 
   const conditionRating = product.metadata?.condition
-    ? Number.parseInt((product.metadata.condition as string).split("/")[0])
+    ? Number.parseFloat((product.metadata.condition as string).split("/")[0])
     : 0
 
   const productData = {

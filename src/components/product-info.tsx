@@ -45,7 +45,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
   const deliveryIncludes = product.rawMetadata?.delivery_includes as string | undefined
 
-  const conditionStars = product.condition
+  const conditionStars = Math.floor(product.condition)
 
   return (
     <div className="h-full flex flex-col space-y-4 pt-4 overflow-y-auto">
@@ -75,6 +75,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           {product.price}
         </div>
 
+        {/* Condition */}
         <div className="flex items-center space-x-2">
           <div className="flex">
             {[...Array(10)].map((_, i) => (
@@ -84,6 +85,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               />
             ))}
           </div>
+          <span className="font-mono text-sm text-black dark:text-white">({product.condition})</span>
         </div>
 
         {/* Stock Status */}
@@ -102,6 +104,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             {product.price}
           </div>
 
+          {/* Condition */}
           <div className="flex items-center space-x-2">
             <div className="flex">
               {[...Array(10)].map((_, i) => (
@@ -111,6 +114,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                 />
               ))}
             </div>
+            <span className="font-mono text-sm text-black dark:text-white">({product.condition})</span>
           </div>
         </div>
 
