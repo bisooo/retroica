@@ -37,7 +37,7 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
     <div className="border-2 border-black dark:border-white bg-white dark:bg-black group hover:shadow-lg transition-shadow">
       {/* Product Image */}
       <div className="relative aspect-square border-b-2 border-black dark:border-white">
-        <Link href={productUrl} className="block w-full h-full">
+        <Link href={productUrl} className="block w-full h-full" scroll={true}>
           <Image
             src={image || "/images/film-can.avif"}
             alt={name}
@@ -62,7 +62,7 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
 
       <div className="p-4 flex flex-col">
         {/* Product Name - Fixed height for uniformity */}
-        <Link href={productUrl} className="block">
+        <Link href={productUrl} className="block" scroll={true}>
           <h3 className="font-mono text-sm font-bold mb-3 hover:underline text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
             {name}
           </h3>
