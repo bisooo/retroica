@@ -33,7 +33,7 @@ export default async function ProductPage({ params }: { params: { handle: string
   }
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden overscroll-none">
       {/* Desktop Layout */}
       <div className="hidden lg:flex h-full">
         {/* Left Side - Product Images (Fixed, no scroll) */}
