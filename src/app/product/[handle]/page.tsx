@@ -33,10 +33,10 @@ export default async function ProductPage({ params }: { params: { handle: string
   }
 
   return (
-    <>
+    <div className="h-screen overflow-hidden">
       {/* Desktop Layout */}
-      <div className="hidden lg:flex h-screen">
-        {/* Left Side - Product Images */}
+      <div className="hidden lg:flex h-full">
+        {/* Left Side - Product Images (Fixed, no scroll) */}
         <div className="w-1/2 h-full flex flex-col p-6">
           <ProductImageGallery images={productData.images} productName={productData.name} />
         </div>
@@ -46,14 +46,14 @@ export default async function ProductPage({ params }: { params: { handle: string
           <div className="flex-shrink-0">
             <MinimalNavbar />
           </div>
-          <div className="flex-1 min-h-0 px-6 pb-6">
+          <div className="flex-1 overflow-y-auto px-6 pb-6">
             <ProductInfo product={productData} />
           </div>
         </div>
       </div>
 
       {/* Mobile Layout */}
-      <div className="lg:hidden h-screen flex flex-col">
+      <div className="lg:hidden h-full flex flex-col">
         {/* Navbar at top */}
         <div className="flex-shrink-0">
           <MinimalNavbar />
@@ -72,6 +72,6 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
