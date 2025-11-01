@@ -10,15 +10,18 @@ interface CategoryPageProps {
   searchParams: {
     type?: string // analog or digital
     subcategory?: string
+    offset?: string
   }
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const { category } = params
-  const { subcategory } = searchParams
+  const { subcategory, offset: offsetParam } = searchParams
 
+  const offset = offsetParam ? Number.parseInt(offsetParam, 10) : 20
   const categoryHandle = subcategory || category
-  const medusaProducts = await ProductService.getProductsByHandle(categoryHandle, 20, 0)
+
+  const medusaProducts = await ProductService.getProductsByHandle(categoryHandle, offset, 0)
   const products = ProductMapper.toProductCards(medusaProducts)
 
   return (
@@ -26,7 +29,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       <div className="hidden lg:block">
         <ProductFilters />
       </div>
-      <ProductGridWithPagination initialProducts={products} categoryHandle={categoryHandle} />
+      <ProductGridWithPagination initialProducts={products} categoryHandle={categoryHandle} initialOffset={offset} />
     </main>
   )
 }

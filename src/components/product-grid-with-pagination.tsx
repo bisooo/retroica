@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import ProductGrid from "./product-grid"
 import type { ProductCardData } from "@/lib/types/product.types"
 import { ProductService } from "@/lib/services/product.service"
@@ -9,32 +10,41 @@ import { ProductMapper } from "@/lib/mappers/product.mapper"
 interface ProductGridWithPaginationProps {
   initialProducts: ProductCardData[]
   categoryHandle: string
+  initialOffset: number
 }
 
-export default function ProductGridWithPagination({ initialProducts, categoryHandle }: ProductGridWithPaginationProps) {
+export default function ProductGridWithPagination({
+  initialProducts,
+  categoryHandle,
+  initialOffset,
+}: ProductGridWithPaginationProps) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [products, setProducts] = useState<ProductCardData[]>(initialProducts)
-  const [offset, setOffset] = useState(20) // Start at 20 since we already loaded first 20
-  const [hasMore, setHasMore] = useState(initialProducts.length === 20)
+  const [offset, setOffset] = useState(initialOffset)
+  const [hasMore, setHasMore] = useState(initialProducts.length % 20 === 0 && initialProducts.length > 0)
   const [loading, setLoading] = useState(false)
 
   const loadMore = async () => {
     if (loading || !hasMore) return
 
     setLoading(true)
-    console.log("Loading more products with offset:", offset)
+    const newOffset = offset + 20
 
     try {
       const medusaProducts = await ProductService.getProductsByHandle(categoryHandle, 20, offset)
       const newProducts = ProductMapper.toProductCards(medusaProducts)
-
-      console.log("Loaded products:", newProducts.length)
 
       if (newProducts.length < 20) {
         setHasMore(false)
       }
 
       setProducts((prev) => [...prev, ...newProducts])
-      setOffset((prev) => prev + 20)
+      setOffset(newOffset)
+
+      const params = new URLSearchParams(searchParams.toString())
+      params.set("offset", newOffset.toString())
+      router.push(`?${params.toString()}`, { scroll: false })
     } catch (error) {
       console.error("Error loading more products:", error)
       setHasMore(false)

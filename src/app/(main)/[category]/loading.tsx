@@ -8,10 +8,6 @@ export default function CategoryLoading() {
       </div>
 
       <div className="flex-1 p-6">
-        <div className="mb-6 text-center">
-          <p className="font-mono text-sm text-gray-600 dark:text-gray-400">LOADING ...</p>
-        </div>
-
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {[...Array(8)].map((_, i) => (
             <div key={i} className="border-2 border-black dark:border-white">
