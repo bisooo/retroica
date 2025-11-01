@@ -3,23 +3,32 @@
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Search, User, ShoppingCart, Menu } from "lucide-react"
+import { Search, ShoppingCart, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import ThemeToggle from "./theme-toggle"
 import MobileNavigationMenu from "./mobile-navigation-menu"
+import SearchModal from "./search-modal"
+import DesktopSearch from "./desktop-search"
 import { navItems } from "@/lib/navigation-data"
 
 export default function Header() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [desktopSearchActive, setDesktopSearchActive] = useState(false)
+  const [searchResults, setSearchResults] = useState<any[]>([])
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
       if (hoveredItem) {
         setHoveredItem(null)
+      }
+      if (desktopSearchActive) {
+        setDesktopSearchActive(false)
+        setSearchResults([])
       }
     }
 
@@ -36,7 +45,7 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("touchstart", handleTouchStart)
     }
-  }, [hoveredItem])
+  }, [hoveredItem, desktopSearchActive])
 
   const getVisualElement = (categoryName?: string) => {
     const category = navItems.find((item) => item.name === categoryName)
@@ -57,6 +66,8 @@ export default function Header() {
   }
 
   const handleMouseEnterNav = (itemName: string) => {
+    setDesktopSearchActive(false)
+    setSearchResults([])
     setHoveredItem(itemName)
   }
 
@@ -134,20 +145,21 @@ export default function Header() {
               </nav>
 
               {/* Right icons */}
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 relative">
+                <div className="hidden lg:block">
+                  <DesktopSearch
+                    isActive={desktopSearchActive}
+                    onActiveChange={setDesktopSearchActive}
+                    onResultsChange={setSearchResults}
+                  />
+                </div>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="lg:hidden text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                  onClick={() => setSearchOpen(true)}
                 >
                   <Search className="h-5 w-5" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
-                >
-                  <User className="h-5 w-5" />
                 </Button>
                 <Button
                   variant="ghost"
@@ -260,11 +272,55 @@ export default function Header() {
             </div>
           </div>
         )}
+
+        {/* Search Results Dropdown */}
+        {desktopSearchActive && searchResults.length > 0 && (
+          <div className="hidden lg:block absolute top-full left-0 w-full bg-white dark:bg-black border-b-2 border-black dark:border-white shadow-lg z-50 animate-fade-in">
+            <div className="container mx-auto px-4 border-t-2 border-black dark:border-white">
+              <div className="py-5">
+                <div className="grid grid-cols-6 gap-4">
+                  {searchResults.map((product, index) => (
+                    <Link
+                      key={product.id}
+                      href={`/product/${product.handle}`}
+                      onClick={() => {
+                        setDesktopSearchActive(false)
+                        setSearchResults([])
+                      }}
+                      className="border-2 border-black dark:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors animate-fade-in-sequence"
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <div className="relative aspect-square border-b-2 border-black dark:border-white">
+                        <Image
+                          src={product.thumbnail || "/placeholder.svg"}
+                          alt={product.title}
+                          fill
+                          className="object-cover"
+                          sizes="200px"
+                        />
+                      </div>
+                      <div className="p-3">
+                        <div className="font-mono text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
+                          {product.title}
+                        </div>
+                        <div className="font-mono text-sm text-gray-600 dark:text-gray-400 mt-2">
+                          €{product.price.toFixed(2)}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <MobileNavigationMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
         <ThemeToggle variant="mobile" />
       </MobileNavigationMenu>
+
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )
 }

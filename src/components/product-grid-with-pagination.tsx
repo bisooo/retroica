@@ -1,22 +1,24 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import ProductGrid from "./product-grid"
-import type { ProductCardData } from "@/lib/types/product.types"
+import type { MedusaProduct, ProductCardData } from "@/lib/types/product.types"
 import { ProductService } from "@/lib/services/product.service"
 import { ProductMapper } from "@/lib/mappers/product.mapper"
 
 interface ProductGridWithPaginationProps {
   initialProducts: ProductCardData[]
-  categoryHandle: string
-  initialOffset: number
+  categoryHandle?: string
+  searchQuery?: string
+  initialOffset?: number
 }
 
 export default function ProductGridWithPagination({
   initialProducts,
   categoryHandle,
-  initialOffset,
+  searchQuery,
+  initialOffset = 0,
 }: ProductGridWithPaginationProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -25,6 +27,12 @@ export default function ProductGridWithPagination({
   const [hasMore, setHasMore] = useState(initialProducts.length % 20 === 0 && initialProducts.length > 0)
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    setProducts(initialProducts)
+    setOffset(initialOffset)
+    setHasMore(initialProducts.length % 20 === 0 && initialProducts.length > 0)
+  }, [searchQuery, initialProducts, initialOffset])
+
   const loadMore = async () => {
     if (loading || !hasMore) return
 
@@ -32,7 +40,15 @@ export default function ProductGridWithPagination({
     const newOffset = offset + 20
 
     try {
-      const medusaProducts = await ProductService.getProductsByHandle(categoryHandle, 20, offset)
+      let medusaProducts: MedusaProduct[]
+      if (searchQuery) {
+        medusaProducts = await ProductService.searchProducts(searchQuery, 20, newOffset)
+      } else if (categoryHandle) {
+        medusaProducts = await ProductService.getProductsByHandle(categoryHandle, 20, newOffset)
+      } else {
+        medusaProducts = []
+      }
+
       const newProducts = ProductMapper.toProductCards(medusaProducts)
 
       if (newProducts.length < 20) {

@@ -40,22 +40,6 @@ export default function ProductImageGallery({ images, productName }: ProductImag
             {images.map((image, index) => (
               <CarouselItem key={index} className="h-full">
                 <div className="relative aspect-square border-2 border-black dark:border-white bg-gray-50 dark:bg-gray-800 overflow-hidden">
-                  {/* Heart icon for wishlist */}
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-4 right-4 z-10 bg-white dark:bg-black border-2 border-black dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800 w-10 h-10 text-black dark:text-white"
-                  >
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      />
-                    </svg>
-                  </Button>
-
                   {/* Product Image */}
                   <Image
                     src={image || "/images/film-can.avif"}

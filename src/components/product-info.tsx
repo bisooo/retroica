@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MetadataService } from "@/lib/services/metadata.service"
+import { getCurrencySymbol } from "@/lib/utils/currency"
 
 interface ProductInfoProps {
   product: {
@@ -16,16 +17,6 @@ interface ProductInfoProps {
     stockStatus: string
     rawMetadata?: Record<string, unknown>
   }
-}
-
-function getCurrencySymbol(currency: string): string {
-  const symbols: Record<string, string> = {
-    USD: "$",
-    EUR: "€",
-    GBP: "£",
-    CZK: "Kč",
-  }
-  return symbols[currency.toUpperCase()] || currency
 }
 
 export default function ProductInfo({ product }: ProductInfoProps) {

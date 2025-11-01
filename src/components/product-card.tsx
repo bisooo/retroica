@@ -1,7 +1,7 @@
-import { Heart, Star } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Star } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { getCurrencySymbol } from "@/lib/utils/currency"
 
 interface ProductCardProps {
   id: string
@@ -17,16 +17,6 @@ function parseCondition(condition?: string): number {
   if (!condition) return 0
   const match = condition.match(/(\d+)/)
   return match ? Number.parseInt(match[1], 10) : 0
-}
-
-function getCurrencySymbol(currency: string): string {
-  const symbols: Record<string, string> = {
-    USD: "$",
-    EUR: "€",
-    GBP: "£",
-    CZK: "Kč",
-  }
-  return symbols[currency] || currency
 }
 
 export default function ProductCard({ id, handle, name, price, currency, image, condition }: ProductCardProps) {
@@ -49,15 +39,6 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
             blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2YzZjRmNiIvPjwvc3ZnPg=="
           />
         </Link>
-
-        {/* Wishlist Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-2 right-2 bg-white dark:bg-black border border-black dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800 text-black dark:text-white"
-        >
-          <Heart className="h-4 w-4" />
-        </Button>
       </div>
 
       <div className="p-4 flex flex-col">

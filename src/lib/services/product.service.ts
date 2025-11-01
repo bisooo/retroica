@@ -241,4 +241,27 @@ export class ProductService {
       return mockProducts.find((p) => p.handle === handle) || mockProducts[0]
     }
   }
+
+  static async searchProducts(query: string, limit = 20, offset = 0): Promise<MedusaProduct[]> {
+    try {
+      const regionId = await this.getRegionId()
+      if (!regionId) {
+        console.error("Cannot search products: region not found")
+        return []
+      }
+
+      const response = await sdk.store.product.list({
+        q: query,
+        region_id: regionId,
+        fields: PRODUCT_FIELDS,
+        limit,
+        offset,
+      })
+
+      return response.products as MedusaProduct[]
+    } catch (error) {
+      console.error(`Error searching products with query "${query}":`, error)
+      return []
+    }
+  }
 }
