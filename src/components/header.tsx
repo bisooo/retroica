@@ -68,6 +68,10 @@ export default function Header() {
     setHoveredItem(null)
   }
 
+  const handleLinkClick = () => {
+    setHoveredItem(null)
+  }
+
   return (
     <>
       <div className="sticky top-0 z-50 bg-white dark:bg-black">
@@ -180,6 +184,7 @@ export default function Header() {
                           <Link
                             key={sub.name}
                             href={sub.href}
+                            onClick={handleLinkClick}
                             className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
                             style={{ animationDelay: `${index * 100}ms` }}
                           >
@@ -194,6 +199,7 @@ export default function Header() {
                       <div>
                         <Link
                           href={`${navItems.find((item) => item.name === hoveredItem)?.href}-analog`}
+                          onClick={handleLinkClick}
                           className="font-mono text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
                           style={{ animationDelay: "0ms" }}
                         >
@@ -205,6 +211,7 @@ export default function Header() {
                             <Link
                               key={sub.name}
                               href={sub.href}
+                              onClick={handleLinkClick}
                               className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
                               style={{ animationDelay: `${(index + 1) * 100}ms` }}
                             >
@@ -217,6 +224,7 @@ export default function Header() {
                       <div>
                         <Link
                           href={`${navItems.find((item) => item.name === hoveredItem)?.href}-digital`}
+                          onClick={handleLinkClick}
                           className="font-mono text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
                           style={{ animationDelay: "0ms" }}
                         >
@@ -228,6 +236,7 @@ export default function Header() {
                             <Link
                               key={sub.name}
                               href={sub.href}
+                              onClick={handleLinkClick}
                               className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
                               style={{ animationDelay: `${(index + 1) * 100}ms` }}
                             >

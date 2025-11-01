@@ -1,20 +1,17 @@
+import ProductFilters from "@/components/product-filters"
+
 export default function CategoryLoading() {
   return (
     <main className="flex min-h-screen">
-      {/* Filters Skeleton */}
-      <div className="hidden lg:block w-64 border-r-2 border-black dark:border-white p-6">
-        <div className="space-y-6">
-          <div className="h-6 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
-          <div className="space-y-3">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-4 bg-gray-200 dark:bg-gray-700 animate-pulse rounded" />
-            ))}
-          </div>
-        </div>
+      <div className="hidden lg:block">
+        <ProductFilters />
       </div>
 
-      {/* Product Grid Skeleton */}
       <div className="flex-1 p-6">
+        <div className="mb-6 text-center">
+          <p className="font-mono text-sm text-gray-600 dark:text-gray-400">LOADING ...</p>
+        </div>
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {[...Array(8)].map((_, i) => (
             <div key={i} className="border-2 border-black dark:border-white">
