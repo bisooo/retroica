@@ -1,5 +1,5 @@
 import MinimalNavbar from "@/components/minimal-navbar"
-import { Star } from "lucide-react"
+import { Star, ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function ProductLoading() {
@@ -9,7 +9,55 @@ export default function ProductLoading() {
       <div className="hidden lg:flex h-screen">
         {/* Left Side - Image Skeleton */}
         <div className="w-1/2 h-full flex flex-col p-6">
-          <div className="w-full aspect-square bg-gray-200 dark:bg-gray-700 animate-pulse border-2 border-black dark:border-white" />
+          <div className="flex-shrink-0 mb-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              disabled
+              className="border-2 border-gray-300 dark:border-gray-600 w-10 h-10 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </Button>
+          </div>
+
+          <div className="flex-1 min-h-0">
+            <div className="relative w-full aspect-square border-2 border-black dark:border-white bg-gray-200 dark:bg-gray-700 animate-pulse">
+              {/* Heart/Wishlist Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled
+                className="absolute top-4 right-4 z-10 bg-white dark:bg-black border-2 border-gray-300 dark:border-gray-600 w-10 h-10 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </Button>
+
+              {/* Carousel Navigation Buttons */}
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/80 border-2 border-gray-300 dark:border-gray-600 w-10 h-10 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/80 border-2 border-gray-300 dark:border-gray-600 w-10 h-10 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+              >
+                <ChevronLeft className="h-4 w-4 rotate-180" />
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Right Side - Navbar + Product Info */}
@@ -120,7 +168,53 @@ export default function ProductLoading() {
         <div className="flex-1 overflow-y-auto">
           {/* Product Images */}
           <div className="px-6 py-4">
-            <div className="w-full aspect-square bg-gray-200 dark:bg-gray-700 animate-pulse border-2 border-black dark:border-white" />
+            <div className="mb-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled
+                className="border-2 border-gray-300 dark:border-gray-600 w-10 h-10 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+            </div>
+
+            <div className="relative w-full aspect-square border-2 border-black dark:border-white bg-gray-200 dark:bg-gray-700 animate-pulse">
+              {/* Heart/Wishlist Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled
+                className="absolute top-4 right-4 z-10 bg-white dark:bg-black border-2 border-gray-300 dark:border-gray-600 w-10 h-10 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </Button>
+
+              {/* Carousel Navigation Buttons */}
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/80 border-2 border-gray-300 dark:border-gray-600 w-10 h-10 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/80 border-2 border-gray-300 dark:border-gray-600 w-10 h-10 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+              >
+                <ChevronLeft className="h-4 w-4 rotate-180" />
+              </Button>
+            </div>
           </div>
 
           {/* Product Info */}

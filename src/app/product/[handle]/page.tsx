@@ -1,7 +1,6 @@
 import MinimalNavbar from "@/components/minimal-navbar"
 import ProductImageGallery from "@/components/product-image-gallery"
 import ProductInfo from "@/components/product-info"
-import { ScrollLock } from "@/components/scroll-lock"
 import { ProductService } from "@/lib/services/product.service"
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
@@ -34,49 +33,45 @@ export default async function ProductPage({ params }: { params: { handle: string
   }
 
   return (
-    <>
-      <ScrollLock />
-
-      <div className="fixed inset-0 overflow-hidden overscroll-none">
-        {/* Desktop Layout */}
-        <div className="hidden lg:flex h-full">
-          {/* Left Side - Product Images (Fixed, no scroll) */}
-          <div className="w-1/2 h-full flex flex-col p-6 overflow-hidden touch-none">
-            <ProductImageGallery images={productData.images} productName={productData.name} />
-          </div>
-
-          {/* Right Side - Navbar + Product Info */}
-          <div className="w-1/2 h-full border-l-2 border-black flex flex-col">
-            <div className="flex-shrink-0">
-              <MinimalNavbar />
-            </div>
-            <div className="flex-1 overflow-y-auto overscroll-contain px-6 pb-6">
-              <ProductInfo product={productData} />
-            </div>
-          </div>
+    <div className="h-screen overflow-hidden">
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex h-full">
+        {/* Left Side - Product Images (Fixed, no scroll) */}
+        <div className="w-1/2 h-full flex flex-col p-6 overflow-hidden">
+          <ProductImageGallery images={productData.images} productName={productData.name} />
         </div>
 
-        {/* Mobile Layout */}
-        <div className="lg:hidden h-full flex flex-col">
-          {/* Navbar at top */}
+        {/* Right Side - Navbar + Product Info */}
+        <div className="w-1/2 h-full border-l-2 border-black flex flex-col">
           <div className="flex-shrink-0">
             <MinimalNavbar />
           </div>
-
-          {/* Scrollable Content */}
-          <div className="flex-1 overflow-y-auto overscroll-contain">
-            {/* Product Images */}
-            <div className="px-6 py-4">
-              <ProductImageGallery images={productData.images} productName={productData.name} />
-            </div>
-
-            {/* Product Info */}
-            <div className="px-6 pb-6">
-              <ProductInfo product={productData} />
-            </div>
+          <div className="flex-1 overflow-y-auto overscroll-contain px-6 pb-6">
+            <ProductInfo product={productData} />
           </div>
         </div>
       </div>
-    </>
+
+      {/* Mobile Layout */}
+      <div className="lg:hidden h-full flex flex-col">
+        {/* Navbar at top */}
+        <div className="flex-shrink-0">
+          <MinimalNavbar />
+        </div>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto overscroll-contain">
+          {/* Product Images */}
+          <div className="px-6 py-4">
+            <ProductImageGallery images={productData.images} productName={productData.name} />
+          </div>
+
+          {/* Product Info */}
+          <div className="px-6 pb-6">
+            <ProductInfo product={productData} />
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
