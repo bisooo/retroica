@@ -5,5 +5,5 @@ export default function ProductLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <div className="h-screen overflow-hidden bg-white dark:bg-black">{children}</div>
+  return <div className="h-dvh overflow-hidden bg-white dark:bg-black">{children}</div>
 }
