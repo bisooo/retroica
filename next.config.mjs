@@ -12,7 +12,8 @@ const nextConfig = {
         hostname: 'i.etsystatic.com',
       },
     ],
-    unoptimized: true,
+    // This will automatically optimize, resize, and serve images in modern formats (WebP, AVIF)
+    // Cost optimization: Images are cached and only optimized once per size variant
   },
 }
 

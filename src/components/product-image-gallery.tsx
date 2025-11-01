@@ -1,6 +1,4 @@
 "use client"
-
-import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -66,6 +64,9 @@ export default function ProductImageGallery({ images, productName }: ProductImag
                     className="object-cover transition-opacity duration-300"
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority={index === 0}
+                    loading={index === 0 ? undefined : "lazy"}
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iI2YzZjRmNiIvPjwvc3ZnPg=="
                   />
                 </div>
               </CarouselItem>
