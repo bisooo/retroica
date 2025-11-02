@@ -87,7 +87,7 @@ export default function DesktopSearch({ isActive, onActiveChange, onResultsChang
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="w-48 border-none focus-visible:ring-0 focus-visible:ring-offset-0 font-mono text-sm h-7 px-0"
+            className="w-48 border-none focus-visible:ring-0 focus-visible:ring-offset-0 font-helvicta text-sm h-7 px-0"
           />
           <Button
             variant="ghost"

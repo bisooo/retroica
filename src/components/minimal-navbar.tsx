@@ -30,7 +30,7 @@ export default function MinimalNavbar() {
             </Button>
 
             <Link href="/">
-              <h1 className="font-mono text-lg font-bold text-black dark:text-white">RETRO-ICA</h1>
+              <h1 className="font-helvicta text-lg font-bold text-black dark:text-white">RETRO-ICA</h1>
             </Link>
 
             <div className="flex items-center space-x-4">
@@ -91,10 +91,10 @@ export default function MinimalNavbar() {
                         />
                       </div>
                       <div className="p-3">
-                        <div className="font-mono text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
+                        <div className="font-helvicta text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
                           {product.title}
                         </div>
-                        <div className="font-mono text-sm text-gray-600 dark:text-gray-400 mt-2">
+                        <div className="font-business text-sm text-gray-600 dark:text-gray-400 mt-2">
                           {product.currencySymbol}
                           {product.price.toFixed(2)}
                         </div>

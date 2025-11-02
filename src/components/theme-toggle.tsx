@@ -13,7 +13,7 @@ export default function ThemeToggle({ variant = "desktop" }: ThemeToggleProps) {
     return (
       <button
         onClick={toggleTheme}
-        className={`w-full py-3 px-4 font-mono text-sm border-2 transition-all ${
+        className={`w-full py-3 px-4 font-helvicta text-sm border-2 transition-all ${
           theme === "dark"
             ? "bg-white text-black border-white hover:bg-gray-100"
             : "bg-black text-white border-black hover:bg-gray-800"

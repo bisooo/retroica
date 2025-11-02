@@ -85,7 +85,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="pl-10 border-2 border-black dark:border-white font-mono"
+                className="pl-10 border-2 border-black dark:border-white font-helvicta"
               />
             </div>
             <Button
@@ -101,9 +101,9 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
         <div className="container mx-auto px-4 pb-4">
           {isSearching ? (
-            <div className="text-center py-8 font-mono text-sm text-gray-500">Searching...</div>
+            <div className="text-center py-8 font-helvicta text-sm text-gray-500">SEARCHING...</div>
           ) : searchResults.length === 0 && searchQuery.trim().length >= 2 ? (
-            <div className="text-center py-8 font-mono text-sm text-gray-500">No products found</div>
+            <div className="text-center py-8 font-helvicta text-sm text-gray-500">NO PRODUCTS FOUND.</div>
           ) : searchResults.length > 0 ? (
             <div className="overflow-x-auto -mx-4 px-4">
               <div className="flex gap-4 pb-2" style={{ width: "max-content" }}>
@@ -124,10 +124,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       />
                     </div>
                     <div className="p-3">
-                      <div className="font-mono text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
+                      <div className="font-helvicta text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
                         {product.title}
                       </div>
-                      <div className="font-mono text-sm text-gray-600 dark:text-gray-400 mt-2">
+                      <div className="font-business text-sm text-gray-600 dark:text-gray-400 mt-2">
                         €{(product.variants?.[0]?.calculated_price?.calculated_amount || 0).toFixed(2)}
                       </div>
                     </div>

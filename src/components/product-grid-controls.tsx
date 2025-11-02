@@ -40,14 +40,14 @@ export default function ProductGridControls({
               <List className="h-4 w-4" />
             </Button>
           </div>
-          <span className="font-mono text-sm text-black dark:text-white">{productCount} PRODUCTS</span>
+          <span className="font-business text-sm text-black dark:text-white">{productCount} PRODUCTS</span>
         </div>
 
         {/* Bottom Row - Filters and Sort */}
         <div className="flex items-center justify-between">
           <Button
             variant="outline"
-            className="font-mono text-sm border-black dark:border-white flex-1 mr-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 bg-transparent"
+            className="font-helvicta text-sm border-black dark:border-white flex-1 mr-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 bg-transparent"
             onClick={onFiltersOpen}
           >
             <Filter className="h-4 w-4 mr-2" />
@@ -55,7 +55,7 @@ export default function ProductGridControls({
           </Button>
           <Button
             variant="outline"
-            className="font-mono text-sm border-black dark:border-white flex-1 ml-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 bg-transparent"
+            className="font-helvicta text-sm border-black dark:border-white flex-1 ml-2 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 bg-transparent"
           >
             SORT BY PRICE
             <ChevronDown className="h-4 w-4 ml-2" />
@@ -85,15 +85,15 @@ export default function ProductGridControls({
               <List className="h-4 w-4" />
             </Button>
           </div>
-          <span className="font-mono text-sm text-black dark:text-white">{productCount} PRODUCTS</span>
+          <span className="font-business text-sm text-black dark:text-white">{productCount} PRODUCTS</span>
         </div>
 
         {/* Right side - Sort dropdown */}
         <div className="flex items-center space-x-2">
-          <span className="font-mono text-sm text-black dark:text-white">SORT BY</span>
+          <span className="font-helvicta text-sm text-black dark:text-white">SORT BY</span>
           <Button
             variant="outline"
-            className="font-mono text-sm border-black dark:border-white text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 bg-transparent"
+            className="font-helvicta text-sm border-black dark:border-white text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 bg-transparent"
           >
             PRICE
             <ChevronDown className="h-4 w-4 ml-2" />

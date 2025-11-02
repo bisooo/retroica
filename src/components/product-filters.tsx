@@ -60,7 +60,7 @@ export default function ProductFilters() {
             onClick={() => toggleSection("brand")}
             className="flex items-center justify-between w-full mb-4 text-left"
           >
-            <h3 className="font-mono text-sm font-bold text-black dark:text-white">BRAND</h3>
+            <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">BRAND</h3>
             {expandedSections.brand ? (
               <ChevronUp className="h-4 w-4 text-black dark:text-white" />
             ) : (
@@ -74,7 +74,7 @@ export default function ProductFilters() {
                   <Checkbox id={brand.name.toLowerCase()} />
                   <label
                     htmlFor={brand.name.toLowerCase()}
-                    className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                    className="font-business text-xs cursor-pointer text-black dark:text-white"
                   >
                     {brand.name} ({brand.count})
                   </label>
@@ -90,7 +90,7 @@ export default function ProductFilters() {
             onClick={() => toggleSection("price")}
             className="flex items-center justify-between w-full mb-4 text-left"
           >
-            <h3 className="font-mono text-sm font-bold text-black dark:text-white">PRICE</h3>
+            <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">PRICE</h3>
             {expandedSections.price ? (
               <ChevronUp className="h-4 w-4 text-black dark:text-white" />
             ) : (
@@ -140,7 +140,7 @@ export default function ProductFilters() {
               </div>
 
               {/* Price Display */}
-              <div className="flex justify-between font-mono text-xs text-black dark:text-white">
+              <div className="flex justify-between font-business text-xs text-black dark:text-white">
                 <span>${priceRange[0]}</span>
                 <span>${priceRange[1]}</span>
               </div>
@@ -154,7 +154,7 @@ export default function ProductFilters() {
             onClick={() => toggleSection("format")}
             className="flex items-center justify-between w-full mb-4 text-left"
           >
-            <h3 className="font-mono text-sm font-bold text-black dark:text-white">FORMAT</h3>
+            <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">FORMAT</h3>
             {expandedSections.format ? (
               <ChevronUp className="h-4 w-4 text-black dark:text-white" />
             ) : (
@@ -168,7 +168,7 @@ export default function ProductFilters() {
                   <Checkbox id={format.name.toLowerCase()} />
                   <label
                     htmlFor={format.name.toLowerCase()}
-                    className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                    className="font-business text-xs cursor-pointer text-black dark:text-white"
                   >
                     {format.name} ({format.count})
                   </label>
@@ -184,7 +184,7 @@ export default function ProductFilters() {
             onClick={() => toggleSection("iso")}
             className="flex items-center justify-between w-full mb-4 text-left"
           >
-            <h3 className="font-mono text-sm font-bold text-black dark:text-white">ISO</h3>
+            <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">ISO</h3>
             {expandedSections.iso ? (
               <ChevronUp className="h-4 w-4 text-black dark:text-white" />
             ) : (
@@ -198,7 +198,7 @@ export default function ProductFilters() {
                   <Checkbox id={iso.name.toLowerCase()} />
                   <label
                     htmlFor={iso.name.toLowerCase()}
-                    className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                    className="font-business text-xs cursor-pointer text-black dark:text-white"
                   >
                     {iso.name} ({iso.count})
                   </label>

@@ -23,7 +23,7 @@ export default function CategoryNavigation() {
               <Link
                 key={category.name}
                 href={category.href}
-                className={`py-4 font-mono text-sm whitespace-nowrap transition-all ${
+                className={`py-4 font-helvicta text-sm whitespace-nowrap transition-all ${
                   isActive ? "border-b-2 border-black font-bold text-black" : "hover:text-gray-600 text-gray-700"
                 }`}
               >

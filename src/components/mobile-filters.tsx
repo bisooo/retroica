@@ -68,7 +68,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
       <div className="absolute right-0 top-0 h-full w-80 bg-white dark:bg-black border-l-2 border-black dark:border-white overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b-2 border-black dark:border-white">
-          <h2 className="font-mono text-lg font-bold text-black dark:text-white">FILTERS</h2>
+          <h2 className="font-helvicta text-lg font-bold text-black dark:text-white">FILTERS</h2>
           <Button
             variant="ghost"
             size="icon"
@@ -87,7 +87,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
               onClick={() => toggleSection("brand")}
               className="flex items-center justify-between w-full mb-4 text-left"
             >
-              <h3 className="font-mono text-sm font-bold text-black dark:text-white">BRAND</h3>
+              <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">BRAND</h3>
               {expandedSections.brand ? (
                 <ChevronUp className="h-4 w-4 text-black dark:text-white" />
               ) : (
@@ -101,7 +101,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
                     <Checkbox id={`mobile-${brand.name.toLowerCase()}`} />
                     <label
                       htmlFor={`mobile-${brand.name.toLowerCase()}`}
-                      className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                      className="font-business text-xs cursor-pointer text-black dark:text-white"
                     >
                       {brand.name} ({brand.count})
                     </label>
@@ -117,7 +117,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
               onClick={() => toggleSection("price")}
               className="flex items-center justify-between w-full mb-4 text-left"
             >
-              <h3 className="font-mono text-sm font-bold text-black dark:text-white">PRICE</h3>
+              <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">PRICE</h3>
               {expandedSections.price ? (
                 <ChevronUp className="h-4 w-4 text-black dark:text-white" />
               ) : (
@@ -167,7 +167,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
                 </div>
 
                 {/* Price Display */}
-                <div className="flex justify-between font-mono text-xs text-black dark:text-white">
+                <div className="flex justify-between font-business text-xs text-black dark:text-white">
                   <span>${priceRange[0]}</span>
                   <span>${priceRange[1]}</span>
                 </div>
@@ -181,7 +181,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
               onClick={() => toggleSection("format")}
               className="flex items-center justify-between w-full mb-4 text-left"
             >
-              <h3 className="font-mono text-sm font-bold text-black dark:text-white">FORMAT</h3>
+              <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">FORMAT</h3>
               {expandedSections.format ? (
                 <ChevronUp className="h-4 w-4 text-black dark:text-white" />
               ) : (
@@ -195,7 +195,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
                     <Checkbox id={`mobile-${format.name.toLowerCase()}`} />
                     <label
                       htmlFor={`mobile-${format.name.toLowerCase()}`}
-                      className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                      className="font-business text-xs cursor-pointer text-black dark:text-white"
                     >
                       {format.name} ({format.count})
                     </label>
@@ -211,7 +211,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
               onClick={() => toggleSection("iso")}
               className="flex items-center justify-between w-full mb-4 text-left"
             >
-              <h3 className="font-mono text-sm font-bold text-black dark:text-white">ISO</h3>
+              <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">ISO</h3>
               {expandedSections.iso ? (
                 <ChevronUp className="h-4 w-4 text-black dark:text-white" />
               ) : (
@@ -225,7 +225,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
                     <Checkbox id={`mobile-${iso.name.toLowerCase()}`} />
                     <label
                       htmlFor={`mobile-${iso.name.toLowerCase()}`}
-                      className="font-mono text-xs cursor-pointer text-black dark:text-white"
+                      className="font-business text-xs cursor-pointer text-black dark:text-white"
                     >
                       {iso.name} ({iso.count})
                     </label>
@@ -236,7 +236,7 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
           </div>
 
           {/* Apply Button */}
-          <Button className="w-full font-mono bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-100">
+          <Button className="w-full font-helvicta bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-100">
             APPLY FILTERS
           </Button>
         </div>

@@ -78,7 +78,7 @@ export default function ProductGridWithPagination({
           <button
             onClick={loadMore}
             disabled={loading}
-            className="px-8 py-3 font-mono text-sm font-medium border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-3 font-helvicta text-sm font-medium border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "LOADING..." : "[LOAD MORE]"}
           </button>

@@ -46,7 +46,7 @@ export default function PosterProducts({ items, className = "" }: PosterProducts
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
-                <h3 className="font-mono text-sm font-bold text-black dark:text-white group-hover:underline">
+                <h3 className="font-helvicta text-sm font-bold text-black dark:text-white group-hover:underline">
                   {displayName}
                 </h3>
               </Link>
@@ -74,7 +74,7 @@ export default function PosterProducts({ items, className = "" }: PosterProducts
                       sizes="288px"
                     />
                   </div>
-                  <h3 className="font-mono text-sm font-bold text-black dark:text-white group-hover:underline">
+                  <h3 className="font-helvicta text-sm font-bold text-black dark:text-white group-hover:underline">
                     {displayName}
                   </h3>
                 </Link>

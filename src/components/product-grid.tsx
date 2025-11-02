@@ -25,7 +25,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
 
       {products.length === 0 ? (
         <div className="text-center py-12">
-          <p className="font-mono text-sm text-black dark:text-white">NO PRODUCTS YET FAM.</p>
+          <p className="font-business text-sm text-black dark:text-white">NO PRODUCTS YET FAM.</p>
         </div>
       ) : (
         <div

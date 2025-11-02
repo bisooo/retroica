@@ -24,7 +24,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
     <Link
       key={sub.name}
       href={sub.href}
-      className={`block py-2 px-4 font-mono text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top ${isIndented ? "ml-4" : ""}`}
+      className={`block py-2 px-4 font-business text-sm border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top ${isIndented ? "ml-4" : ""}`}
       style={{ animationDelay: `${index * 80}ms` }}
       onClick={onClose}
     >
@@ -51,7 +51,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
               <ChevronLeft className="h-5 w-5" />
             </Button>
           )}
-          <h2 className="font-mono text-lg font-bold flex-1 text-black dark:text-white">
+          <h2 className="font-helvicta text-lg font-bold flex-1 text-black dark:text-white">
             {activeCategory || "CATEGORIES"}
           </h2>
           <Button
@@ -72,7 +72,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
                 <button
                   key={item.name}
                   onClick={() => setActiveCategory(item.name)}
-                  className="block w-full text-left py-3 px-4 font-mono text-sm border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top"
+                  className="block w-full text-left py-3 px-4 font-helvicta text-sm border-2 border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all animate-slide-in-top"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {item.name}
@@ -84,7 +84,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
               <div className="space-y-3 flex-shrink-0">
                 <Link
                   href={currentCategory?.href || "#"}
-                  className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 transition-all animate-slide-in-top font-bold"
+                  className="block py-2 px-4 font-helvicta text-sm border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 transition-all animate-slide-in-top font-bold"
                   onClick={onClose}
                 >
                   ALL {activeCategory}
@@ -96,7 +96,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
                   <>
                     <Link
                       href={`${currentCategory?.href}-analog`}
-                      className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold"
+                      className="block py-2 px-4 font-helvicta text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold"
                       style={{ animationDelay: "80ms" }}
                       onClick={onClose}
                     >
@@ -106,7 +106,7 @@ export default function MobileNavigationMenu({ isOpen, onClose, children }: Mobi
 
                     <Link
                       href={`${currentCategory?.href}-digital`}
-                      className="block py-2 px-4 font-mono text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold mt-4"
+                      className="block py-2 px-4 font-helvicta text-sm border-2 border-black dark:border-white bg-gray-100 dark:bg-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-all animate-slide-in-top font-bold mt-4"
                       style={{ animationDelay: `${((currentCategory?.analog?.length || 0) + 3) * 80}ms` }}
                       onClick={onClose}
                     >

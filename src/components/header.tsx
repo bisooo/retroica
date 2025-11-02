@@ -93,7 +93,7 @@ export default function Header() {
               className="border-b border-black dark:border-white py-2 overflow-hidden relative"
               onMouseEnter={handleMessageAreaEnter}
             >
-              <div className="animate-scroll-left font-mono text-sm whitespace-nowrap text-black dark:text-white">
+              <div className="animate-scroll-left font-helvicta text-sm whitespace-nowrap text-black dark:text-white">
                 "MESSAGE" • WELCOME TO RETRO-ICA • FREE SHIPPING ON ORDERS OVER $100 • AUTHENTIC VINTAGE CAMERAS •
                 "MESSAGE"
               </div>
@@ -114,7 +114,7 @@ export default function Header() {
               <div className="flex items-center space-x-4 flex-1 lg:flex-none">
                 <Link href="/">
                   <div className="text-center lg:text-left">
-                    <h1 className="font-mono text-xl font-bold text-black dark:text-white">RETRO-ICA</h1>
+                    <h1 className="font-helvicta text-xl font-bold text-black dark:text-white">RETRO-ICA</h1>
                   </div>
                 </Link>
                 {/* Desktop Theme Toggle */}
@@ -124,7 +124,7 @@ export default function Header() {
               </div>
 
               {/* Desktop Navigation */}
-              <nav className="hidden lg:flex items-center space-x-8 font-mono text-sm relative">
+              <nav className="hidden lg:flex items-center space-x-8 font-helvicta text-sm relative">
                 {navItems.map((item) => {
                   const isActive = pathname === item.href
                   return (
@@ -197,7 +197,7 @@ export default function Header() {
                             key={sub.name}
                             href={sub.href}
                             onClick={handleLinkClick}
-                            className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
+                            className="block font-helvicta text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
                             style={{ animationDelay: `${index * 100}ms` }}
                           >
                             {sub.name}
@@ -212,7 +212,7 @@ export default function Header() {
                         <Link
                           href={`${navItems.find((item) => item.name === hoveredItem)?.href}-analog`}
                           onClick={handleLinkClick}
-                          className="font-mono text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
+                          className="font-helvicta text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
                           style={{ animationDelay: "0ms" }}
                         >
                           ANALOG
@@ -224,7 +224,7 @@ export default function Header() {
                               key={sub.name}
                               href={sub.href}
                               onClick={handleLinkClick}
-                              className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
+                              className="block font-business text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
                               style={{ animationDelay: `${(index + 1) * 100}ms` }}
                             >
                               {sub.name}
@@ -237,7 +237,7 @@ export default function Header() {
                         <Link
                           href={`${navItems.find((item) => item.name === hoveredItem)?.href}-digital`}
                           onClick={handleLinkClick}
-                          className="font-mono text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
+                          className="font-helvicta text-sm font-bold mb-3 text-black dark:text-white border-b border-black dark:border-white pb-1 block hover:underline animate-fade-in-sequence"
                           style={{ animationDelay: "0ms" }}
                         >
                           DIGITAL
@@ -249,7 +249,7 @@ export default function Header() {
                               key={sub.name}
                               href={sub.href}
                               onClick={handleLinkClick}
-                              className="block font-mono text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
+                              className="block font-business text-sm hover:underline text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all animate-fade-in-sequence py-1"
                               style={{ animationDelay: `${(index + 1) * 100}ms` }}
                             >
                               {sub.name}
@@ -300,10 +300,10 @@ export default function Header() {
                         />
                       </div>
                       <div className="p-3">
-                        <div className="font-mono text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
+                        <div className="font-helvicta text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
                           {product.title}
                         </div>
-                        <div className="font-mono text-sm text-gray-600 dark:text-gray-400 mt-2">
+                        <div className="font-business text-sm text-gray-600 dark:text-gray-400 mt-2">
                           €{product.price.toFixed(2)}
                         </div>
                       </div>

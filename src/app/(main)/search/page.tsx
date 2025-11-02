@@ -20,8 +20,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </div>
         <div className="flex-1 p-8">
           <div className="text-center">
-            <h1 className="font-mono text-2xl font-bold mb-4">SEARCH PRODUCTS</h1>
-            <p className="font-mono text-gray-600 dark:text-gray-400">Enter a search query to find products</p>
+            <h1 className="font-helvicta text-2xl font-bold mb-4">SEARCH PRODUCTS</h1>
+            <p className="font-business text-gray-600 dark:text-gray-400">Enter a search query to find products</p>
           </div>
         </div>
       </main>

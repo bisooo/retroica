@@ -74,7 +74,7 @@ export default function CustomerReviews() {
               <Star key={i} className="h-6 w-6 fill-black dark:fill-white" />
             ))}
           </div>
-          <span className="ml-2 font-mono text-sm text-black dark:text-white">4.7/5.0 REVIEWS</span>
+          <span className="ml-2 font-business text-sm text-black dark:text-white">21 REVIEWS</span>
         </div>
 
         {/* Desktop Grid */}
@@ -97,8 +97,8 @@ export default function CustomerReviews() {
 
               {/* Review Content - Fixed Height */}
               <div className="p-4 border-b-2 border-black dark:border-white flex-1 flex flex-col">
-                <h4 className="font-mono text-xs font-bold mb-2 text-black dark:text-white">{review.customerName}</h4>
-                <p className="font-mono text-xs mb-3 leading-relaxed flex-1 text-black dark:text-white">
+                <h4 className="font-helvicta text-xs font-bold mb-2 text-black dark:text-white">{review.customerName}</h4>
+                <p className="font-business text-xs mb-3 leading-relaxed flex-1 text-black dark:text-white">
                   {review.reviewText}
                 </p>
 
@@ -112,7 +112,7 @@ export default function CustomerReviews() {
                       />
                     ))}
                   </div>
-                  <span className="font-mono text-xs text-gray-600 dark:text-gray-400">{review.date}</span>
+                  <span className="font-business text-xs text-gray-600 dark:text-gray-400">{review.date}</span>
                 </div>
               </div>
 
@@ -132,10 +132,10 @@ export default function CustomerReviews() {
 
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
-                    <h5 className="font-mono text-xs font-bold truncate text-black dark:text-white">
+                    <h5 className="font-helvicta text-xs font-bold truncate text-black dark:text-white">
                       {review.productName}
                     </h5>
-                    <p className="font-mono text-xs text-gray-600 dark:text-gray-400 truncate">{review.productType}</p>
+                    <p className="font-business text-xs text-gray-600 dark:text-gray-400 truncate">{review.productType}</p>
                   </div>
                 </div>
               </div>
@@ -164,8 +164,8 @@ export default function CustomerReviews() {
 
                 {/* Review Content */}
                 <div className="p-4 border-b-2 border-black dark:border-white flex-1 flex flex-col">
-                  <h4 className="font-mono text-xs font-bold mb-2 text-black dark:text-white">{review.customerName}</h4>
-                  <p className="font-mono text-xs mb-3 leading-relaxed flex-1 text-black dark:text-white">
+                  <h4 className="font-helvicta text-xs font-bold mb-2 text-black dark:text-white">{review.customerName}</h4>
+                  <p className="font-business text-xs mb-3 leading-relaxed flex-1 text-black dark:text-white">
                     {review.reviewText}
                   </p>
 
@@ -179,7 +179,7 @@ export default function CustomerReviews() {
                         />
                       ))}
                     </div>
-                    <span className="font-mono text-xs text-gray-600 dark:text-gray-400">{review.date}</span>
+                    <span className="font-business text-xs text-gray-600 dark:text-gray-400">{review.date}</span>
                   </div>
                 </div>
 
@@ -199,10 +199,10 @@ export default function CustomerReviews() {
 
                     {/* Product Info */}
                     <div className="flex-1 min-w-0">
-                      <h5 className="font-mono text-xs font-bold truncate text-black dark:text-white">
+                      <h5 className="font-helvicta text-xs font-bold truncate text-black dark:text-white">
                         {review.productName}
                       </h5>
-                      <p className="font-mono text-xs text-gray-600 dark:text-gray-400 truncate">
+                      <p className="font-business text-xs text-gray-600 dark:text-gray-400 truncate">
                         {review.productType}
                       </p>
                     </div>
@@ -214,7 +214,7 @@ export default function CustomerReviews() {
         </div>
 
         <div className="text-center mt-6">
-          <span className="font-mono text-sm font-bold cursor-pointer hover:underline text-black dark:text-white">
+          <span className="font-helvicta text-sm font-bold cursor-pointer hover:underline text-black dark:text-white">
             [SHOW MORE]
           </span>
         </div>

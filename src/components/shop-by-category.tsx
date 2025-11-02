@@ -26,7 +26,7 @@ export default function ShopByCategory() {
   return (
     <section className="py-12 bg-white dark:bg-black border-t-2 border-black dark:border-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-mono font-bold mb-8 text-center text-black dark:text-white">SHOP BY CATEGORY:</h2>
+        <h2 className="text-2xl font-helvicta font-bold mb-8 text-center text-black dark:text-white">SHOP BY CATEGORY:</h2>
 
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-3 gap-8">
@@ -41,7 +41,7 @@ export default function ShopByCategory() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
-              <h3 className="font-mono text-sm font-bold group-hover:underline text-black dark:text-white">
+              <h3 className="font-helvicta text-sm font-bold group-hover:underline text-black dark:text-white">
                 {category.name}
               </h3>
             </Link>
@@ -62,7 +62,7 @@ export default function ShopByCategory() {
                     sizes="256px"
                   />
                 </div>
-                <h3 className="font-mono text-sm font-bold group-hover:underline text-black dark:text-white">
+                <h3 className="font-helvicta text-sm font-bold group-hover:underline text-black dark:text-white">
                   {category.name}
                 </h3>
               </Link>
