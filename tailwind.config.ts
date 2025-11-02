@@ -20,7 +20,8 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        mono: ["ui-monospace", "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", "monospace"],
+        helvetica: ["Helvetica", "sans-serif"],
+        business: ["AA00BusinessSystem", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

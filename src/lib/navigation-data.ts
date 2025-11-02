@@ -41,7 +41,7 @@ export const navItems: NavItem[] = [
     digital: [
       { name: "CAMCODER TAPE", href: "/camcoder-tape" },
       { name: "CAMCODER DVD", href: "/camcoder-dvd" },
-      { name: "CAMCODER SD/HDD", href: "/camcoder-sd" },
+      { name: "CAMCODER SD/HDD", href: "/camcoder-sd-hdd" },
     ],
   },
   {

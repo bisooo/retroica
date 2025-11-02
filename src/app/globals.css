@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Added AA00BusinessSystem custom font */
+@font-face {
+  font-family: "AA00BusinessSystem";
+  src: url("/fonts/AA00BusinessSystem.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
