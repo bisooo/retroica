@@ -5,6 +5,7 @@ import { Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MetadataService } from "@/lib/services/metadata.service"
 import { getCurrencySymbol } from "@/lib/utils/currency"
+import { getStarColor } from "@/lib/utils/rating"
 
 interface ProductInfoProps {
   product: {
@@ -40,6 +41,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const conditionStarsMobile = Math.floor(product.condition / 2)
   const mobileRating = (product.condition / 2).toFixed(1)
 
+  const starColor = getStarColor(product.condition)
+
   return (
     <div className="h-full flex flex-col space-y-4 pt-4 overflow-y-auto">
       {/* Product Title and Year */}
@@ -74,7 +77,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             {[...Array(10)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-4 w-4 ${i < conditionStarsDesktop ? "fill-black dark:fill-white" : "fill-gray-200 dark:fill-gray-600"}`}
+                className={`h-4 w-4 ${i < conditionStarsDesktop ? starColor : "fill-gray-200 dark:fill-gray-600"}`}
               />
             ))}
           </div>
@@ -103,7 +106,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className={`h-4 w-4 ${i < conditionStarsMobile ? "fill-black dark:fill-white" : "fill-gray-200 dark:fill-gray-600"}`}
+                  className={`h-4 w-4 ${i < conditionStarsMobile ? starColor : "fill-gray-200 dark:fill-gray-600"}`}
                 />
               ))}
             </div>

@@ -113,12 +113,22 @@ export default function CategoryLoading() {
 
                 {/* Condition Stars - Centrally aligned */}
                 <div className="flex items-center justify-center gap-[2px] sm:gap-0.5">
-                  {[...Array(10)].map((_, starIndex) => (
-                    <Star
-                      key={starIndex}
-                      className="h-2 w-2 sm:h-3 sm:w-3 fill-gray-200 dark:fill-gray-700 stroke-gray-300 dark:stroke-gray-600 animate-pulse"
-                    />
-                  ))}
+                  <div className="flex sm:hidden">
+                    {[...Array(5)].map((_, starIndex) => (
+                      <Star
+                        key={starIndex}
+                        className="h-2 w-2 fill-gray-200 dark:fill-gray-700 stroke-gray-300 dark:stroke-gray-600 animate-pulse"
+                      />
+                    ))}
+                  </div>
+                  <div className="hidden sm:flex">
+                    {[...Array(10)].map((_, starIndex) => (
+                      <Star
+                        key={starIndex}
+                        className="h-3 w-3 fill-gray-200 dark:fill-gray-700 stroke-gray-300 dark:stroke-gray-600 animate-pulse"
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

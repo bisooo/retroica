@@ -238,7 +238,7 @@ export default function ProductLoading() {
                   <div className="h-7 bg-gray-200 dark:bg-gray-700 animate-pulse rounded w-24" />
                   <div className="flex items-center space-x-2">
                     <div className="flex">
-                      {[...Array(10)].map((_, i) => (
+                      {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
                           className="h-4 w-4 fill-gray-200 dark:fill-gray-700 stroke-gray-300 dark:stroke-gray-600"

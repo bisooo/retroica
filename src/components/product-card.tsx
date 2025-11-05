@@ -2,6 +2,7 @@ import { Star } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { getCurrencySymbol } from "@/lib/utils/currency"
+import { getStarColor } from "@/lib/utils/rating"
 
 interface ProductCardProps {
   id: string
@@ -22,6 +23,8 @@ function parseCondition(condition?: string): number {
 export default function ProductCard({ id, handle, name, price, currency, image, condition }: ProductCardProps) {
   const conditionStars = parseCondition(condition)
   const productUrl = `/product/${handle || id}`
+
+  const starColor = getStarColor(conditionStars)
 
   return (
     <div className="border-2 border-black dark:border-white bg-white dark:bg-black group hover:shadow-lg transition-shadow">
@@ -69,9 +72,7 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
               <Star
                 key={i}
                 className={`h-2 w-2 ${
-                  i < Math.floor(conditionStars / 2)
-                    ? "fill-black dark:fill-white stroke-black dark:stroke-white"
-                    : "fill-none stroke-gray-300 dark:stroke-gray-600"
+                  i < Math.floor(conditionStars / 2) ? starColor : "fill-none stroke-gray-300 dark:stroke-gray-600"
                 }`}
               />
             ))}
@@ -82,9 +83,7 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
               <Star
                 key={i}
                 className={`h-3 w-3 ${
-                  i < conditionStars
-                    ? "fill-black dark:fill-white stroke-black dark:stroke-white"
-                    : "fill-none stroke-gray-300 dark:stroke-gray-600"
+                  i < conditionStars ? starColor : "fill-none stroke-gray-300 dark:stroke-gray-600"
                 }`}
               />
             ))}
