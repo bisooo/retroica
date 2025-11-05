@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Instagram, Youtube } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -10,8 +11,8 @@ export default function Footer() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="mb-4">
-              <h2 className="font-helvicta text-2xl font-bold mb-2 text-black dark:text-white">RETRO-ICA BRANDING</h2>
-              <p className="font-business text-sm text-black dark:text-white">"MESSAGE"</p>
+              <h2 className="font-helvicta text-2xl font-bold mb-2 text-black dark:text-white">RETRO-ICA</h2>
+              <p className="font-business text-sm text-black dark:text-white">"WORK IN PROGRESS"</p>
             </div>
             <div className="flex justify-center items-center space-x-4 mt-6">
               <div className="w-12 h-12 border-2 border-black dark:border-white rounded-full bg-gray-100 dark:bg-gray-800"></div>
@@ -88,13 +89,38 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Social Icons */}
             <div>
-              <h3 className="font-helvicta text-sm font-bold mb-4 text-black dark:text-white">"MESSAGE"</h3>
-              <div className="flex space-x-2">
-                <div className="w-8 h-8 border border-black dark:border-white bg-gray-100 dark:bg-gray-800"></div>
-                <div className="w-8 h-8 border border-black dark:border-white bg-gray-100 dark:bg-gray-800"></div>
-                <div className="w-8 h-8 border border-black dark:border-white bg-gray-100 dark:bg-gray-800"></div>
+              <h3 className="font-helvicta text-sm font-bold mb-4 text-black dark:text-white">FOLLOW US</h3>
+              <div className="flex space-x-3">
+                <a
+                  href="https://www.instagram.com/retroica.co/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border-2 border-black dark:border-white bg-white dark:bg-black hover:bg-gray-100 dark:hover:bg-gray-900 flex items-center justify-center transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5 text-black dark:text-white" />
+                </a>
+                <a
+                  href="https://www.youtube.com/@retroica"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border-2 border-black dark:border-white bg-white dark:bg-black hover:bg-gray-100 dark:hover:bg-gray-900 flex items-center justify-center transition-colors"
+                  aria-label="YouTube"
+                >
+                  <Youtube className="w-5 h-5 text-black dark:text-white" />
+                </a>
+                <a
+                  href="https://www.etsy.com/shop/Retroica"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border-2 border-black dark:border-white bg-white dark:bg-black hover:bg-gray-100 dark:hover:bg-gray-900 flex items-center justify-center transition-colors"
+                  aria-label="Etsy"
+                >
+                  <svg className="w-5 h-5 text-black dark:text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16.5 3c-1.5 0-3 .5-4.5 1.5C10.5 3.5 9 3 7.5 3 4.5 3 2 5.5 2 8.5c0 4 3.5 7.5 10 13 6.5-5.5 10-9 10-13C22 5.5 19.5 3 16.5 3z" />
+                  </svg>
+                </a>
               </div>
             </div>
 

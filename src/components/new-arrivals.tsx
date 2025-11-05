@@ -1,11 +1,11 @@
 import ProductCard from "./product-card"
 import { ProductService } from "@/lib/services/product.service"
 import { ProductMapper } from "@/lib/mappers/product.mapper"
-import { MOCK_PRODUCTS } from "@/lib/data/mock-products"
+import { mockProducts } from "@/lib/data/mock-products"
 
 export default async function NewArrivals() {
   const medusaProducts = await ProductService.getRecentProducts(8)
-  const products = medusaProducts.length > 0 ? ProductMapper.toProductCards(medusaProducts) : MOCK_PRODUCTS
+  const products = medusaProducts.length > 0 ? ProductMapper.toProductCards(medusaProducts) : mockProducts
 
   return (
     <section className="py-12 bg-white dark:bg-black border-t-2 border-black dark:border-white">
