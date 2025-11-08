@@ -94,8 +94,8 @@ export default function Header() {
               onMouseEnter={handleMessageAreaEnter}
             >
               <div className="animate-scroll-left font-helvicta text-sm whitespace-nowrap text-black dark:text-white">
-                "WORK IN PROGRESS" • RETRO-ICA • FREE SHIPPING ON ORDERS OVER $100 • AUTHENTIC VINTAGE CAMERAS •
-                "WORK IN PROGRESS"
+                "WORK IN PROGRESS" • RETRO-ICA • FREE SHIPPING ON ORDERS OVER $100 • AUTHENTIC VINTAGE CAMERAS • "WORK
+                IN PROGRESS"
               </div>
             </div>
 

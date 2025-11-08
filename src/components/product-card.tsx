@@ -9,7 +9,7 @@ interface ProductCardProps {
   handle?: string
   name: string
   price: number
-  currency: string
+  currency?: string // Made currency optional to handle missing data
   image?: string
   condition?: string
 }
@@ -57,7 +57,7 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
 
         {/* Price */}
         <p className="font-business text-sm text-black dark:text-white text-center mb-3">
-          {getCurrencySymbol(currency)}
+          {currency ? getCurrencySymbol(currency) : ""}
           {price.toFixed(2)}
         </p>
 
