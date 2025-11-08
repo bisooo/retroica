@@ -8,10 +8,6 @@ interface CategoryPageProps {
   params: {
     category: string
   }
-  searchParams: {
-    type?: string
-    subcategory?: string
-  }
 }
 
 export const revalidate = 86400 // 1 day
@@ -23,13 +19,10 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = params
-  const { subcategory } = searchParams
 
-  const categoryHandle = subcategory || category
-
-  const medusaProducts = await ProductService.getAllProductsByHandle(categoryHandle)
+  const medusaProducts = await ProductService.getAllProductsByHandle(category)
   const products = ProductMapper.toProductCards(medusaProducts)
 
   return (
