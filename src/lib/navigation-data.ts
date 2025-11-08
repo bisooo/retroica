@@ -49,8 +49,8 @@ export const navItems: NavItem[] = [
     href: "/music",
     gif: "/gifs/music.gif",
     analog: [
-      { name: "CASSETTE PLAYERS", href: "/cassette" },
-      { name: "VINYL PLAYERS", href: "/vinyl" },
+      { name: "CASSETTE PLAYERS", href: "/cassette-players" },
+      { name: "VINYL PLAYERS", href: "/vinyl-players" },
       { name: "BOOMBOX", href: "/boombox" },
     ],
     digital: [

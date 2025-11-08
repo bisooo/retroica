@@ -17,7 +17,7 @@ export const videoAnalogCategories = ["super8", "film-movie"] as const
 
 export const videoDigitalCategories = ["camcoder-tape", "camcoder-dvd", "camcoder-sd-hdd"] as const
 
-export const musicAnalogCategories = ["cassette", "vinyl", "boombox"] as const
+export const musicAnalogCategories = ["cassette-players", "vinyl-players", "boombox"] as const
 
 export const musicDigitalCategories = ["ipods", "cd-players", "speakers"] as const
 
