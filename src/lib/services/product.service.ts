@@ -17,10 +17,11 @@ export class ProductService {
     }
 
     try {
-      const { regions } = await sdk.store.region.list()
+      const { regions } = await sdk.store.region.list({}, {
+        next: { revalidate: 86400 },
+      } as any)
 
       if (regions && regions.length > 0) {
-        // Find Czech Republic region (EUR) or use first available region
         const czechRegion = regions.find((r) => r.name === "Czech Republic" || r.currency_code === "eur")
         const selectedRegion = czechRegion || regions[0]
 
@@ -41,7 +42,9 @@ export class ProductService {
     }
 
     try {
-      const { collections } = await sdk.store.collection.list({ handle })
+      const { collections } = await sdk.store.collection.list({ handle }, {
+        next: { revalidate: 86400 },
+      } as any)
 
       if (collections && collections.length > 0) {
         const id = collections[0].id
@@ -62,7 +65,9 @@ export class ProductService {
     }
 
     try {
-      const { product_categories } = await sdk.store.category.list({ handle })
+      const { product_categories } = await sdk.store.category.list({ handle }, {
+        next: { revalidate: 86400 },
+      } as any)
 
       if (product_categories && product_categories.length > 0) {
         const id = product_categories[0].id
@@ -77,58 +82,6 @@ export class ProductService {
     }
   }
 
-  static async getProductsByCollection(collectionHandle: string, limit = 20, offset = 0): Promise<MedusaProduct[]> {
-    try {
-      const collectionId = await this.getCollectionId(collectionHandle)
-      if (!collectionId) return mockProducts.slice(offset, offset + limit)
-
-      const regionId = await this.getRegionId()
-      if (!regionId) {
-        console.error("Cannot fetch products: region not found, using mock data")
-        return mockProducts.slice(offset, offset + limit)
-      }
-
-      const response = await sdk.store.product.list({
-        collection_id: [collectionId],
-        region_id: regionId,
-        fields: PRODUCT_FIELDS,
-        limit,
-        offset,
-      })
-
-      return response.products as MedusaProduct[]
-    } catch (error) {
-      console.error(`Error fetching products for collection ${collectionHandle}:`, error)
-      return mockProducts.slice(offset, offset + limit)
-    }
-  }
-
-  static async getProductsByCategory(categoryHandle: string, limit = 20, offset = 0): Promise<MedusaProduct[]> {
-    try {
-      const categoryId = await this.getCategoryId(categoryHandle)
-      if (!categoryId) return mockProducts.slice(offset, offset + limit)
-
-      const regionId = await this.getRegionId()
-      if (!regionId) {
-        console.error("Cannot fetch products: region not found, using mock data")
-        return mockProducts.slice(offset, offset + limit)
-      }
-
-      const response = await sdk.store.product.list({
-        category_id: [categoryId],
-        region_id: regionId,
-        fields: PRODUCT_FIELDS,
-        limit,
-        offset,
-      })
-
-      return response.products as MedusaProduct[]
-    } catch (error) {
-      console.error(`Error fetching products for category ${categoryHandle}:`, error)
-      return mockProducts.slice(offset, offset + limit)
-    }
-  }
-
   static async getRecentProducts(limit = 8): Promise<MedusaProduct[]> {
     try {
       const regionId = await this.getRegionId()
@@ -137,82 +90,21 @@ export class ProductService {
         return mockProducts.slice(0, limit)
       }
 
-      const response = await sdk.store.product.list({
-        region_id: regionId,
-        fields: PRODUCT_FIELDS,
-        limit,
-        order: "-created_at",
-      })
+      const response = await sdk.store.product.list(
+        {
+          region_id: regionId,
+          fields: PRODUCT_FIELDS,
+          limit,
+          order: "-created_at",
+        },
+        {
+          next: { revalidate: 86400 },
+        } as any,
+      )
       return response.products as MedusaProduct[]
     } catch (error) {
       console.error("Error fetching recent products:", error)
       return mockProducts.slice(0, limit)
-    }
-  }
-
-  static async getProductsWithFilters(params: {
-    categoryHandle?: string
-    minPrice?: number
-    maxPrice?: number
-    limit?: number
-    offset?: number
-  }): Promise<MedusaProduct[]> {
-    try {
-      const regionId = await this.getRegionId()
-      if (!regionId) {
-        console.error("Cannot fetch products: region not found")
-        return []
-      }
-
-      const queryParams: Record<string, unknown> = {
-        region_id: regionId,
-        fields: PRODUCT_FIELDS,
-        limit: params.limit || 20,
-        offset: params.offset || 0,
-      }
-
-      if (params.categoryHandle) {
-        const categoryId = await this.getCategoryId(params.categoryHandle)
-        if (categoryId) {
-          queryParams.category_id = [categoryId]
-        } else {
-          console.log(`Category ${params.categoryHandle} not found, fetching all products`)
-        }
-      }
-
-      const response = await sdk.store.product.list(queryParams)
-      return response.products as MedusaProduct[]
-    } catch (error) {
-      console.error("Error fetching products with filters:", error)
-      return []
-    }
-  }
-
-  static async getProductsByHandle(handle: string, limit = 20, offset = 0): Promise<MedusaProduct[]> {
-    if (isCollection(handle)) {
-      return this.getProductsByCollection(handle, limit, offset)
-    } else {
-      return this.getProductsByCategory(handle, limit, offset)
-    }
-  }
-
-  static async getProductById(productId: string): Promise<MedusaProduct | null> {
-    try {
-      const regionId = await this.getRegionId()
-      if (!regionId) {
-        console.error("Cannot fetch product: region not found")
-        return null
-      }
-
-      const response = await sdk.store.product.retrieve(productId, {
-        region_id: regionId,
-        fields: PRODUCT_DETAIL_FIELDS,
-      })
-
-      return response.product as MedusaProduct
-    } catch (error) {
-      console.error(`Error fetching product ${productId}:`, error)
-      return null
     }
   }
 
@@ -224,12 +116,17 @@ export class ProductService {
         return mockProducts.find((p) => p.handle === handle) || mockProducts[0]
       }
 
-      const response = await sdk.store.product.list({
-        handle,
-        region_id: regionId,
-        fields: PRODUCT_DETAIL_FIELDS,
-        limit: 1,
-      })
+      const response = await sdk.store.product.list(
+        {
+          handle,
+          region_id: regionId,
+          fields: PRODUCT_DETAIL_FIELDS,
+          limit: 1,
+        },
+        {
+          next: { revalidate: 86400 },
+        } as any,
+      )
 
       if (response.products && response.products.length > 0) {
         return response.products[0] as MedusaProduct
@@ -242,7 +139,7 @@ export class ProductService {
     }
   }
 
-  static async searchProducts(query: string, limit = 20, offset = 0): Promise<MedusaProduct[]> {
+  static async searchProducts(query: string): Promise<MedusaProduct[]> {
     try {
       const regionId = await this.getRegionId()
       if (!regionId) {
@@ -250,18 +147,48 @@ export class ProductService {
         return []
       }
 
-      const response = await sdk.store.product.list({
-        q: query,
-        region_id: regionId,
-        fields: PRODUCT_FIELDS,
-        limit,
-        offset,
-      })
+      const response = await sdk.store.product.list(
+        {
+          q: query,
+          region_id: regionId,
+          fields: PRODUCT_FIELDS,
+          limit: 1000,
+        },
+        {
+          next: { revalidate: 3600 },
+        } as any,
+      )
 
       return response.products as MedusaProduct[]
     } catch (error) {
       console.error(`Error searching products with query "${query}":`, error)
       return []
+    }
+  }
+
+  static async getAllProducts(): Promise<MedusaProduct[]> {
+    try {
+      const regionId = await this.getRegionId()
+      if (!regionId) {
+        console.error("Cannot fetch products: region not found, using mock data")
+        return mockProducts
+      }
+
+      const response = await sdk.store.product.list(
+        {
+          region_id: regionId,
+          fields: PRODUCT_FIELDS,
+          limit: 1000,
+        },
+        {
+          next: { revalidate: 86400 },
+        } as any,
+      )
+
+      return response.products as MedusaProduct[]
+    } catch (error) {
+      console.error("Error fetching all products:", error)
+      return mockProducts
     }
   }
 
@@ -273,16 +200,89 @@ export class ProductService {
         return []
       }
 
-      const response = await sdk.store.product.list({
-        region_id: regionId,
-        fields: "handle",
-        limit: 200, // Adjust to match product count
-      })
+      const response = await sdk.store.product.list(
+        {
+          region_id: regionId,
+          fields: "handle",
+          limit: 1000,
+        },
+        {
+          next: { revalidate: 86400 },
+        } as any,
+      )
 
       return response.products.map((p) => p.handle).filter((handle): handle is string => !!handle)
     } catch (error) {
       console.error("Error fetching all product handles:", error)
       return []
+    }
+  }
+
+  static async getAllProductsByHandle(handle: string): Promise<MedusaProduct[]> {
+    if (isCollection(handle)) {
+      return this.getAllProductsByCollection(handle)
+    } else {
+      return this.getAllProductsByCategory(handle)
+    }
+  }
+
+  static async getAllProductsByCollection(collectionHandle: string): Promise<MedusaProduct[]> {
+    try {
+      const collectionId = await this.getCollectionId(collectionHandle)
+      if (!collectionId) return mockProducts
+
+      const regionId = await this.getRegionId()
+      if (!regionId) {
+        console.error("Cannot fetch products: region not found, using mock data")
+        return mockProducts
+      }
+
+      const response = await sdk.store.product.list(
+        {
+          collection_id: [collectionId],
+          region_id: regionId,
+          fields: PRODUCT_FIELDS,
+          limit: 1000,
+        },
+        {
+          next: { revalidate: 86400 },
+        } as any,
+      )
+
+      return response.products as MedusaProduct[]
+    } catch (error) {
+      console.error(`Error fetching all products for collection ${collectionHandle}:`, error)
+      return mockProducts
+    }
+  }
+
+  static async getAllProductsByCategory(categoryHandle: string): Promise<MedusaProduct[]> {
+    try {
+      const categoryId = await this.getCategoryId(categoryHandle)
+      if (!categoryId) return mockProducts
+
+      const regionId = await this.getRegionId()
+      if (!regionId) {
+        console.error("Cannot fetch products: region not found, using mock data")
+        return mockProducts
+      }
+
+      const response = await sdk.store.product.list(
+        {
+          category_id: [categoryId],
+          region_id: regionId,
+          fields: PRODUCT_FIELDS,
+          limit: 1000,
+        },
+        {
+          next: { revalidate: 86400 },
+        } as any,
+      )
+
+      return response.products as MedusaProduct[]
+    } catch (error) {
+      console.error(`Error fetching all products for category ${categoryHandle}:`, error)
+      return mockProducts
     }
   }
 }
