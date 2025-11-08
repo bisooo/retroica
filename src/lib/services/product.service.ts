@@ -264,4 +264,25 @@ export class ProductService {
       return []
     }
   }
+
+  static async getAllProductHandles(): Promise<string[]> {
+    try {
+      const regionId = await this.getRegionId()
+      if (!regionId) {
+        console.error("Cannot fetch products: region not found")
+        return []
+      }
+
+      const response = await sdk.store.product.list({
+        region_id: regionId,
+        fields: "handle",
+        limit: 200, // Adjust to match product count
+      })
+
+      return response.products.map((p) => p.handle).filter((handle): handle is string => !!handle)
+    } catch (error) {
+      console.error("Error fetching all product handles:", error)
+      return []
+    }
+  }
 }

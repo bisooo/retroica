@@ -2,16 +2,27 @@ import ProductFilters from "@/components/product-filters"
 import ProductGridWithPagination from "@/components/product-grid-with-pagination"
 import { ProductService } from "@/lib/services/product.service"
 import { ProductMapper } from "@/lib/mappers/product.mapper"
+import { allCategoryHandles } from "@/lib/data/categories"
 
 interface CategoryPageProps {
   params: {
     category: string
   }
   searchParams: {
-    type?: string // analog or digital
+    type?: string
     subcategory?: string
     offset?: string
   }
+}
+
+export const revalidate = 86400 // 1 day
+
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  return allCategoryHandles.map((category) => ({
+    category,
+  }))
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {

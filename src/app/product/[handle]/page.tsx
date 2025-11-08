@@ -3,6 +3,23 @@ import ProductImageGallery from "@/components/product-image-gallery"
 import ProductInfo from "@/components/product-info"
 import { ProductService } from "@/lib/services/product.service"
 
+export const revalidate = 86400 // 1 day
+
+export const dynamicParams = true
+
+export async function generateStaticParams() {
+  try {
+    const allProducts = await ProductService.getAllProductHandles()
+    return allProducts.map((handle) => ({
+      handle,
+    }))
+  } catch (error) {
+    console.error("Error generating static params for products:", error)
+    // Return empty array to allow dynamic generation
+    return []
+  }
+}
+
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const { handle } = params
 
