@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Globe } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -15,7 +15,7 @@ const CURRENCIES = [
   { code: "AUD", name: "Australian Dollar", symbol: "A$" },
 ]
 
-export default function CurrencySelector() {
+function CurrencySelectorInner() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -91,5 +91,23 @@ export default function CurrencySelector() {
         </>
       )}
     </div>
+  )
+}
+
+export default function CurrencySelector() {
+  return (
+    <Suspense fallback={
+      <Button
+        variant="ghost"
+        size="icon"
+        disabled
+        className="text-black dark:text-white"
+        title="Change currency"
+      >
+        <Globe className="h-5 w-5" />
+      </Button>
+    }>
+      <CurrencySelectorInner />
+    </Suspense>
   )
 }

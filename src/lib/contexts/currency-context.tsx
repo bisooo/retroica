@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+import { createContext, useContext, useState, useEffect, type ReactNode, Suspense } from "react"
 import { useSearchParams } from 'next/navigation'
 
 interface CurrencyContextType {
@@ -10,7 +10,7 @@ interface CurrencyContextType {
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined)
 
-export function CurrencyProvider({ children }: { children: ReactNode }) {
+function CurrencyProviderInner({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams()
   const [currency, setCurrencyState] = useState("EUR")
 
@@ -35,6 +35,18 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   }
 
   return <CurrencyContext.Provider value={{ currency, setCurrency }}>{children}</CurrencyContext.Provider>
+}
+
+export function CurrencyProvider({ children }: { children: ReactNode }) {
+  return (
+    <Suspense fallback={
+      <CurrencyContext.Provider value={{ currency: "EUR", setCurrency: () => {} }}>
+        {children}
+      </CurrencyContext.Provider>
+    }>
+      <CurrencyProviderInner>{children}</CurrencyProviderInner>
+    </Suspense>
+  )
 }
 
 export function useCurrency() {
