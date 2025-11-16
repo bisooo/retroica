@@ -113,10 +113,16 @@ export default function Header() {
               </Button>
 
               {/* Logo and Theme Toggle Container */}
-              <div className="flex items-center space-x-4 flex-1 lg:flex-none">
+              <div className="flex items-center flex-1 lg:flex-none">
                 <Link href="/">
-                  <div className="text-center lg:text-left">
-                    <h1 className="font-helvicta text-xl font-bold text-black dark:text-white">RETRO-ICA</h1>
+                  <div className="w-32 h-12 text-center lg:text-left">
+                    <Image
+                      src="/images/navbar-logo.svg"
+                      alt="Retroica Logo"
+                      width={32}
+                      height={12}
+                      className="object-contain w-full h-full invert dark:invert-0"
+                    />
                   </div>
                 </Link>
                 {/* Desktop Theme Toggle */}

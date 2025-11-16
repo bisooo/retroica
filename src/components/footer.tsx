@@ -15,7 +15,7 @@ export default function Footer() {
               src="/images/footer.jpg"
               alt=""
               fill
-              className="object-cover"
+              className="object-cover dark:invert"
               priority
               sizes="(max-width: 1280px) 100vw, 1280px"
             />
@@ -24,18 +24,18 @@ export default function Footer() {
         <div className="container mx-auto px-4 relative z-10 h-full flex items-center justify-center">
           <div className="text-center">
             <div className="flex flex-col items-center">
-              <div className="w-24 h-24 rounded-full bg-white overflow-hidden mb-4 flex items-center justify-center">
+              <div className="w-72 h-48 rnded-oufull overflow-hidden mb-4 flex items-center justify-center">
                 <Image
-                  src="/images/logo.avif"
+                  src="/images/logo.svg"
                   alt="Retroica Logo"
-                  width={96}
-                  height={96}
-                  className="object-cover w-full h-full"
+                  width={72}
+                  height={48}
+                  className="object-contain w-full h-full invert dark:invert-0"
                 />
               </div>
               <div className="font-business text-xs text-white space-y-1">
-                <div className="font-semibold">REVIVING MEMORIES - SUSTAINABLY 🌻</div>
-                <div>SINCE 2020</div>
+                <div className="font-semibold invert dark:invert-0">REVIVING MEMORIES - SUSTAINABLY 🌻</div>
+                <div className="invert dark:invert-0">SINCE 2020</div>
               </div>
             </div>
           </div>

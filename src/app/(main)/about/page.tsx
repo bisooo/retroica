@@ -35,13 +35,23 @@ export default function AboutPage() {
           ))}
         </div>
 
+        <div className="w-100 h-48 text-center">
+          <Image
+            src="/images/logo.svg"
+            alt="Retroica Logo"
+            width={100}
+            height={48}
+            className="object-contain w-full h-full invert dark:invert-0"
+          />
+        </div>
+
         {/* Text Content */}
-        <div className="text-center space-y-6 my-12">
-          <p className="font-helvicta text-2xl font-bold text-black dark:text-white">
+        <div className="text-center space-y-6 my-2">
+          <p className="font-helvicta text-lg font-bold text-black dark:text-white">
             REVIVING MEMORIES - SUSTAINABLY 🌻
           </p>
 
-          <p className="font-business text-xl text-black dark:text-white">✈️ SHIPPING TO THE 🇪🇺 🇬🇧 🇨🇦 🇺🇸 🇦🇺</p>
+          <p className="font-business text-lg text-black dark:text-white">✈️ SHIPPING TO THE 🇪🇺 🇬🇧 🇨🇦 🇺🇸 🇦🇺</p>
 
           <p className="font-helvicta text-lg text-black dark:text-white">258 SALES SINCE 2020</p>
 

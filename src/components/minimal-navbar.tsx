@@ -32,7 +32,15 @@ export default function MinimalNavbar() {
             </Button>
 
             <Link href="/">
-              <h1 className="font-helvicta text-lg font-bold text-black dark:text-white">RETRO-ICA</h1>
+              <div className="w-32 h-12">
+                <Image
+                  src="/images/navbar-logo.svg"
+                  alt="Retroica Logo"
+                  width={32}
+                  height={12}
+                  className="object-contain w-full h-full invert dark:invert-0"
+                />
+              </div>            
             </Link>
 
             <div className="flex items-center space-x-4">
