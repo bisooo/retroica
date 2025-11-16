@@ -1,28 +1,41 @@
-import { Star } from "lucide-react"
+"use client"
+
+import { Star } from 'lucide-react'
 import Link from "next/link"
 import Image from "next/image"
 import { getCurrencySymbol } from "@/lib/utils/currency"
 import { getStarColor } from "@/lib/utils/rating"
+import { useCurrency } from "@/lib/contexts/currency-context"
+import type { VariantPrice } from "@/lib/types/product.types"
 
 interface ProductCardProps {
   id: string
   handle?: string
   name: string
   price: number
-  currency?: string // Made currency optional to handle missing data
+  currency?: string
   image?: string
   condition?: string
+  allPrices?: VariantPrice[]
 }
 
 function parseCondition(condition?: string): number {
   if (!condition) return 0
-  const match = condition.match(/(\d+)/)
+  const match = String(condition).match(/(\d+)/)
   return match ? Number.parseInt(match[1], 10) : 0
 }
 
-export default function ProductCard({ id, handle, name, price, currency, image, condition }: ProductCardProps) {
+export default function ProductCard({ id, handle, name, price, currency, image, condition, allPrices }: ProductCardProps) {
+  const { currency: selectedCurrency } = useCurrency()
+  
+  const priceInSelectedCurrency = allPrices?.find(
+    (p) => p.currency_code.toLowerCase() === selectedCurrency.toLowerCase()
+  )
+  const displayPrice = priceInSelectedCurrency?.amount || price
+  const displayCurrency = priceInSelectedCurrency?.currency_code.toUpperCase() || currency || selectedCurrency.toUpperCase()
+  
   const conditionStars = parseCondition(condition)
-  const productUrl = `/product/${handle || id}`
+  const productUrl = `/product/${handle || id}?currency=${selectedCurrency.toLowerCase()}`
 
   const starColor = getStarColor(conditionStars)
 
@@ -57,8 +70,8 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
 
         {/* Price */}
         <p className="font-business text-sm text-black dark:text-white text-center mb-3">
-          {currency ? getCurrencySymbol(currency) : ""}
-          {price.toFixed(2)}
+          {getCurrencySymbol(displayCurrency)}
+          {displayPrice.toFixed(2)}
         </p>
 
         {/* Divider */}

@@ -4,6 +4,9 @@ import "./globals.css"
 import { ThemeProvider } from "@/hooks/use-theme"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { CartProvider } from "@/lib/contexts/cart-context"
+import { CurrencyProvider } from "@/lib/contexts/currency-context"
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://retroica.com"),
@@ -88,7 +91,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider defaultTheme="light" storageKey="retro-ica-theme">
-          {children}
+          <CurrencyProvider>
+            <CartProvider>
+              {children}
+              <Toaster />
+            </CartProvider>
+          </CurrencyProvider>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

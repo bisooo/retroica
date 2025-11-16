@@ -1,14 +1,19 @@
 "use client"
 
 import { useState } from "react"
-import { Star } from "lucide-react"
+import { Star } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { MetadataService } from "@/lib/services/metadata.service"
 import { getCurrencySymbol } from "@/lib/utils/currency"
 import { getStarColor } from "@/lib/utils/rating"
+import { useCart } from "@/lib/contexts/cart-context"
+import { useCurrency } from "@/lib/contexts/currency-context"
+import type { VariantPrice } from "@/lib/types/product.types"
 
 interface ProductInfoProps {
   product: {
+    id?: string
+    variantId?: string
     name: string
     brand: string
     price: number
@@ -17,20 +22,40 @@ interface ProductInfoProps {
     year: string
     stockStatus: string
     rawMetadata?: Record<string, unknown>
+    allPrices?: VariantPrice[]
   }
 }
 
 export default function ProductInfo({ product }: ProductInfoProps) {
+  const { currency: selectedCurrency } = useCurrency()
+  
   const [expandedSections, setExpandedSections] = useState({
     specs: true,
     deliveryIncludes: true,
   })
+
+  const { addToCart, isLoading: cartLoading } = useCart()
+  const [isAdding, setIsAdding] = useState(false)
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections((prev) => ({
       ...prev,
       [section]: !prev[section],
     }))
+  }
+
+  const handleAddToCart = async () => {
+    if (!product.variantId) {
+      console.error("[v0] No variant ID available for product")
+      return
+    }
+
+    setIsAdding(true)
+    try {
+      await addToCart(product.variantId, 1)
+    } finally {
+      setIsAdding(false)
+    }
   }
 
   const displayFields = product.rawMetadata ? MetadataService.getAllDisplayFields(product.rawMetadata) : {}
@@ -42,6 +67,12 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const mobileRating = (product.condition / 2).toFixed(1)
 
   const starColor = getStarColor(product.condition)
+
+  const priceInSelectedCurrency = product.allPrices?.find(
+    (p) => p.currency_code.toLowerCase() === selectedCurrency.toLowerCase()
+  )
+  const displayPrice = (priceInSelectedCurrency?.amount || product.price).toFixed(2)
+  const displayCurrency = priceInSelectedCurrency?.currency_code.toUpperCase() || product.currency || selectedCurrency.toUpperCase()
 
   return (
     <div className="h-full flex flex-col space-y-4 pt-4 overflow-y-auto">
@@ -67,8 +98,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <div className="flex-shrink-0 hidden lg:flex lg:items-center lg:justify-between lg:space-x-4">
         {/* Price */}
         <div className="font-business text-xl font-bold text-black dark:text-white">
-          {getCurrencySymbol(product.currency)}
-          {product.price}
+          {getCurrencySymbol(displayCurrency)}
+          {displayPrice}
         </div>
 
         {/* Condition - Desktop 10 stars */}
@@ -96,8 +127,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <div className="flex items-center justify-between">
           {/* Price */}
           <div className="font-business text-xl font-bold text-black dark:text-white">
-            {getCurrencySymbol(product.currency)}
-            {product.price}
+            {getCurrencySymbol(displayCurrency)}
+            {displayPrice}
           </div>
 
           {/* Condition - Mobile 5 stars */}
@@ -123,8 +154,12 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       {/* Action Buttons */}
       <div className="flex-shrink-0 space-y-3">
-        <Button className="w-full font-helvetica text-sm py-3 bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-100">
-          ADD TO CART
+        <Button
+          onClick={handleAddToCart}
+          disabled={isAdding || cartLoading || !product.variantId}
+          className="w-full font-helvetica text-sm py-3 bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-100"
+        >
+          {isAdding ? "ADDING..." : "ADD TO CART"}
         </Button>
         <Button
           variant="outline"

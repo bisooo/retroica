@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: { handle: string } 
   const price = product.variants?.[0]?.calculated_price?.calculated_amount || 0
   const currency = product.variants?.[0]?.calculated_price?.currency_code || "EUR"
   const brand = product.metadata?.brand
-  const formattedPrice = (price).toFixed(2)
+  const formattedPrice = price.toFixed(2)
   const condition = product.metadata?.condition
 
   return {
@@ -77,18 +77,23 @@ export default async function ProductPage({ params }: { params: { handle: string
     ? Number.parseFloat((product.metadata.condition as string).split("/")[0])
     : 0
 
+  const variant = product.variants?.[0]
+  const allPrices = variant?.prices || []
+  const defaultPrice = allPrices.find((p) => p.currency_code === "eur")
+
   const productData = {
+    id: product.id,
+    variantId: variant?.id,
     name: product.title,
     brand: (product.metadata?.brand as string) || "RETRO-ICA",
-    price: product.variants?.[0]?.calculated_price?.calculated_amount
-      ? product.variants[0].calculated_price.calculated_amount
-      : 21000,
-    currency: product.variants?.[0]?.calculated_price?.currency_code || "EUR",
+    price: defaultPrice?.amount || 21000,
+    currency: defaultPrice?.currency_code.toUpperCase() || "EUR",
     condition: conditionRating,
     year: (product.metadata?.year as string) || "YEAR",
     stockStatus: "IN STOCK",
     images: images,
     rawMetadata: product.metadata || {},
+    allPrices: allPrices,
   }
 
   const structuredData = {
@@ -105,7 +110,7 @@ export default async function ProductPage({ params }: { params: { handle: string
       "@type": "Offer",
       url: `https://retroica.com/product/${handle}`,
       priceCurrency: productData.currency.toUpperCase(),
-      price: (productData.price / 100).toFixed(2),
+      price: productData.price.toFixed(2),
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/UsedCondition",
     },

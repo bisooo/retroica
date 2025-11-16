@@ -2,12 +2,14 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, Search, ShoppingCart } from "lucide-react"
+import { Menu, Search } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import MobileNavigationMenu from "./mobile-navigation-menu"
 import SearchModal from "./search-modal"
 import DesktopSearch from "./desktop-search"
 import Image from "next/image"
+import CartDrawer from "./cart-drawer"
+import CurrencySelector from "./currency-selector"
 
 export default function MinimalNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -51,16 +53,9 @@ export default function MinimalNavbar() {
                 <Search className="h-5 w-5" />
               </Button>
 
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 bg-black dark:bg-white text-white dark:text-black text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  1
-                </span>
-              </Button>
+              <CurrencySelector />
+
+              <CartDrawer />
             </div>
           </div>
         </div>

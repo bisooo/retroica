@@ -1,8 +1,16 @@
+export interface VariantPrice {
+  id: string
+  amount: number
+  currency_code: string
+  min_quantity: number | null
+  max_quantity: number | null
+}
+
 export interface MedusaVariant {
-  calculated_price: {
-    calculated_amount: number
-    currency_code: string
-  }
+  id: string
+  title: string
+  prices: VariantPrice[]
+  inventory_quantity?: number
 }
 
 export interface MedusaProduct {
@@ -26,4 +34,5 @@ export interface ProductCardData {
   currency: string
   image: string
   condition?: string
+  allPrices?: VariantPrice[]
 }

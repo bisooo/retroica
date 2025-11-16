@@ -24,7 +24,16 @@ export default function ShippingPage() {
                   🇪🇺 EUROPEAN UNION
                 </AccordionTrigger>
                 <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
-                  <p className="text-gray-600 dark:text-gray-400">Shipping information will be added here.</p>
+                  <p className="text-gray-600 dark:text-gray-400">Small items (0 - 1 kgs) €5.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Medium items (1 - 2 kgs) €9.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Large items (2 - 5 kgs) €12.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Additional fee (multiple items) €7.99</p>
                 </AccordionContent>
               </AccordionItem>
 
@@ -33,7 +42,16 @@ export default function ShippingPage() {
                   🇺🇸 UNITED STATES
                 </AccordionTrigger>
                 <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
-                  <p className="text-gray-600 dark:text-gray-400">Shipping information will be added here.</p>
+                  <p className="text-gray-600 dark:text-gray-400">Small items (0 - 1 kgs) $24.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Medium items (1 - 2 kgs) $34.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Large items (2 - 5 kgs) $54.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Additional fee (multiple items) $9.99</p>
                 </AccordionContent>
               </AccordionItem>
 
@@ -42,7 +60,16 @@ export default function ShippingPage() {
                   🇬🇧 UNITED KINGDOM
                 </AccordionTrigger>
                 <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
-                  <p className="text-gray-600 dark:text-gray-400">Shipping information will be added here.</p>
+                  <p className="text-gray-600 dark:text-gray-400">Small items (0 - 1 kgs) £9.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Medium items (1 - 2 kgs) £12.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Large items (2 - 5 kgs) £16.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Additional fee (multiple items) £9.99</p>
                 </AccordionContent>
               </AccordionItem>
 
@@ -51,7 +78,7 @@ export default function ShippingPage() {
                   🇨🇿 CZECH REPUBLIC
                 </AccordionTrigger>
                 <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
-                  <p className="text-gray-600 dark:text-gray-400">Shipping information will be added here.</p>
+                  <p className="text-gray-600 dark:text-gray-400">FREE SHIPPING</p>
                 </AccordionContent>
               </AccordionItem>
 
@@ -60,7 +87,16 @@ export default function ShippingPage() {
                   🇨🇦 CANADA
                 </AccordionTrigger>
                 <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
-                  <p className="text-gray-600 dark:text-gray-400">Shipping information will be added here.</p>
+                  <p className="text-gray-600 dark:text-gray-400">Small items (0 - 1 kgs) C$24.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Medium items (1 - 2 kgs) C$34.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Large items (2 - 5 kgs) C$54.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Additional fee (multiple items) C$9.99</p>
                 </AccordionContent>
               </AccordionItem>
 
@@ -69,7 +105,33 @@ export default function ShippingPage() {
                   🇦🇺 AUSTRALIA
                 </AccordionTrigger>
                 <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
-                  <p className="text-gray-600 dark:text-gray-400">Shipping information will be added here.</p>
+                  <p className="text-gray-600 dark:text-gray-400">Small items (0 - 1 kgs) A$34.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Medium items (1 - 2 kgs) A$54.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Large items (2 - 5 kgs) A$89.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Additional fee (multiple items) A$9.99</p>
+                </AccordionContent>
+              </AccordionItem>
+                            <AccordionItem value="eu" className="border-2 border-black dark:border-white mb-4">
+                <AccordionTrigger className="font-helvicta text-lg px-4 hover:no-underline text-black dark:text-white">
+                  🇪🇺 EUROPE (NON-EU)
+                </AccordionTrigger>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Small items (0 - 1 kgs) €12.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Medium items (1 - 2 kgs) €14.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Large items (2 - 5 kgs) €16.99</p>
+                </AccordionContent>
+                <AccordionContent className="font-business text-sm px-4 pb-4 text-black dark:text-white">
+                  <p className="text-gray-600 dark:text-gray-400">Additional fee (multiple items) €7.99</p>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
