@@ -2,10 +2,10 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { Button } from "@/components/ui/button"
-import { Loader2 } from "lucide-react"
+import { Loader2 } from 'lucide-react'
 
 interface StripePaymentElementProps {
   onSuccess: () => void
@@ -17,9 +17,29 @@ export function StripePaymentElement({ onSuccess, onError }: StripePaymentElemen
   const elements = useElements()
   const [isProcessing, setIsProcessing] = useState(false)
   const [isReady, setIsReady] = useState(false)
+  const [isCheckoutEnabled, setIsCheckoutEnabled] = useState(true)
+  const [flagLoading, setFlagLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/feature-flags')
+      .then((res) => res.json())
+      .then((data) => {
+        setIsCheckoutEnabled(data.enableCheckout)
+        setFlagLoading(false)
+      })
+      .catch(() => {
+        setIsCheckoutEnabled(true)
+        setFlagLoading(false)
+      })
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!isCheckoutEnabled) {
+      onError("Checkout is currently disabled for testing")
+      return
+    }
 
     if (!stripe || !elements) {
       return
@@ -65,7 +85,7 @@ export function StripePaymentElement({ onSuccess, onError }: StripePaymentElemen
       />
       <Button
         type="submit"
-        disabled={!stripe || !elements || isProcessing || !isReady}
+        disabled={!stripe || !elements || isProcessing || !isReady || !isCheckoutEnabled || flagLoading}
         className="w-full h-12 font-helvicta"
       >
         {isProcessing ? (
@@ -77,6 +97,11 @@ export function StripePaymentElement({ onSuccess, onError }: StripePaymentElemen
           "PLACE ORDER"
         )}
       </Button>
+      {!isCheckoutEnabled && (
+        <p className="text-sm text-muted-foreground text-center">
+          Checkout is currently disabled for testing purposes
+        </p>
+      )}
     </form>
   )
 }
