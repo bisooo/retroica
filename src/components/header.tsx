@@ -1,9 +1,11 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { usePathname } from 'next/navigation'
-import { Search, Menu } from 'lucide-react'
+import { usePathname } from "next/navigation"
+import { Search, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import ThemeToggle from "./theme-toggle"
@@ -85,6 +87,18 @@ export default function Header() {
     setHoveredItem(null)
   }
 
+  const handleNavItemClick = (item: any, e: React.MouseEvent) => {
+    if (hoveredItem === item.name) {
+      // If dropdown is open, close it and navigate
+      setHoveredItem(null)
+      window.location.href = item.href
+    } else {
+      // Otherwise, open the dropdown
+      e.preventDefault()
+      setHoveredItem(item.name)
+    }
+  }
+
   return (
     <>
       <div className="sticky top-0 z-50 bg-white dark:bg-black">
@@ -139,6 +153,7 @@ export default function Header() {
                     <div key={item.name} className="relative" onMouseEnter={() => handleMouseEnterNav(item.name)}>
                       <Link
                         href={item.href}
+                        onClick={(e) => handleNavItemClick(item, e)}
                         className={`hover:underline transition-all ${
                           isActive
                             ? "underline font-bold text-black dark:text-white"
