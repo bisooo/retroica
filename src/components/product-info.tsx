@@ -1,8 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Star } from 'lucide-react'
+import { useRouter } from "next/navigation"
+import { Star, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
 import { MetadataService } from "@/lib/services/metadata.service"
 import { getCurrencySymbol } from "@/lib/utils/currency"
 import { getStarColor } from "@/lib/utils/rating"
@@ -27,8 +29,10 @@ interface ProductInfoProps {
 }
 
 export default function ProductInfo({ product }: ProductInfoProps) {
+  const router = useRouter()
+  const { toast } = useToast()
   const { currency: selectedCurrency } = useCurrency()
-  
+
   const [expandedSections, setExpandedSections] = useState({
     specs: true,
     deliveryIncludes: true,
@@ -58,6 +62,37 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     }
   }
 
+  const handleBuyNow = async () => {
+    if (!product.variantId) {
+      console.error("[v0] No variant ID available for product")
+      return
+    }
+
+    setIsAdding(true)
+    try {
+      await addToCart(product.variantId, 1)
+      router.push("/checkout")
+    } finally {
+      setIsAdding(false)
+    }
+  }
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      toast({
+        title: "LINK COPIED",
+        description: "Product link copied to clipboard",
+      })
+    } catch (error) {
+      toast({
+        title: "SHARE FAILED",
+        description: "Could not copy link to clipboard",
+        variant: "destructive",
+      })
+    }
+  }
+
   const displayFields = product.rawMetadata ? MetadataService.getAllDisplayFields(product.rawMetadata) : {}
 
   const deliveryIncludes = product.rawMetadata?.delivery_includes as string | undefined
@@ -69,10 +104,11 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const starColor = getStarColor(product.condition)
 
   const priceInSelectedCurrency = product.allPrices?.find(
-    (p) => p.currency_code.toLowerCase() === selectedCurrency.toLowerCase()
+    (p) => p.currency_code.toLowerCase() === selectedCurrency.toLowerCase(),
   )
   const displayPrice = (priceInSelectedCurrency?.amount || product.price).toFixed(2)
-  const displayCurrency = priceInSelectedCurrency?.currency_code.toUpperCase() || product.currency || selectedCurrency.toUpperCase()
+  const displayCurrency =
+    priceInSelectedCurrency?.currency_code.toUpperCase() || product.currency || selectedCurrency.toUpperCase()
 
   return (
     <div className="h-full flex flex-col space-y-4 pt-4 overflow-y-auto">
@@ -162,15 +198,19 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           {isAdding ? "ADDING..." : "ADD TO CART"}
         </Button>
         <Button
+          onClick={handleBuyNow}
+          disabled={isAdding || cartLoading || !product.variantId}
           variant="outline"
           className="w-full font-helvetica text-sm py-3 border-2 border-black dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800 text-black dark:text-white bg-transparent"
         >
-          BUY NOW
+          {isAdding ? "PROCESSING..." : "BUY NOW"}
         </Button>
         <Button
+          onClick={handleShare}
           variant="outline"
-          className="w-full font-helvetica text-sm py-3 border-2 border-black dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800 text-black dark:text-white bg-transparent"
+          className="w-full font-helvetica text-sm py-3 border-2 border-black dark:border-white hover:bg-gray-100 dark:hover:bg-gray-800 text-black dark:text-white bg-transparent flex items-center justify-center gap-2"
         >
+          <Share2 className="h-4 w-4" />
           SHARE IT
         </Button>
       </div>
