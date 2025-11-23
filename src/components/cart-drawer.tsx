@@ -2,7 +2,7 @@
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
-import { ShoppingCart, X, Minus, Plus } from 'lucide-react'
+import { ShoppingCart, X, Minus, Plus } from "lucide-react"
 import { useCart } from "@/lib/contexts/cart-context"
 import { useCurrency } from "@/lib/contexts/currency-context"
 import Image from "next/image"
@@ -14,7 +14,7 @@ export default function CartDrawer() {
   const { currency } = useCurrency()
 
   const isEmpty = !cart || !cart.items || cart.items.length === 0
-  const displayCurrency = cart?.currency_code?.toUpperCase() || currency || 'EUR'
+  const displayCurrency = cart?.currency_code?.toUpperCase() || currency || "EUR"
 
   const calculateSubtotal = () => {
     if (!cart?.items) return 0
@@ -75,7 +75,9 @@ export default function CartDrawer() {
 
                       <div className="flex-1 flex flex-col min-w-0">
                         <div className="flex justify-between items-start gap-2 mb-2">
-                          <h3 className="font-helvicta text-sm font-bold line-clamp-2 flex-1">{item.title}</h3>
+                          <h3 className="font-helvicta text-sm font-bold truncate sm:line-clamp-2 flex-1">
+                            {item.title}
+                          </h3>
                           <button
                             onClick={() => removeFromCart(item.id)}
                             className="text-gray-500 hover:text-black dark:hover:text-white flex-shrink-0"
@@ -90,7 +92,7 @@ export default function CartDrawer() {
                           </p>
                         )}
 
-                        <div className="flex justify-between items-center gap-3 mt-auto">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-auto">
                           <div className="flex items-center border-2 border-black dark:border-white w-fit">
                             <button
                               onClick={() => removeFromCart(item.id)}
@@ -99,7 +101,7 @@ export default function CartDrawer() {
                               <Minus className="h-3 w-3" />
                             </button>
                             <span className="px-2 py-1 border-x-2 border-black dark:border-white font-business text-xs min-w-[32px] text-center">
-                              1
+                              {item.quantity}
                             </span>
                             <button disabled className="px-2 py-1 opacity-30 cursor-not-allowed">
                               <Plus className="h-3 w-3" />
@@ -108,7 +110,7 @@ export default function CartDrawer() {
 
                           <p className="font-helvicta text-sm font-bold">
                             {getCurrencySymbol(displayCurrency)}
-                            {item.unit_price.toFixed(2)}
+                            {(item.unit_price * item.quantity).toFixed(2)}
                           </p>
                         </div>
                       </div>
