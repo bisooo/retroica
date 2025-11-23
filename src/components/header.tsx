@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Search, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
@@ -18,6 +18,7 @@ import { navItems } from "@/lib/navigation-data"
 
 export default function Header() {
   const pathname = usePathname()
+  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -88,14 +89,22 @@ export default function Header() {
   }
 
   const handleNavItemClick = (item: any, e: React.MouseEvent) => {
-    if (hoveredItem === item.name) {
-      // If dropdown is open, close it and navigate
-      setHoveredItem(null)
-      window.location.href = item.href
-    } else {
-      // Otherwise, open the dropdown
-      e.preventDefault()
+    // Check if it's a touch device
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0
+
+    if (isTouchDevice) {
+      // On touch devices: show dropdown and navigate
       setHoveredItem(item.name)
+      router.push(item.href)
+    } else {
+      // On desktop: toggle dropdown on click, navigate on second click
+      if (hoveredItem === item.name) {
+        setHoveredItem(null)
+        router.push(item.href)
+      } else {
+        e.preventDefault()
+        setHoveredItem(item.name)
+      }
     }
   }
 
