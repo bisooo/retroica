@@ -89,15 +89,24 @@ export default function Header() {
   }
 
   const handleNavItemClick = (item: any, e: React.MouseEvent) => {
-    // Check if it's a touch device
     const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0
+    const isCurrentPage = pathname === item.href
 
     if (isTouchDevice) {
-      // On touch devices: show dropdown and navigate
-      setHoveredItem(item.name)
-      router.push(item.href)
+      // On touch devices
+      if (isCurrentPage) {
+        // If already on this page, just toggle the dropdown
+        e.preventDefault()
+        setHoveredItem(hoveredItem === item.name ? null : item.name)
+      } else {
+        // If navigating to a new page, show dropdown briefly then navigate
+        setHoveredItem(item.name)
+        // Close dropdown after navigation completes
+        setTimeout(() => setHoveredItem(null), 100)
+        router.push(item.href)
+      }
     } else {
-      // On desktop: toggle dropdown on click, navigate on second click
+      // On desktop: hover shows dropdown, click navigates
       if (hoveredItem === item.name) {
         setHoveredItem(null)
         router.push(item.href)
