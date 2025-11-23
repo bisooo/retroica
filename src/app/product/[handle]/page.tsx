@@ -73,10 +73,7 @@ export default async function ProductPage({ params }: { params: { handle: string
 
   const images = product.images?.map((img) => img.url) || [product.thumbnail || "/images/film-can.avif"]
 
-  const conditionRating = product.metadata?.condition
-    ? Number.parseFloat(product.metadata.condition as string)
-    : 10
-
+  const conditionRating = product.metadata?.condition ?? 0
   const variant = product.variants?.[0]
   const allPrices = variant?.prices || []
   const defaultPrice = allPrices.find((p) => p.currency_code === "eur")

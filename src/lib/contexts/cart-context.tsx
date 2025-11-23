@@ -62,14 +62,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     refreshCart()
-    
+
     const handleCurrencyChange = (event: CustomEvent) => {
       const { currency } = event.detail
       updateCartCurrency(currency)
     }
-    
-    window.addEventListener('currencyChanged', handleCurrencyChange as EventListener)
-    return () => window.removeEventListener('currencyChanged', handleCurrencyChange as EventListener)
+
+    window.addEventListener("currencyChanged", handleCurrencyChange as EventListener)
+    return () => window.removeEventListener("currencyChanged", handleCurrencyChange as EventListener)
   }, [])
 
   const addToCart = async (variantId: string, quantity = 1) => {

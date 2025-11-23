@@ -24,7 +24,9 @@ export class CartService {
 
     if (cartId) {
       try {
-        const { cart } = await sdk.store.cart.retrieve(cartId)
+        const { cart } = await sdk.store.cart.retrieve(cartId, {
+          fields: "+items.product.metadata,+items.product.weight",
+        })
 
         if (currencyCode && cart.currency_code?.toLowerCase() !== currencyCode.toLowerCase()) {
           const region = await this.findRegionByCurrency(currencyCode)
@@ -238,13 +240,14 @@ export class CartService {
     }
   }
 
-  static async addShippingMethod(shippingOptionId: string): Promise<Cart> {
+  static async addShippingMethod(shippingOptionId: string, data?: Record<string, any>): Promise<Cart> {
     try {
       const cartId = this.getCartId()
       if (!cartId) throw new Error("No cart found")
 
       await sdk.store.cart.addShippingMethod(cartId, {
         option_id: shippingOptionId,
+        data,
       })
 
       const { cart } = await sdk.store.cart.retrieve(cartId)

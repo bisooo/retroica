@@ -3,7 +3,7 @@ import type { MedusaProduct } from "@/lib/types/product.types"
 import { isCollection } from "@/lib/config/collections"
 
 const PRODUCT_FIELDS = "id,title,handle,thumbnail,*variants,*variants.prices,metadata.condition"
-const PRODUCT_DETAIL_FIELDS = "id,title,handle,thumbnail,*images,*variants,*variants.prices,metadata"
+const PRODUCT_DETAIL_FIELDS = "id,title,handle,thumbnail,weight,*images,*variants,*variants.prices,metadata"
 
 const collectionIdCache = new Map<string, string>()
 const categoryIdCache = new Map<string, string>()
@@ -15,12 +15,9 @@ export class ProductService {
     }
 
     try {
-      const { collections } = await sdk.store.collection.list(
-        { handle },
-        {
-          next: { revalidate: 86400 },
-        } as any,
-      )
+      const { collections } = await sdk.store.collection.list({ handle }, {
+        next: { revalidate: 86400 },
+      } as any)
 
       if (collections && collections.length > 0) {
         const id = collections[0].id
@@ -40,12 +37,9 @@ export class ProductService {
     }
 
     try {
-      const { product_categories } = await sdk.store.category.list(
-        { handle },
-        {
-          next: { revalidate: 86400 },
-        } as any,
-      )
+      const { product_categories } = await sdk.store.category.list({ handle }, {
+        next: { revalidate: 86400 },
+      } as any)
 
       if (product_categories && product_categories.length > 0) {
         const id = product_categories[0].id

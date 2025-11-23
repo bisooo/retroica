@@ -1,12 +1,14 @@
 "use client"
 
+import type React from "react"
+
 import { useEffect, useState } from "react"
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation"
 import { useCart } from "@/lib/contexts/cart-context"
 import { useCurrency } from "@/lib/contexts/currency-context"
 import { CartService } from "@/lib/services/cart.service"
 import Link from "next/link"
-import { ArrowLeft, Loader2 } from 'lucide-react'
+import { ArrowLeft, Loader2 } from "lucide-react"
 import type { ShippingAddress } from "@/lib/types/cart.types"
 import { useToast } from "@/hooks/use-toast"
 import { getStripe } from "@/lib/stripe"
@@ -71,6 +73,33 @@ export default function CheckoutPage() {
     }
   }
 
+  const calculateShippingData = () => {
+    if (!cart?.items || cart.items.length === 0) {
+      return { shipping_size: "small", weight: 0 }
+    }
+
+    const sizes = ["small", "medium", "large"]
+    let largestSize = "small"
+    let totalWeight = 0
+
+    for (const item of cart.items) {
+      // Get shipping size from product metadata
+      const shippingSize = item.product?.metadata?.shipping_size as string | undefined
+      if (shippingSize && sizes.indexOf(shippingSize) > sizes.indexOf(largestSize)) {
+        largestSize = shippingSize
+      }
+
+      // Get weight from product
+      const weight = item.product?.weight || 0
+      totalWeight += weight * item.quantity
+    }
+
+    return {
+      shipping_size: largestSize,
+      weight: totalWeight,
+    }
+  }
+
   const handleShippingSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
@@ -83,7 +112,8 @@ export default function CheckoutPage() {
         throw new Error("Please select a shipping option")
       }
 
-      const cartWithShipping = await CartService.addShippingMethod(selectedShippingOption)
+      const shippingData = calculateShippingData()
+      const cartWithShipping = await CartService.addShippingMethod(selectedShippingOption, shippingData)
 
       if (!cartWithShipping.shipping_methods || cartWithShipping.shipping_methods.length === 0) {
         throw new Error("Failed to add shipping method to cart")
@@ -162,8 +192,9 @@ export default function CheckoutPage() {
           if (options && options.length > 0) {
             setShippingOptions(options)
             setSelectedShippingOption(options[0].id)
-            
-            await CartService.addShippingMethod(options[0].id)
+
+            const shippingData = calculateShippingData()
+            await CartService.addShippingMethod(options[0].id, shippingData)
             await refreshCart()
           } else {
             toast({
