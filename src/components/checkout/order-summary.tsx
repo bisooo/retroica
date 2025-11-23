@@ -3,6 +3,8 @@
 import Image from "next/image"
 import { getCurrencySymbol } from "@/lib/utils/currency"
 import type { Cart } from "@/lib/types/cart.types"
+import { X, Minus, Plus } from "lucide-react"
+import { useCart } from "@/lib/contexts/cart-context"
 
 interface OrderSummaryProps {
   cart: Cart
@@ -12,13 +14,9 @@ interface OrderSummaryProps {
   showShipping: boolean
 }
 
-export function OrderSummary({
-  cart,
-  displayCurrency,
-  itemSubtotal,
-  shippingAmount,
-  showShipping,
-}: OrderSummaryProps) {
+export function OrderSummary({ cart, displayCurrency, itemSubtotal, shippingAmount, showShipping }: OrderSummaryProps) {
+  const { removeFromCart } = useCart()
+
   return (
     <div className="border-2 border-black dark:border-white p-6">
       <h2 className="font-helvicta text-xl font-bold mb-4">ORDER SUMMARY</h2>
@@ -35,13 +33,40 @@ export function OrderSummary({
                 sizes="80px"
               />
             </div>
-            <div className="flex-1">
-              <h3 className="font-helvicta text-sm font-bold line-clamp-2">{item.title}</h3>
-              <p className="font-business text-sm text-gray-600 dark:text-gray-400">Qty: {item.quantity}</p>
-              <p className="font-business text-sm font-bold mt-1">
-                {getCurrencySymbol(displayCurrency)}
-                {(item.unit_price * item.quantity).toFixed(2)}
-              </p>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-helvicta text-sm font-bold line-clamp-1 md:line-clamp-2">{item.title}</h3>
+
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mt-2">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center border-2 border-black dark:border-white">
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      type="button"
+                    >
+                      <Minus className="h-3 w-3" />
+                    </button>
+                    <span className="px-2 py-1 border-x-2 border-black dark:border-white font-business text-xs min-w-[32px] text-center">
+                      {item.quantity}
+                    </span>
+                    <button disabled className="px-2 py-1 opacity-30 cursor-not-allowed" type="button">
+                      <Plus className="h-3 w-3" />
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="text-gray-500 hover:text-black dark:hover:text-white"
+                    type="button"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <p className="font-business text-sm font-bold">
+                  {getCurrencySymbol(displayCurrency)}
+                  {(item.unit_price * item.quantity).toFixed(2)}
+                </p>
+              </div>
             </div>
           </div>
         ))}
@@ -59,9 +84,7 @@ export function OrderSummary({
           <div className="flex justify-between font-business text-sm">
             <span>Shipping</span>
             <span>
-              {shippingAmount === 0
-                ? "FREE"
-                : `${getCurrencySymbol(displayCurrency)}${shippingAmount.toFixed(2)}`}
+              {shippingAmount === 0 ? "FREE" : `${getCurrencySymbol(displayCurrency)}${shippingAmount.toFixed(2)}`}
             </span>
           </div>
         )}

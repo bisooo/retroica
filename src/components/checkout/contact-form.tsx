@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -24,7 +26,7 @@ export function ContactForm({
 }: ContactFormProps) {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      <div className="border-2 border-black dark:border-white p-6 space-y-4">
+      <div className="border-2 border-black dark:border-white p-4 sm:p-6 space-y-4 overflow-x-hidden">
         <h2 className="font-helvicta text-xl font-bold mb-4">CONTACT</h2>
 
         <div>
@@ -37,11 +39,11 @@ export function ContactForm({
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
             required
-            className="mt-1"
+            className="mt-1 max-w-full"
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label htmlFor="first_name" className="font-helvicta text-sm">
               FIRST NAME
@@ -51,7 +53,7 @@ export function ContactForm({
               value={shippingForm.first_name}
               onChange={(e) => onShippingFormChange({ ...shippingForm, first_name: e.target.value })}
               required
-              className="mt-1"
+              className="mt-1 max-w-full"
             />
           </div>
           <div>
@@ -63,7 +65,7 @@ export function ContactForm({
               value={shippingForm.last_name}
               onChange={(e) => onShippingFormChange({ ...shippingForm, last_name: e.target.value })}
               required
-              className="mt-1"
+              className="mt-1 max-w-full"
             />
           </div>
         </div>

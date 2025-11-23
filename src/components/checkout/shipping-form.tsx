@@ -1,9 +1,11 @@
 "use client"
 
+import type React from "react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Loader2 } from 'lucide-react'
+import { Loader2 } from "lucide-react"
 import { getCurrencySymbol } from "@/lib/utils/currency"
 import type { ShippingAddress } from "@/lib/types/cart.types"
 import { COUNTRIES } from "@/lib/data/countries"
@@ -36,10 +38,10 @@ export function ShippingForm({
   onBack,
 }: ShippingFormProps) {
   const showShippingMethodSelector = false
-  
+
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      <div className="border-2 border-black dark:border-white p-6 space-y-4">
+      <div className="border-2 border-black dark:border-white p-4 sm:p-6 space-y-4 overflow-x-hidden">
         <h2 className="font-helvicta text-xl font-bold mb-4">SHIPPING</h2>
 
         <div>
@@ -51,7 +53,7 @@ export function ShippingForm({
             value={shippingForm.country_code}
             onChange={(e) => onShippingFormChange({ ...shippingForm, country_code: e.target.value })}
             required
-            className="mt-1 flex h-10 w-full rounded-md border-2 border-black dark:border-white bg-white dark:bg-black px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300"
+            className="mt-1 flex h-10 w-full max-w-full rounded-md border-2 border-black dark:border-white bg-white dark:bg-black px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300"
           >
             <option value="">Select a country</option>
             {COUNTRIES.map((country) => (
@@ -76,14 +78,11 @@ export function ShippingForm({
                 <p className="font-helvicta font-bold text-sm">{shippingOptions[0].name}</p>
               </div>
               <p className="font-helvicta text-sm font-bold">
-                {shippingAmount === 0
-                  ? "FREE"
-                  : `${getCurrencySymbol(displayCurrency)}${shippingAmount.toFixed(2)}`}
+                {shippingAmount === 0 ? "FREE" : `${getCurrencySymbol(displayCurrency)}${shippingAmount.toFixed(2)}`}
               </p>
             </div>
           </div>
         )}
-
 
         <div>
           <Label htmlFor="address_1" className="font-helvicta text-sm">
@@ -94,7 +93,7 @@ export function ShippingForm({
             value={shippingForm.address_1}
             onChange={(e) => onShippingFormChange({ ...shippingForm, address_1: e.target.value })}
             required
-            className="mt-1"
+            className="mt-1 max-w-full"
           />
         </div>
 
@@ -106,11 +105,11 @@ export function ShippingForm({
             id="address_2"
             value={shippingForm.address_2}
             onChange={(e) => onShippingFormChange({ ...shippingForm, address_2: e.target.value })}
-            className="mt-1"
+            className="mt-1 max-w-full"
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <Label htmlFor="city" className="font-helvicta text-sm">
               CITY
@@ -120,7 +119,7 @@ export function ShippingForm({
               value={shippingForm.city}
               onChange={(e) => onShippingFormChange({ ...shippingForm, city: e.target.value })}
               required
-              className="mt-1"
+              className="mt-1 max-w-full"
             />
           </div>
           <div>
@@ -132,7 +131,7 @@ export function ShippingForm({
               value={shippingForm.postal_code}
               onChange={(e) => onShippingFormChange({ ...shippingForm, postal_code: e.target.value })}
               required
-              className="mt-1"
+              className="mt-1 max-w-full"
             />
           </div>
         </div>
@@ -147,14 +146,19 @@ export function ShippingForm({
             value={shippingForm.phone}
             onChange={(e) => onShippingFormChange({ ...shippingForm, phone: e.target.value })}
             required
-            className="mt-1"
+            className="mt-1 max-w-full"
           />
         </div>
       </div>
 
       <Button
         type="submit"
-        disabled={isLoading || isCalculatingShipping || (!selectedShippingOption && shippingAmount !== 0) || (!isCalculatingShipping && shippingOptions.length > 0 && shippingAmount === undefined)}
+        disabled={
+          isLoading ||
+          isCalculatingShipping ||
+          (!selectedShippingOption && shippingAmount !== 0) ||
+          (!isCalculatingShipping && shippingOptions.length > 0 && shippingAmount === undefined)
+        }
         className="w-full font-helvicta h-12"
       >
         {isLoading ? "PROCESSING..." : "CONTINUE TO PAYMENT"}
@@ -164,7 +168,7 @@ export function ShippingForm({
         type="button"
         variant="outline"
         onClick={onBack}
-        className="w-full font-helvicta h-12"
+        className="w-full font-helvicta h-12 bg-transparent"
         disabled={isLoading}
       >
         BACK TO CONTACT
