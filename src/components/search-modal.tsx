@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation"
 import { ProductService } from "@/lib/services/product.service"
 import type { MedusaProduct } from "@/lib/types/product.types"
 import Image from "next/image"
+import { useCurrency } from "@/lib/contexts/currency-context"
+import { getCurrencySymbol } from "@/lib/utils/currency"
 
 interface SearchModalProps {
   isOpen: boolean
@@ -23,6 +25,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [isSearching, setIsSearching] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
+  const { currency: selectedCurrency } = useCurrency()
 
   useEffect(() => {
     if (isOpen) {
@@ -107,32 +110,41 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           ) : searchResults.length > 0 ? (
             <div className="overflow-x-auto -mx-4 px-4">
               <div className="flex gap-4 pb-2" style={{ width: "max-content" }}>
-                {searchResults.map((product) => (
-                  <Link
-                    key={product.id}
-                    href={`/product/${product.handle}`}
-                    onClick={onClose}
-                    className="flex-shrink-0 w-48 border-2 border-black dark:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-                  >
-                    <div className="relative aspect-square border-b-2 border-black dark:border-white">
-                      <Image
-                        src={product.thumbnail || "/placeholder.svg"}
-                        alt={product.title}
-                        fill
-                        className="object-cover"
-                        sizes="192px"
-                      />
-                    </div>
-                    <div className="p-3">
-                      <div className="font-helvicta text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
-                        {product.title}
+                {searchResults.map((product) => {
+                  const allPrices = product.variants?.[0]?.prices || []
+                  const priceInSelectedCurrency = allPrices.find(
+                    (p: any) => p.currency_code.toLowerCase() === selectedCurrency.toLowerCase()
+                  )
+                  const displayPrice = priceInSelectedCurrency?.amount ?? product.variants?.[0]?.calculated_price?.calculated_amount ?? 0
+                  const displayCurrency = priceInSelectedCurrency?.currency_code?.toUpperCase() || selectedCurrency.toUpperCase()
+                  
+                  return (
+                    <Link
+                      key={product.id}
+                      href={`/product/${product.handle}?currency=${selectedCurrency.toLowerCase()}`}
+                      onClick={onClose}
+                      className="flex-shrink-0 w-48 border-2 border-black dark:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+                    >
+                      <div className="relative aspect-square border-b-2 border-black dark:border-white">
+                        <Image
+                          src={product.thumbnail || "/placeholder.svg"}
+                          alt={product.title}
+                          fill
+                          className="object-cover"
+                          sizes="192px"
+                        />
                       </div>
-                      <div className="font-business text-sm text-gray-600 dark:text-gray-400 mt-2">
-                        €{(product.variants?.[0]?.calculated_price?.calculated_amount || 0).toFixed(2)}
+                      <div className="p-3">
+                        <div className="font-helvicta text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
+                          {product.title}
+                        </div>
+                        <div className="font-business text-sm text-gray-600 dark:text-gray-400 mt-2">
+                          {getCurrencySymbol(displayCurrency)}{displayPrice.toFixed(2)}
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  )
+                })}
               </div>
             </div>
           ) : null}

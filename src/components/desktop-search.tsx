@@ -39,6 +39,7 @@ export default function DesktopSearch({ isActive, onActiveChange, onResultsChang
         const formattedResults = results.slice(0, 6).map((product) => ({
           ...product,
           price: product.variants?.[0]?.calculated_price?.calculated_amount || 0,
+          allPrices: product.variants?.[0]?.prices || [],
         }))
         onResultsChange(formattedResults)
       } catch (error) {

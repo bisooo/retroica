@@ -31,7 +31,7 @@ export default function ProductCard({ id, handle, name, price, currency, image, 
   const priceInSelectedCurrency = allPrices?.find(
     (p) => p.currency_code.toLowerCase() === selectedCurrency.toLowerCase()
   )
-  const displayPrice = priceInSelectedCurrency?.amount || price
+  const displayPrice = priceInSelectedCurrency?.amount ?? price ?? 0
   const displayCurrency = priceInSelectedCurrency?.currency_code.toUpperCase() || currency || selectedCurrency.toUpperCase()
   
   const conditionStars = parseCondition(condition)

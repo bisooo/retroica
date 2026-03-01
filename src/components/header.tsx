@@ -15,10 +15,13 @@ import DesktopSearch from "./desktop-search"
 import CartDrawer from "./cart-drawer"
 import CurrencySelector from "./currency-selector"
 import { navItems } from "@/lib/navigation-data"
+import { useCurrency } from "@/lib/contexts/currency-context"
+import { getCurrencySymbol } from "@/lib/utils/currency"
 
 export default function Header() {
   const pathname = usePathname()
   const router = useRouter()
+  const { currency: selectedCurrency } = useCurrency()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -312,36 +315,44 @@ export default function Header() {
             <div className="container mx-auto px-4 border-t-2 border-black dark:border-white">
               <div className="py-5">
                 <div className="grid grid-cols-6 gap-4">
-                  {searchResults.map((product, index) => (
-                    <Link
-                      key={product.id}
-                      href={`/product/${product.handle}`}
-                      onClick={() => {
-                        setDesktopSearchActive(false)
-                        setSearchResults([])
-                      }}
-                      className="border-2 border-black dark:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors animate-fade-in-sequence"
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      <div className="relative aspect-square border-b-2 border-black dark:border-white">
-                        <Image
-                          src={product.thumbnail || "/placeholder.svg"}
-                          alt={product.title}
-                          fill
-                          className="object-cover"
-                          sizes="200px"
-                        />
-                      </div>
-                      <div className="p-3">
-                        <div className="font-helvicta text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
-                          {product.title}
+                  {searchResults.map((product, index) => {
+                    const priceInSelectedCurrency = product.allPrices?.find(
+                      (p: any) => p.currency_code.toLowerCase() === selectedCurrency.toLowerCase()
+                    )
+                    const displayPrice = priceInSelectedCurrency?.amount ?? product.price ?? 0
+                    const displayCurrency = priceInSelectedCurrency?.currency_code?.toUpperCase() || selectedCurrency.toUpperCase()
+                    
+                    return (
+                      <Link
+                        key={product.id}
+                        href={`/product/${product.handle}?currency=${selectedCurrency.toLowerCase()}`}
+                        onClick={() => {
+                          setDesktopSearchActive(false)
+                          setSearchResults([])
+                        }}
+                        className="border-2 border-black dark:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors animate-fade-in-sequence"
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <div className="relative aspect-square border-b-2 border-black dark:border-white">
+                          <Image
+                            src={product.thumbnail || "/placeholder.svg"}
+                            alt={product.title}
+                            fill
+                            className="object-cover"
+                            sizes="200px"
+                          />
                         </div>
-                        <div className="font-business text-sm text-gray-600 dark:text-gray-400 mt-2">
-                          €{product.price.toFixed(2)}
+                        <div className="p-3">
+                          <div className="font-helvicta text-sm font-medium text-black dark:text-white line-clamp-2 min-h-[2.5rem]">
+                            {product.title}
+                          </div>
+                          <div className="font-business text-sm text-gray-600 dark:text-gray-400 mt-2">
+                            {getCurrencySymbol(displayCurrency)}{displayPrice.toFixed(2)}
+                          </div>
                         </div>
-                      </div>
-                    </Link>
-                  ))}
+                      </Link>
+                    )
+                  })}
                 </div>
               </div>
             </div>
