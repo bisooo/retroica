@@ -10,6 +10,7 @@ import DesktopSearch from "./desktop-search"
 import Image from "next/image"
 import CartDrawer from "./cart-drawer"
 import CurrencySelector from "./currency-selector"
+import ThemeToggle from "./theme-toggle"
 
 export default function MinimalNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -111,7 +112,9 @@ export default function MinimalNavbar() {
         )}
       </div>
 
-      <MobileNavigationMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+      <MobileNavigationMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
+        <ThemeToggle variant="mobile" />
+      </MobileNavigationMenu>
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )

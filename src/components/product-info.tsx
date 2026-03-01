@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Star, Share2 } from "lucide-react"
+import { Star, Share2, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { MetadataService } from "@/lib/services/metadata.service"
@@ -10,6 +10,7 @@ import { getCurrencySymbol } from "@/lib/utils/currency"
 import { getStarColor } from "@/lib/utils/rating"
 import { useCart } from "@/lib/contexts/cart-context"
 import { useCurrency } from "@/lib/contexts/currency-context"
+import { getSpecExplanation } from "@/lib/data/spec-explanations"
 import type { VariantPrice } from "@/lib/types/product.types"
 
 interface ProductInfoProps {
@@ -37,6 +38,11 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     specs: true,
     deliveryIncludes: true,
   })
+
+  // Spec tooltip/modal state
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null)
+  const [mobileModal, setMobileModal] = useState<{ field: string; explanation: string } | null>(null)
+  const tooltipRef = useRef<HTMLDivElement>(null)
 
   const { addToCart, isLoading: cartLoading } = useCart()
   const [isAdding, setIsAdding] = useState(false)
@@ -94,6 +100,30 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   }
 
   const displayFields = product.rawMetadata ? MetadataService.getAllDisplayFields(product.rawMetadata) : {}
+
+  // Handle spec field click - tooltip on desktop, modal on mobile
+  const handleSpecClick = (field: string) => {
+    const explanation = getSpecExplanation(field)
+    if (!explanation) return
+
+    // Check if mobile (using window width)
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setMobileModal({ field: MetadataService.formatFieldName(field), explanation })
+    } else {
+      setActiveTooltip(activeTooltip === field ? null : field)
+    }
+  }
+
+  // Close tooltip when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(e.target as Node)) {
+        setActiveTooltip(null)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   const deliveryIncludes = product.rawMetadata?.delivery_includes as string | undefined
 
@@ -226,13 +256,36 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             ></div>
           </button>
           {expandedSections.specs && (
-            <div className="mt-4 space-y-2 font-helvetica text-xs text-black dark:text-white">
-              {Object.entries(displayFields).map(([field, value]) => (
-                <div key={field} className="flex justify-between gap-4">
-                  <span className="font-bold">{MetadataService.formatFieldName(field)}:</span>
-                  <span className="text-right font-business">{value}</span>
-                </div>
-              ))}
+            <div className="mt-4 space-y-2 font-helvetica text-xs text-black dark:text-white" ref={tooltipRef}>
+              {Object.entries(displayFields).map(([field, value]) => {
+                const explanation = getSpecExplanation(field)
+                const isActive = activeTooltip === field
+                
+                return (
+                  <div key={field} className="relative">
+                    <div className="flex justify-between gap-4">
+                      <span 
+                        className={`font-bold ${explanation ? "cursor-help underline decoration-dotted underline-offset-2 hover:text-gray-600 dark:hover:text-gray-300" : ""}`}
+                        onClick={() => explanation && handleSpecClick(field)}
+                        onMouseEnter={() => explanation && typeof window !== "undefined" && window.innerWidth >= 1024 && setActiveTooltip(field)}
+                        onMouseLeave={() => typeof window !== "undefined" && window.innerWidth >= 1024 && setActiveTooltip(null)}
+                      >
+                        {MetadataService.formatFieldName(field)}:
+                      </span>
+                      <span className="text-right font-business">{value}</span>
+                    </div>
+                    
+                    {/* Desktop Tooltip */}
+                    {isActive && explanation && (
+                      <div className="hidden lg:block absolute left-0 top-full mt-1 z-50 w-64 p-3 bg-white dark:bg-black border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+                        <p className="font-helvetica text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {explanation}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
               {Object.keys(displayFields).length === 0 && <p className="text-gray-500">MISSING SPECS</p>}
             </div>
           )}
@@ -260,6 +313,36 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           </div>
         )}
       </div>
+
+      {/* Mobile Spec Explanation Modal */}
+      {mobileModal && (
+        <div 
+          className="lg:hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          onClick={() => setMobileModal(null)}
+        >
+          <div 
+            className="mx-4 w-full max-w-sm bg-white dark:bg-black border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between p-4 border-b-2 border-black dark:border-white">
+              <h3 className="font-helvetica text-sm font-bold text-black dark:text-white">
+                {mobileModal.field}
+              </h3>
+              <button 
+                onClick={() => setMobileModal(null)}
+                className="p-1 hover:bg-gray-100 dark:hover:bg-gray-900"
+              >
+                <X className="h-4 w-4 text-black dark:text-white" />
+              </button>
+            </div>
+            <div className="p-4">
+              <p className="font-helvetica text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                {mobileModal.explanation}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
