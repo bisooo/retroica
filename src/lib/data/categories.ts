@@ -47,3 +47,74 @@ export const allCategoryHandles = [
   ...posterCollections,
   ...shopByCategoryCollections,
 ] as const
+
+// Helper to determine filter category and subcategory from URL handle
+export function getCategoryAndSubcategory(handle: string): {
+  category: 'PHOTO' | 'VIDEO' | 'MUSIC'
+  subcategory: 'ANALOG' | 'DIGITAL'
+} {
+  // Photo categories
+  if (
+    handle === 'photo' ||
+    handle === 'photo-analog' ||
+    photoAnalogCategories.includes(handle as any) ||
+    handle === 'point-and-shoot' ||
+    handle === 'olympus-mju' ||
+    handle === 'retro-kodak'
+  ) {
+    return { category: 'PHOTO', subcategory: 'ANALOG' }
+  }
+  
+  if (
+    handle === 'photo-digital' ||
+    photoDigitalCategories.includes(handle as any) ||
+    handle === 'y2k-digital' ||
+    handle === 'y2k-sony'
+  ) {
+    return { category: 'PHOTO', subcategory: 'DIGITAL' }
+  }
+  
+  // Video categories
+  if (
+    handle === 'video' ||
+    handle === 'video-analog' ||
+    videoAnalogCategories.includes(handle as any)
+  ) {
+    return { category: 'VIDEO', subcategory: 'ANALOG' }
+  }
+  
+  if (
+    handle === 'video-digital' ||
+    videoDigitalCategories.includes(handle as any) ||
+    handle === 'camcoder'
+  ) {
+    return { category: 'VIDEO', subcategory: 'DIGITAL' }
+  }
+  
+  // Music categories
+  if (
+    handle === 'music' ||
+    handle === 'music-analog' ||
+    musicAnalogCategories.includes(handle as any) ||
+    handle === 'cassette-players'
+  ) {
+    return { category: 'MUSIC', subcategory: 'ANALOG' }
+  }
+  
+  if (
+    handle === 'music-digital' ||
+    musicDigitalCategories.includes(handle as any) ||
+    handle === 'classic-ipods' ||
+    handle === 'gameboys'
+  ) {
+    return { category: 'MUSIC', subcategory: 'DIGITAL' }
+  }
+  
+  // Accessories default to PHOTO_ANALOG filters
+  if (handle === 'accessories' || accessoriesCategories.includes(handle as any)) {
+    return { category: 'PHOTO', subcategory: 'ANALOG' }
+  }
+  
+  // Default fallback
+  return { category: 'PHOTO', subcategory: 'ANALOG' }
+}

@@ -18,6 +18,7 @@ export class ProductMapper {
       image: product.thumbnail || "/images/film-can.avif",
       condition: product.metadata?.condition as string | undefined,
       allPrices: variant?.prices || [],
+      rawMetadata: product.metadata as Record<string, unknown> | undefined,
     }
   }
 

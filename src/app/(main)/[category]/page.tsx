@@ -1,8 +1,8 @@
-import ProductFilters from "@/components/product-filters"
 import ProductGrid from "@/components/product-grid"
+import FilterSidebar from "@/components/filters/FilterSidebar"
 import { ProductService } from "@/lib/services/product.service"
 import { ProductMapper } from "@/lib/mappers/product.mapper"
-import { allCategoryHandles } from "@/lib/data/categories"
+import { allCategoryHandles, getCategoryAndSubcategory } from "@/lib/data/categories"
 import type { Metadata } from "next"
 
 interface CategoryPageProps {
@@ -83,14 +83,23 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const medusaProducts = await ProductService.getAllProductsByHandle(category)
   const products = ProductMapper.toProductCards(medusaProducts)
+  
+  // Get the category and subcategory for filter configuration
+  const { category: filterCategory, subcategory } = getCategoryAndSubcategory(category)
 
   return (
     <main className="flex min-h-screen">
-      <div className="hidden lg:block">
-        <ProductFilters />
-      </div>
+      <FilterSidebar 
+        category={filterCategory} 
+        subcategory={subcategory} 
+        products={products} 
+      />
       <div className="flex-1 flex flex-col">
-        <ProductGrid products={products} />
+        <ProductGrid 
+          products={products} 
+          filterCategory={filterCategory}
+          filterSubcategory={subcategory}
+        />
       </div>
     </main>
   )

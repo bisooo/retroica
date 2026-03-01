@@ -1,61 +1,54 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
-import { X, ChevronUp, ChevronDown } from "lucide-react"
+import { useMemo } from "react"
+import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+import MultiSelectFilter from "./filters/MultiSelectFilter"
+import RangeSliderFilter from "./filters/RangeSliderFilter"
+import { useFilterParams } from "@/lib/filters/hooks"
+import { GLOBAL_FILTERS, getFiltersForCategory, type Category, type Subcategory } from "@/lib/filters/config"
+import { useCurrency } from "@/lib/contexts/currency-context"
+import { getCurrencySymbol } from "@/lib/utils/currency"
+import type { ProductCardData } from "@/lib/types/product.types"
 
 interface MobileFiltersProps {
   isOpen: boolean
   onClose: () => void
+  category?: Category
+  subcategory?: Subcategory
+  products?: ProductCardData[]
 }
 
-export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
-  const [priceRange, setPriceRange] = useState([0, 1000])
-  const [expandedSections, setExpandedSections] = useState({
-    brand: true,
-    price: true,
-    format: true,
-    iso: true,
-  })
+export default function MobileFilters({ 
+  isOpen, 
+  onClose, 
+  category = 'PHOTO', 
+  subcategory = 'ANALOG',
+  products = []
+}: MobileFiltersProps) {
+  const { activeCount, clearAll } = useFilterParams()
+  const categoryFilters = getFiltersForCategory(category, subcategory)
+  const { currency } = useCurrency()
+  const currencySymbol = getCurrencySymbol(currency)
 
-  const toggleSection = (section: keyof typeof expandedSections) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }))
-  }
-
-  const brands = [
-    { name: "KODAK", count: 3 },
-    { name: "FUJIFILM", count: 10 },
-    { name: "OLYMPUS", count: 20 },
-  ]
-
-  const formats = [
-    { name: "35MM", count: 30 },
-    { name: "120MM", count: 18 },
-    { name: "110MM", count: 5 },
-    { name: "APS", count: 2 },
-  ]
-
-  const isoTypes = [
-    { name: "MANUAL", count: 7 },
-    { name: "DX-CODE", count: 20 },
-    { name: "FIXED", count: 3 },
-  ]
-
-  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number.parseInt(e.target.value)
-    setPriceRange([value, priceRange[1]])
-  }
-
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number.parseInt(e.target.value)
-    setPriceRange([priceRange[0], value])
-  }
+  // Calculate dynamic price range based on products in selected currency
+  const priceRange = useMemo(() => {
+    if (!products.length) return { min: 0, max: 500 }
+    
+    const prices = products.map(p => {
+      const priceInCurrency = p.allPrices?.find(
+        price => price.currency_code?.toLowerCase() === currency.toLowerCase()
+      )?.amount ?? p.price
+      return priceInCurrency
+    }).filter(p => p > 0)
+    
+    if (!prices.length) return { min: 0, max: 500 }
+    
+    const minPrice = Math.floor(Math.min(...prices) / 10) * 10
+    const maxPrice = Math.ceil(Math.max(...prices) / 10) * 10
+    
+    return { min: minPrice, max: maxPrice }
+  }, [products, currency])
 
   if (!isOpen) return null
 
@@ -65,10 +58,20 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
       <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose} />
 
       {/* Sidebar */}
-      <div className="absolute right-0 top-0 h-full w-80 bg-white dark:bg-black border-l-2 border-black dark:border-white overflow-y-auto">
+      <div className="absolute right-0 top-0 h-full w-80 bg-white dark:bg-black border-l-2 border-black dark:border-white flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b-2 border-black dark:border-white">
-          <h2 className="font-helvicta text-lg font-bold text-black dark:text-white">FILTERS</h2>
+          <div>
+            <h2 className="font-helvicta text-lg font-bold text-black dark:text-white">FILTERS</h2>
+            {activeCount > 0 && (
+              <button
+                onClick={clearAll}
+                className="font-business text-xs text-gray-500 hover:text-black dark:hover:text-white"
+              >
+                Clear all ({activeCount})
+              </button>
+            )}
+          </div>
           <Button
             variant="ghost"
             size="icon"
@@ -79,164 +82,85 @@ export default function MobileFilters({ isOpen, onClose }: MobileFiltersProps) {
           </Button>
         </div>
 
-        {/* Filters Content */}
-        <div className="p-6">
-          {/* Brand Filter */}
-          <div className="mb-8">
-            <button
-              onClick={() => toggleSection("brand")}
-              className="flex items-center justify-between w-full mb-4 text-left"
-            >
-              <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">BRAND</h3>
-              {expandedSections.brand ? (
-                <ChevronUp className="h-4 w-4 text-black dark:text-white" />
-              ) : (
-                <ChevronDown className="h-4 w-4 text-black dark:text-white" />
-              )}
-            </button>
-            {expandedSections.brand && (
-              <div className="space-y-3">
-                {brands.map((brand) => (
-                  <div key={brand.name} className="flex items-center space-x-2">
-                    <Checkbox id={`mobile-${brand.name.toLowerCase()}`} />
-                    <label
-                      htmlFor={`mobile-${brand.name.toLowerCase()}`}
-                      className="font-business text-xs cursor-pointer text-black dark:text-white"
-                    >
-                      {brand.name} ({brand.count})
-                    </label>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+        {/* Filters Content - Scrollable */}
+        <div className="flex-1 overflow-y-auto p-6" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          {/* Global Filters */}
+          {GLOBAL_FILTERS.map((filter) => {
+            if (filter.type === 'range' && filter.rangeConfig) {
+              // Use dynamic price range and currency-aware formatting for price filter
+              const isPriceFilter = filter.id === 'price'
+              const formatLabel = isPriceFilter 
+                ? (val: number) => `${currencySymbol}${val}`
+                : filter.rangeConfig.formatLabel
+              return (
+                <RangeSliderFilter
+                  key={`${filter.id}-${currency}`}
+                  title={filter.title}
+                  paramKeyMin={filter.rangeConfig.paramKeyMin}
+                  paramKeyMax={filter.rangeConfig.paramKeyMax}
+                  min={isPriceFilter ? priceRange.min : filter.rangeConfig.min}
+                  max={isPriceFilter ? priceRange.max : filter.rangeConfig.max}
+                  step={filter.rangeConfig.step}
+                  formatLabel={formatLabel}
+                  defaultOpen={filter.defaultOpen}
+                />
+              )
+            }
+            if (filter.type === 'multiselect' && filter.options) {
+              return (
+                <MultiSelectFilter
+                  key={filter.id}
+                  title={filter.title}
+                  paramKey={filter.paramKey}
+                  options={filter.options}
+                  defaultOpen={filter.defaultOpen}
+                />
+              )
+            }
+            return null
+          })}
 
-          {/* Price Filter */}
-          <div className="mb-8">
-            <button
-              onClick={() => toggleSection("price")}
-              className="flex items-center justify-between w-full mb-4 text-left"
-            >
-              <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">PRICE</h3>
-              {expandedSections.price ? (
-                <ChevronUp className="h-4 w-4 text-black dark:text-white" />
-              ) : (
-                <ChevronDown className="h-4 w-4 text-black dark:text-white" />
-              )}
-            </button>
-            {expandedSections.price && (
-              <div className="space-y-4">
-                {/* Custom Dual Range Slider */}
-                <div className="px-2">
-                  <div className="relative">
-                    {/* Track */}
-                    <div className="slider-track">
-                      <div
-                        className="slider-range"
-                        style={{
-                          left: `${(priceRange[0] / 1000) * 100}%`,
-                          width: `${((priceRange[1] - priceRange[0]) / 1000) * 100}%`,
-                        }}
-                      ></div>
-                    </div>
+          {/* Divider */}
+          <div className="my-6 border-t-2 border-black dark:border-white" />
 
-                    {/* Min Handle */}
-                    <input
-                      type="range"
-                      min="0"
-                      max="1000"
-                      step="10"
-                      value={priceRange[0]}
-                      onChange={handleMinChange}
-                      className="absolute w-full h-4 bg-transparent appearance-none cursor-pointer slider-thumb-input"
-                      style={{ zIndex: 1 }}
-                    />
+          {/* Category Filters */}
+          {categoryFilters.map((filter) => {
+            if (filter.type === 'range' && filter.rangeConfig) {
+              return (
+                <RangeSliderFilter
+                  key={filter.id}
+                  title={filter.title}
+                  paramKeyMin={filter.rangeConfig.paramKeyMin}
+                  paramKeyMax={filter.rangeConfig.paramKeyMax}
+                  min={filter.rangeConfig.min}
+                  max={filter.rangeConfig.max}
+                  step={filter.rangeConfig.step}
+                  formatLabel={filter.rangeConfig.formatLabel}
+                  defaultOpen={filter.defaultOpen}
+                />
+              )
+            }
+            if (filter.type === 'multiselect' && filter.options) {
+              return (
+                <MultiSelectFilter
+                  key={filter.id}
+                  title={filter.title}
+                  paramKey={filter.paramKey}
+                  options={filter.options}
+                  defaultOpen={filter.defaultOpen}
+                />
+              )
+            }
+            return null
+          })}
+        </div>
 
-                    {/* Max Handle */}
-                    <input
-                      type="range"
-                      min="0"
-                      max="1000"
-                      step="10"
-                      value={priceRange[1]}
-                      onChange={handleMaxChange}
-                      className="absolute w-full h-4 bg-transparent appearance-none cursor-pointer slider-thumb-input"
-                      style={{ zIndex: 2 }}
-                    />
-                  </div>
-                </div>
-
-                {/* Price Display */}
-                <div className="flex justify-between font-business text-xs text-black dark:text-white">
-                  <span>${priceRange[0]}</span>
-                  <span>${priceRange[1]}</span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Format Filter */}
-          <div className="mb-8">
-            <button
-              onClick={() => toggleSection("format")}
-              className="flex items-center justify-between w-full mb-4 text-left"
-            >
-              <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">FORMAT</h3>
-              {expandedSections.format ? (
-                <ChevronUp className="h-4 w-4 text-black dark:text-white" />
-              ) : (
-                <ChevronDown className="h-4 w-4 text-black dark:text-white" />
-              )}
-            </button>
-            {expandedSections.format && (
-              <div className="space-y-3">
-                {formats.map((format) => (
-                  <div key={format.name} className="flex items-center space-x-2">
-                    <Checkbox id={`mobile-${format.name.toLowerCase()}`} />
-                    <label
-                      htmlFor={`mobile-${format.name.toLowerCase()}`}
-                      className="font-business text-xs cursor-pointer text-black dark:text-white"
-                    >
-                      {format.name} ({format.count})
-                    </label>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* ISO Filter */}
-          <div className="mb-8">
-            <button
-              onClick={() => toggleSection("iso")}
-              className="flex items-center justify-between w-full mb-4 text-left"
-            >
-              <h3 className="font-helvicta text-sm font-bold text-black dark:text-white">ISO</h3>
-              {expandedSections.iso ? (
-                <ChevronUp className="h-4 w-4 text-black dark:text-white" />
-              ) : (
-                <ChevronDown className="h-4 w-4 text-black dark:text-white" />
-              )}
-            </button>
-            {expandedSections.iso && (
-              <div className="space-y-3">
-                {isoTypes.map((iso) => (
-                  <div key={iso.name} className="flex items-center space-x-2">
-                    <Checkbox id={`mobile-${iso.name.toLowerCase()}`} />
-                    <label
-                      htmlFor={`mobile-${iso.name.toLowerCase()}`}
-                      className="font-business text-xs cursor-pointer text-black dark:text-white"
-                    >
-                      {iso.name} ({iso.count})
-                    </label>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Apply Button */}
-          <Button className="w-full font-helvicta bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-100">
+        {/* Apply Button - Fixed at bottom */}
+        <div className="p-4 border-t-2 border-black dark:border-white">
+          <Button 
+            onClick={onClose}
+            className="w-full font-helvicta bg-black dark:bg-white text-white dark:text-black border-2 border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-100"
+          >
             APPLY FILTERS
           </Button>
         </div>

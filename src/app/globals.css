@@ -266,3 +266,34 @@
   animation: slide-in-top 0.3s ease-out;
   animation-fill-mode: both;
 }
+
+/* Collapsible animations for filter sections */
+@keyframes collapse {
+  from {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes expand {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+}
+
+.animate-collapse {
+  animation: collapse 0.15s ease-out;
+}
+
+.animate-expand {
+  animation: expand 0.15s ease-out;
+}

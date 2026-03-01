@@ -35,4 +35,5 @@ export interface ProductCardData {
   image: string
   condition?: string
   allPrices?: VariantPrice[]
+  rawMetadata?: Record<string, unknown>
 }

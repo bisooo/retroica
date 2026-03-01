@@ -2,7 +2,7 @@ import { sdk } from "@/lib/sdk"
 import type { MedusaProduct } from "@/lib/types/product.types"
 import { isCollection } from "@/lib/config/collections"
 
-const PRODUCT_FIELDS = "id,title,handle,thumbnail,*variants,*variants.prices,*variants.calculated_price,metadata.condition"
+const PRODUCT_FIELDS = "id,title,handle,thumbnail,*variants,*variants.prices,*variants.calculated_price,metadata"
 const PRODUCT_DETAIL_FIELDS = "id,title,handle,thumbnail,weight,*images,*variants,*variants.prices,metadata"
 
 const collectionIdCache = new Map<string, string>()
