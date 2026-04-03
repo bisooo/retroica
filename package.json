@@ -41,6 +41,10 @@
     "@radix-ui/react-tooltip": "1.1.6",
     "@stripe/react-stripe-js": "2.9.0",
     "@stripe/stripe-js": "4.8.0",
+    "@supabase/supabase-js": "^2.49.4",
+    "@vercel/analytics": "1.5.0",
+    "@vercel/edge-config": "1.4.3",
+    "@vercel/speed-insights": "1.2.0",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
@@ -61,10 +65,7 @@
     "recharts": "2.15.0",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7",
-    "@vercel/analytics": "1.5.0",
-    "@vercel/speed-insights": "1.2.0",
-    "@vercel/edge-config": "1.4.3"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^22",
