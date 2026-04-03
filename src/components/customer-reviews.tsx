@@ -12,12 +12,12 @@ interface Review {
 export default async function CustomerReviews() {
   const { data, error } = await supabase
     .from("reviews")
-    .select("reviewer, date_reviewed, star_rating, message")
-    .order("date_reviewed", { ascending: false })
+    .select("*")
     .limit(6)
 
   console.log("[v0] supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL)
-  console.log("[v0] reviews data:", JSON.stringify(data))
+  console.log("[v0] reviews count:", data?.length)
+  console.log("[v0] reviews first row keys:", data?.[0] ? Object.keys(data[0]) : "no rows")
   console.log("[v0] reviews error:", JSON.stringify(error))
 
   const reviews = ((data as Review[]) ?? [])
