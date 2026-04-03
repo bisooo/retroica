@@ -10,11 +10,15 @@ interface Review {
 }
 
 export default async function CustomerReviews() {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("reviews")
     .select("reviewer, date_reviewed, star_rating, message")
     .order("date_reviewed", { ascending: false })
     .limit(6)
+
+  console.log("[v0] supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL)
+  console.log("[v0] reviews data:", JSON.stringify(data))
+  console.log("[v0] reviews error:", JSON.stringify(error))
 
   const reviews = ((data as Review[]) ?? [])
     .filter((r) => r.message !== null)
