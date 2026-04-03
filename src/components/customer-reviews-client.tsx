@@ -15,7 +15,8 @@ interface ReviewCard {
   productType: string
 }
 
-const PAGE_SIZE = 6
+const DESKTOP_PAGE_SIZE = 6
+const MOBILE_PAGE_SIZE = 5
 
 export default function CustomerReviewsClient({
   reviews,
@@ -24,10 +25,24 @@ export default function CustomerReviewsClient({
   reviews: ReviewCard[]
   totalCount: number
 }) {
-  const [visible, setVisible] = useState(PAGE_SIZE)
+  const [desktopVisible, setDesktopVisible] = useState(DESKTOP_PAGE_SIZE)
+  const [mobileVisible, setMobileVisible] = useState(MOBILE_PAGE_SIZE)
+  const [hasExpanded, setHasExpanded] = useState(false)
 
-  const visibleReviews = reviews.slice(0, visible)
-  const hasMore = visible < reviews.length
+  const desktopReviews = reviews.slice(0, desktopVisible)
+  const mobileReviews = reviews.slice(0, mobileVisible)
+  const desktopHasMore = desktopVisible < reviews.length
+  const mobileHasMore = mobileVisible < reviews.length
+
+  const handleShowMore = () => {
+    setDesktopVisible((v) => v + DESKTOP_PAGE_SIZE)
+    setHasExpanded(true)
+  }
+
+  const handleCollapse = () => {
+    setDesktopVisible(DESKTOP_PAGE_SIZE)
+    setHasExpanded(false)
+  }
 
   const ReviewCard = ({ review, index }: { review: ReviewCard; index: number }) => (
     <div
@@ -100,7 +115,7 @@ export default function CustomerReviewsClient({
 
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {visibleReviews.map((review, index) => (
+          {desktopReviews.map((review, index) => (
             <ReviewCard key={index} review={review} index={index} />
           ))}
         </div>
@@ -108,7 +123,7 @@ export default function CustomerReviewsClient({
         {/* Mobile Horizontal Scroll */}
         <div className="md:hidden overflow-x-auto scrollbar-hide">
           <div className="flex space-x-4 px-6">
-            {visibleReviews.map((review, index) => (
+            {mobileReviews.map((review, index) => (
               <div
                 key={index}
                 className="flex-shrink-0 border-2 border-black dark:border-white bg-white dark:bg-black flex flex-col w-72"
@@ -167,10 +182,33 @@ export default function CustomerReviewsClient({
           </div>
         </div>
 
-        {hasMore && (
-          <div className="text-center mt-6">
+        {/* Desktop buttons */}
+        {(desktopHasMore || hasExpanded) && (
+          <div className="hidden md:flex items-center justify-center gap-6 mt-6">
+            {desktopHasMore && (
+              <button
+                onClick={handleShowMore}
+                className="font-helvicta text-sm font-bold cursor-pointer hover:underline text-black dark:text-white bg-transparent border-none"
+              >
+                [SHOW MORE]
+              </button>
+            )}
+            {hasExpanded && (
+              <button
+                onClick={handleCollapse}
+                className="font-helvicta text-sm font-bold cursor-pointer hover:underline text-black dark:text-white bg-transparent border-none"
+              >
+                [COLLAPSE]
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Mobile show more */}
+        {mobileHasMore && (
+          <div className="md:hidden text-center mt-6">
             <button
-              onClick={() => setVisible((v) => v + PAGE_SIZE)}
+              onClick={() => setMobileVisible((v) => v + MOBILE_PAGE_SIZE)}
               className="font-helvicta text-sm font-bold cursor-pointer hover:underline text-black dark:text-white bg-transparent border-none"
             >
               [SHOW MORE]
